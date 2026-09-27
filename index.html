@@ -12,401 +12,589 @@
 <title>Samuel Cipriano Studio</title>
 <link rel="stylesheet" href="https://use.typekit.net/elq3gla.css">
 <style>
-  html { -webkit-font-smoothing: antialiased; }
-  body { margin: 0; background: #F2EBE7; color: #101820; overflow-x: hidden; }
+  /* Edição 01 — one sheet of paper from cover to colophon. Color lives only inside
+     pieces (plates, the film, the business card), never as a section background.
+     Type follows the brandbook: IvyPresto Display Thin for titles, Neue Haas Grotesk
+     for text, sentence case, tracking 0, scale ×1,618 from 12. */
+  :root {
+    --paper: #F2EBE7;
+    --ink: #034638;
+    --wool: #E5D0B1;
+    --red: #D22630;
+    --muted: rgba(3,70,56,.72);
+    --rule: rgba(3,70,56,.22);
+    --g: clamp(16px, 3vw, 46px);
+    --nav: 56px;
+  }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-kerning: normal; }
+  body { margin: 0; background: var(--paper); color: var(--ink); overflow-x: clip; }
   * { box-sizing: border-box; }
   a { color: inherit; text-decoration: none; }
-  a:hover { color: #D22630; }
-  ::selection { background: #D22630; color: #F2EBE7; }
-  @keyframes scs-marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
-  @keyframes scs-rule { 0%,100% { transform: scaleY(0.15); } 50% { transform: scaleY(1); } }
-  @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; } }
+  a:hover { color: var(--red); }
+  ::selection { background: var(--red); color: var(--paper); }
+  img { display: block; }
+  button { font: inherit; color: inherit; }
+
+  .scs { position: relative; width: 100%; background: var(--paper); font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; }
+  .scs section { scroll-margin-top: var(--nav); }
+
+  /* ---- type */
+  .t-display, .t-title, .t-serif { font-family: 'ivypresto-display', serif; font-weight: 100; letter-spacing: 0; margin: 0; }
+  .t-display { font-size: clamp(3.1rem, 9.2vw, 8.3rem); line-height: 1.02; }
+  .t-title { font-size: clamp(2.4rem, 5.6vw, 5.1rem); line-height: 1.04; }
+  .t-sub { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.96rem); line-height: 1.22; letter-spacing: 0; margin: 0; }
+  .t-body { font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.4; margin: 0; }
+  .t-small { font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.35; letter-spacing: 0; }
+  .it { font-style: italic; }
+  .muted { color: var(--muted); }
+  .t-body + .t-body { margin-top: 1em; }
+
+  /* ---- folio: the brandbook's running header, repeated on every page */
+  .folio { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+  .folio b { font-weight: 600; }
+  .folio .sep { color: var(--muted); }
+  .sec { position: relative; padding: calc(var(--nav) + clamp(28px, 5vh, 56px)) var(--g) clamp(88px, 13vh, 170px); }
+  .sec > .folio { margin-bottom: clamp(48px, 9vh, 110px); }
+  .rule { height: 1px; background: var(--rule); border: 0; margin: 0; }
+
+  /* ---- plates: every image is a piece placed on the page, with a numbered caption */
+  .plate { position: relative; margin: 0; }
+  .plate .frame { position: relative; overflow: hidden; background: var(--wool); }
+  .plate img { width: 100%; height: 100%; object-fit: cover; }
+  .plate figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; }
+
+  /* ---- nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 120; height: var(--nav); display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 var(--g); background: var(--paper); border-bottom: 1px solid var(--rule); }
+  .nav-home { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+  .nav-home img { width: 13px; height: auto; }
+  .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
+  .nav-btn { appearance: none; border: 0; background: none; padding: 8px 0; cursor: pointer; }
+  .nav-btn:hover { color: var(--red); }
+
+  /* ---- curtain: same paper as the page, the lamb fills in as the loader */
+  .curtain { position: fixed; inset: 0; z-index: 200; background: var(--paper); pointer-events: none; overflow: hidden; }
+  .curtain-emblem { position: absolute; top: 50%; left: 50%; width: clamp(96px, 11vw, 150px); transform: translate3d(-50%,-50%,0); will-change: transform; }
+  .curtain-lockup { position: absolute; left: var(--g); bottom: var(--g); width: min(30vw, 260px); overflow: hidden; }
+
+  /* ---- menu: the table of contents, full page */
+  .menu { position: fixed; inset: 0; z-index: 150; background: var(--paper); clip-path: inset(0 0 100% 0); pointer-events: none; display: grid; grid-template-rows: var(--nav) 1fr auto; padding: 0 var(--g) var(--g); }
+  .menu-top { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); }
+  .menu-list { display: flex; flex-direction: column; justify-content: center; }
+  .menu-list a { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: clamp(8px, 1.6vh, 16px) 0; border-bottom: 1px solid var(--rule); }
+  .menu-list .t-serif { font-size: clamp(2rem, 5.2vw, 4.4rem); line-height: 1.04; }
+  .menu-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 18px; }
+
+  /* ---- 01 capa */
+  .capa { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; padding: calc(var(--nav) + clamp(18px, 3.5vh, 36px)) var(--g) clamp(18px, 3.5vh, 34px); }
+  .capa-meta { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: baseline; }
+  .capa-meta > :last-child { text-align: right; }
+  .capa-center { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(18px, 3.4vh, 36px); padding: clamp(20px, 4vh, 48px) 0; text-align: center; }
+  .capa-mark { height: max(110px, min(calc((100vw - 2 * var(--g)) / 1.511), 640px, calc(100svh - 400px))); width: auto; max-width: 100%; }
+  .capa-tag { font-size: clamp(1.5rem, 2.8vw, 2.6rem); line-height: 1.1; }
+
+  /* ---- 02 sumário */
+  .toc { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(40px, 6vw, 96px); }
+  .toc-side { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+  .toc-side img { width: clamp(52px, 5vw, 76px); height: auto; }
+  .toc-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(24px, 4vw, 64px); align-content: start; }
+  .toc-list a { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 18px 0; border-top: 1px solid var(--rule); }
+
+  /* ---- 03 manifesto em filme (4:3) */
+  .film { position: relative; height: 100svh; overflow: hidden; }
+  .film > .folio { position: absolute; top: 0; left: 0; right: 0; padding: calc(var(--nav) + clamp(28px, 5vh, 56px)) var(--g) 0; z-index: 3; }
+  .film-plate { position: absolute; left: 50%; top: 50%; width: 320px; height: 240px; margin: -120px 0 0 -160px; overflow: hidden; background: var(--wool); transform-origin: 50% 50%; will-change: transform; z-index: 1; }
+  .film-plate video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; will-change: transform; }
+  .film-ph { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; text-align: center; }
+  .film-ph img { width: clamp(34px, 3.4vw, 56px); height: auto; }
+  .film-words { position: absolute; left: 0; right: 0; top: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 var(--g); text-align: center; pointer-events: none; z-index: 2; }
+  .film-words .t-serif { font-size: clamp(2.2rem, 6.4vw, 6.2rem); line-height: 1.02; will-change: transform, opacity; }
+  .film-cap { position: absolute; left: 0; top: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; opacity: 0; z-index: 3; }
+  .link-btn { appearance: none; border: 0; border-bottom: 1px solid currentColor; background: none; padding: 0 0 2px; cursor: pointer; }
+  .link-btn:hover { color: var(--red); }
+
+  /* ---- 04 estúdio */
+  .est-head { display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
+  .sq { display: inline-flex; align-items: center; gap: 8px; }
+  .sq::before { content: ""; width: 8px; height: 8px; background: var(--red); }
+  .est-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 40px; margin-top: clamp(56px, 9vh, 110px); }
+  .est-small { grid-column: 2 / span 2; align-self: start; }
+  .est-small .frame { aspect-ratio: 4 / 5; }
+  .est-big { grid-column: 4 / span 4; }
+  .est-big .frame { aspect-ratio: 4 / 5; }
+  .est-text { grid-column: 9 / span 4; align-self: end; max-width: 42ch; }
+  .est-text .t-serif { font-size: clamp(1.2rem, 1.6vw, 1.5rem); line-height: 1.2; margin-top: 1.6em; }
+  .values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 64px); margin-top: clamp(72px, 12vh, 140px); }
+  .values > div { border-top: 1px solid var(--rule); padding-top: 16px; }
+  .values .t-serif { font-size: clamp(1.6rem, 2.4vw, 2.2rem); line-height: 1.1; margin: 10px 0 12px; }
+
+  /* ---- 05 serviços: chapters stacked like pages, each leaving its tab */
+  .srv-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(56px, 9vh, 100px); }
+  .pages { --tab: 58px; position: relative; }
+  .page { position: relative; background: var(--paper); border-top: 1px solid var(--ink); padding-bottom: clamp(36px, 6vh, 64px); }
+  .page-tab { display: grid; grid-template-columns: clamp(44px, 6vw, 92px) minmax(0, 1fr) auto; align-items: baseline; gap: 16px; height: var(--tab); padding-top: 12px; }
+  .page-tab .num { font-family: 'ivypresto-display', serif; font-weight: 100; font-size: 30px; line-height: 1; }
+  .page-tab .t-serif { font-size: clamp(1.4rem, 2vw, 1.9rem); line-height: 1.1; }
+  .page-body { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); padding-top: clamp(16px, 3vh, 32px); padding-left: calc(clamp(44px, 6vw, 92px) + 16px); }
+  .page-list { list-style: none; margin: clamp(22px, 4vh, 40px) 0 0; padding: 0; }
+  .page-list li { display: flex; gap: 16px; padding: 10px 0; border-top: 1px solid var(--rule); }
+  .page-list li span:first-child { width: 2.2em; flex: none; color: var(--muted); }
+  .page .plate .frame { aspect-ratio: 4 / 3; }
+  @media (min-width: 900px) and (min-height: 640px) {
+    .page { position: sticky; top: calc(var(--nav) + var(--i) * var(--tab)); height: calc(100svh - var(--nav) - 3 * var(--tab)); padding-bottom: 0; }
+    .page .plate .frame { aspect-ratio: auto; height: calc(100svh - var(--nav) - 4 * var(--tab) - clamp(16px, 3vh, 32px) - 64px); }
+  }
+
+  /* ---- 06 projetos: catalogue spreads */
+  .proj-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px; }
+  .proj { margin-top: clamp(72px, 12vh, 150px); }
+  .proj-bar { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .spread { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 32px; margin-top: clamp(28px, 5vh, 56px); }
+  .sp-text .t-title { margin-bottom: clamp(20px, 3vh, 32px); }
+  .sp-specs { display: flex; flex-direction: column; gap: 2px; margin-bottom: 22px; }
+  .a .sp-text { grid-column: 1 / span 4; }
+  .a .sp-big { grid-column: 6 / span 4; }
+  .a .sp-big .frame { aspect-ratio: 4 / 5; }
+  .a .sp-small { grid-column: 10 / span 2; align-self: start; }
+  .a .sp-small .frame { aspect-ratio: 3 / 4; }
+  .b .sp-big { grid-column: 1 / span 5; grid-row: 1; }
+  .b .sp-big .frame { aspect-ratio: 5 / 4; }
+  .b .sp-small { grid-column: 6 / span 2; grid-row: 1; align-self: end; }
+  .b .sp-small .frame { aspect-ratio: 3 / 4; }
+  .b .sp-text { grid-column: 9 / span 4; grid-row: 1; align-self: start; }
+  .c .sp-full { grid-column: 1 / -1; }
+  .c .sp-full .frame { aspect-ratio: 16 / 8; }
+  .sp-over { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; padding: clamp(16px, 2.4vw, 32px); color: var(--paper); background: rgba(16,24,32,.34); z-index: 1; }
+  .sp-over .center { display: grid; place-items: center; text-align: center; }
+  .sp-over .t-serif { font-weight: 300; font-size: clamp(1.3rem, 2.5vw, 2.4rem); line-height: 1.22; max-width: 26ch; }
+  .sp-over .corners { display: flex; justify-content: space-between; gap: 16px; }
+  .sp-over .top { text-align: center; }
+
+  /* ---- 07 carta (manifesto escrito) */
+  .carta { text-align: center; }
+  .carta .t-display { padding: clamp(32px, 6vh, 64px) 0; }
+  .carta-lead { max-width: 33ch; margin: clamp(40px, 7vh, 80px) auto; }
+  .carta-cols { columns: 2; column-gap: clamp(32px, 5vw, 72px); max-width: 920px; margin: clamp(40px, 7vh, 80px) auto 0; text-align: center; }
+  .carta-cols p { break-inside: avoid; }
+  .carta-end { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-top: clamp(56px, 9vh, 100px); }
+  .carta-end .t-serif { font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1.08; }
+  .sign { font-family: 'sloop-script-two', cursive; font-size: clamp(2.4rem, 4.6vw, 4rem); line-height: 1; color: var(--red); }
+
+  /* ---- 08 contato + colofão */
+  .ct-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 56px; align-items: center; }
+  .ct-text { grid-column: 1 / span 6; }
+  .ct-text .t-body { max-width: 40ch; margin-top: clamp(22px, 4vh, 36px); }
+  .ct-mail { display: inline-block; margin-top: 26px; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+  .card { grid-column: 8 / span 5; aspect-ratio: 1.62; background: var(--ink); color: var(--wool); display: grid; grid-template-rows: auto 1fr; padding: clamp(18px, 2.4vw, 32px) clamp(20px, 3vw, 40px); }
+  .card img { width: 18px; height: auto; margin: 0 auto; }
+  .card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; }
+  .card li { border-top: 1px solid rgba(229,208,177,.3); }
+  .card li:first-child { border-top: 0; }
+  .card a { display: block; padding: clamp(6px, 1vw, 12px) 0; text-align: center; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.2; }
+  .card a:hover { color: var(--paper); }
+  .colophon { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: baseline; margin-top: clamp(88px, 14vh, 160px); padding-top: 14px; border-top: 1px solid var(--rule); }
+  .colophon > :last-child { text-align: right; }
+  .masthead { height: min(38svh, calc((100vw - 2 * var(--g)) / 1.511)); width: auto; max-width: 100%; margin-top: clamp(40px, 7vh, 80px); }
+
+  @media (max-width: 900px) {
+    .toc { grid-template-columns: 1fr; }
+    .toc-side { flex-direction: row; align-items: end; }
+    .est-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .est-big { grid-column: 1 / span 4; }
+    .est-small { grid-column: 5 / span 2; align-self: end; }
+    .est-text { grid-column: 1 / -1; max-width: none; }
+    .values { grid-template-columns: 1fr; row-gap: 28px; }
+    .srv-head { grid-template-columns: 1fr; }
+    .page-body { grid-template-columns: 1fr; padding-left: 0; }
+    .spread { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .a .sp-text, .b .sp-text { grid-column: 1 / -1; grid-row: auto; }
+    .a .sp-big, .b .sp-big { grid-column: 1 / span 4; grid-row: auto; }
+    .a .sp-small, .b .sp-small { grid-column: 5 / span 2; grid-row: auto; align-self: end; }
+    .c .sp-full .frame { aspect-ratio: 4 / 5; }
+    .ct-text, .card { grid-column: 1 / -1; }
+    .card { aspect-ratio: auto; row-gap: 14px; }
+  }
+  @media (max-width: 600px) {
+    .toc-list { grid-template-columns: 1fr; }
+    .capa-meta { grid-template-columns: 1fr 1fr; }
+    .capa-meta > :nth-child(2) { display: none; }
+    .carta-cols { columns: 1; }
+    .colophon { grid-template-columns: 1fr; }
+    .colophon > :last-child { text-align: left; }
+    .nav-home .ed { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 </helmet>
 
-<div style="position: relative; width: 100%; background: #F2EBE7; font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif;">
+<div class="scs">
 
-  <div data-curtain style="position: fixed; inset: 0; z-index: 200; background: #D22630; pointer-events: none; overflow: hidden;">
-    <div data-curtain-emblem style="position: absolute; top: 50%; left: 50%; width: clamp(120px, 15vw, 200px); transform: translate3d(-50%,-50%,0); will-change: transform;">
+  <div class="curtain" data-curtain>
+    <div class="curtain-emblem" data-curtain-emblem>
       <div style="position: relative; width: 100%;">
-        <img src="assets/emblem-bone.svg" alt="" style="display: block; width: 100%; height: auto; opacity: .24;">
+        <img src="assets/emblem-verde.svg" alt="" style="width: 100%; height: auto; opacity: .16;">
         <div data-curtain-fill style="position: absolute; inset: 0; clip-path: inset(100% 0 0 0); will-change: clip-path;">
-          <img src="assets/emblem-bone.svg" alt="Samuel Cipriano Studio" style="display: block; width: 100%; height: auto;">
+          <img src="assets/emblem-verde.svg" alt="Samuel Cipriano Studio" style="width: 100%; height: auto;">
         </div>
       </div>
     </div>
-
-
-    <div data-curtain-lockup style="position: absolute; left: 6vw; bottom: 6vw; width: min(34vw, 320px); overflow: hidden;">
-      <img data-curtain-lockup-in src="assets/lockup-bone.svg" alt="" style="display: block; width: 100%; height: auto; opacity: .92; will-change: transform;">
+    <div class="curtain-lockup">
+      <img data-curtain-lockup-in src="assets/lockup-verde.svg" alt="" style="width: 100%; height: auto; will-change: transform;">
     </div>
   </div>
 
-  <div data-preview style="position: fixed; top: 0; left: 0; z-index: 90; pointer-events: none; width: clamp(220px, 24vw, 380px); aspect-ratio: 4 / 5; clip-path: inset(0 0 100% 0); will-change: transform, clip-path;">
-    <div data-preview-fill style="position: absolute; inset: 0; background: #0047BB; display: grid; place-items: center; overflow: hidden;">
-      <div style="position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(242,235,231,.14) 0 1px, transparent 1px 8px);"></div>
-      <span data-preview-label style="position: relative; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; color: rgba(242,235,231,.8); text-transform: uppercase; text-align: center; padding: 0 18px;">still do projeto</span>
-      <span data-preview-see style="position: absolute; left: 14px; bottom: 12px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; color: rgba(242,235,231,.9); text-transform: uppercase;">Ver</span>
-    </div>
-  </div>
-
-  <nav data-nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 120; will-change: transform; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(18px, 2.2vw, 32px) clamp(18px, 3vw, 46px); mix-blend-mode: difference;">
-    <a href="#abertura" style="display: flex; align-items: center; gap: 12px;">
-      <img src="assets/emblem-bone.svg" alt="Samuel Cipriano Studio" style="width: 14px; height: auto; display: block;">
-      <span data-nav-word style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .2em; color: #F2EBE7; text-transform: uppercase; white-space: nowrap;">Samuel Cipriano Studio</span>
+  <nav class="nav t-small" data-nav>
+    <a class="nav-home" href="#capa">
+      <img data-nav-mark src="assets/emblem-verde.svg" alt="">
+      <span><b style="font-weight: 600;">Samuel Cipriano Studio</b> <span class="ed">Edição 01</span></span>
     </a>
-    <div data-nav-links style="display: flex; align-items: center; gap: clamp(18px, 2.4vw, 40px);">
-      <a href="#estudio" style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: .2em; color: #F2EBE7; text-transform: uppercase;">Estúdio</a>
-      <a href="#projetos" style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: .2em; color: #F2EBE7; text-transform: uppercase;">Projetos</a>
-      <a href="#campos" style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: .2em; color: #F2EBE7; text-transform: uppercase;">Sobre</a>
-      <button data-nav-cta onClick="{{ openMenu }}" style="appearance: none; border: 0; background: none; padding: 0; cursor: pointer; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .2em; color: #F2EBE7; text-transform: uppercase;">Contato</button>
+    <div class="nav-links">
+      <span data-clock class="muted" style="white-space: nowrap;">Brasil</span>
+      <button class="nav-btn t-small" onClick="{{ openMenu }}">Sumário</button>
     </div>
   </nav>
 
-  <div data-menu style="position: fixed; inset: 0; z-index: 150; background: #101820; clip-path: inset(0 0 100% 0); pointer-events: none; display: grid; grid-template-rows: auto 1fr auto; padding: clamp(18px, 3vw, 46px);">
-    <div style="display: flex; align-items: center; justify-content: space-between;">
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .22em; color: rgba(242,235,231,.5); text-transform: uppercase;">Contato</span>
-      <button onClick="{{ closeMenu }}" style="appearance: none; border: 0; background: none; padding: 0; cursor: pointer; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .22em; color: #E5D0B1; text-transform: uppercase;">Fechar</button>
+  <div class="menu" data-menu>
+    <div class="menu-top t-small">
+      <span><b style="font-weight: 600;">Sumário</b> <span class="muted">Edição 01</span></span>
+      <button class="nav-btn t-small" onClick="{{ closeMenu }}">Fechar</button>
     </div>
-    <div style="display: flex; flex-direction: column; justify-content: center; gap: clamp(6px, 1vw, 14px);">
-      <a href="mailto:ola@samuelcipriano.studio" data-menu-item style="font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1.5rem, 6.4vw, 6.5rem); overflow-wrap: break-word; line-height: .95; letter-spacing: -.035em; color: #F2EBE7;">ola@samuelcipriano.studio</a>
-      <span data-menu-item style="font-family: 'ivypresto-display', serif; font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 3vw, 2.6rem); line-height: 1.1; color: #E5D0B1;">Respondemos em até dois dias úteis.</span>
-      <div data-menu-nav style="display: none; flex-direction: column; gap: 2px; padding-top: clamp(22px, 5vh, 40px); margin-top: clamp(18px, 4vh, 32px); border-top: 1px solid rgba(242,235,231,.18);">
-        <a data-menu-item href="#estudio" style="display: block; padding: 13px 0; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1.6rem, 8vw, 2.4rem); line-height: 1.1; letter-spacing: -.02em; color: #F2EBE7;">Estúdio</a>
-        <a data-menu-item href="#projetos" style="display: block; padding: 13px 0; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1.6rem, 8vw, 2.4rem); line-height: 1.1; letter-spacing: -.02em; color: #F2EBE7;">Projetos</a>
-        <a data-menu-item href="#campos" style="display: block; padding: 13px 0; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1.6rem, 8vw, 2.4rem); line-height: 1.1; letter-spacing: -.02em; color: #F2EBE7;">Sobre</a>
-      </div>
+    <div class="menu-list">
+      <a data-menu-item href="#manifesto"><span class="t-serif">Manifesto, o filme</span><span class="t-small">03</span></a>
+      <a data-menu-item href="#estudio"><span class="t-serif">O estúdio</span><span class="t-small">04</span></a>
+      <a data-menu-item href="#servicos"><span class="t-serif it">Serviços</span><span class="t-small">05</span></a>
+      <a data-menu-item href="#projetos"><span class="t-serif">Projetos</span><span class="t-small">06</span></a>
+      <a data-menu-item href="#carta"><span class="t-serif">Manifesto, o texto</span><span class="t-small">07</span></a>
+      <a data-menu-item href="#contato"><span class="t-serif it">Contato</span><span class="t-small">08</span></a>
     </div>
-    <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-end; justify-content: space-between;">
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; letter-spacing: .18em; color: rgba(242,235,231,.58); text-transform: uppercase;">Instagram · Behance · LinkedIn</span>
-      <img src="assets/emblem-wool.svg" alt="" style="width: 26px; height: auto;">
+    <div class="menu-foot t-small">
+      <a href="mailto:contatosamuelcipriano@gmail.com">contatosamuelcipriano@gmail.com</a>
+      <a href="https://instagram.com/samuelciprianostudio" target="_blank" rel="noopener">@samuelciprianostudio</a>
     </div>
   </div>
 
-  <section id="abertura" data-screen-label="01 Abertura" style="position: relative; min-height: 100svh; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: 1fr auto; column-gap: clamp(12px, 1.6vw, 28px); padding: clamp(96px, 12vh, 160px) clamp(18px, 3vw, 46px) clamp(24px, 4vh, 48px); background: #F2EBE7;">
-    <div style="grid-column: 1 / -1; grid-row: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: clamp(28px, 4vh, 56px);">
-      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(24px, 4vw, 64px);">
-        <div data-mask style="overflow: hidden; flex: 1 1 min(100%, 520px);">
-          <img data-mask-in data-hero-mark src="assets/lockup-ink.svg" alt="Samuel Cipriano Studio" data-hero-img style="display: block; width: 100%; max-width: 1180px; height: auto;">
-        </div>
-        <div style="flex: 0 1 clamp(200px, 20vw, 300px); display: flex; flex-direction: column; gap: 14px; padding-bottom: clamp(8px, 1.4vw, 22px);">
-          <span data-fade style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #D22630;">Est. MMXXII</span>
-          <span data-fade style="font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-size: 12px; line-height: 1.5; letter-spacing: .02em; color: rgba(16,24,32,.62);">Estúdio de design gráfico dedicado a marcas que carregam sentido. Branding, artes e cinematografia.</span>
-        </div>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(20px, 3vw, 48px);">
-        <h1 data-mask style="overflow: hidden; margin: 0; flex: 1 1 min(100%, 620px);">
-          <span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-style: italic; font-size: clamp(1.5rem, 3.4vw, 3.1rem); line-height: 1.02; letter-spacing: -.02em; color: #101820; text-wrap: pretty;">Sistemas visuais construídos com<br>cuidado, propósito e esperança.</span>
-        </h1>
-        <div style="display: flex; align-items: flex-end; gap: clamp(16px, 2vw, 32px);">
-          <div style="display: flex; flex-direction: column; gap: 6px; text-align: right;">
-            <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(16,24,32,.55);">Branding</span>
-            <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(16,24,32,.55);">Artes</span>
-            <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(16,24,32,.55);">Cinematografia</span>
-          </div>
-          <div style="width: 1px; height: 64px; background: #D22630; transform-origin: bottom center; animation: scs-rule 3.2s cubic-bezier(.76,0,.24,1) infinite;"></div>
-        </div>
-      </div>
+  <!-- 01 · Capa -->
+  <section id="capa" class="capa" data-screen-label="01 Capa">
+    <div class="capa-meta t-small">
+      <span>Edição Nº 01</span>
+      <span>Estúdio de branding</span>
+      <span>MMXXVI</span>
     </div>
-    <div style="grid-column: 1 / -1; grid-row: 2; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-top: clamp(24px, 5vh, 64px);">
-      <div style="display: flex; align-items: baseline; gap: clamp(14px, 2vw, 32px);">
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.55);">01 — Abertura</span>
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.55);">Rolar</span>
+    <div class="capa-center">
+      <div data-mask style="overflow: hidden; max-width: 100%;">
+        <img data-mask-in class="capa-mark" src="assets/lockup-verde.svg" alt="Samuel Cipriano Studio">
       </div>
-      <span data-clock style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(16,24,32,.58);">Brasil</span>
+      <h1 data-mask style="overflow: hidden; margin: 0;">
+        <span data-mask-in class="t-serif it capa-tag" style="display: block;">Construímos marcas diferentes, relevantes e desejadas.</span>
+      </h1>
+    </div>
+    <div class="capa-meta t-small">
+      <span>Vale do Paraíba, SP</span>
+      <span class="muted">Role para ler</span>
+      <span>Est. MMXXII</span>
     </div>
   </section>
 
-  <section data-screen-label="02 Faixa" style="position: relative; background: #0047BB; padding: clamp(26px, 3.4vw, 52px) 0; overflow: hidden;">
-    <div style="display: flex; width: max-content; animation: scs-marquee 38s linear infinite; will-change: transform;">
-      <span style="display: block; white-space: nowrap; font-family: 'ivypresto-display', serif; font-weight: 300; font-style: italic; font-size: clamp(2rem, 5.4vw, 5rem); line-height: 1; letter-spacing: -.02em; color: #F2EBE7; padding-right: .4em;">autenticidade &nbsp;·&nbsp; cuidado &nbsp;·&nbsp; propósito &nbsp;·&nbsp; esperança &nbsp;·&nbsp; criação autoral &nbsp;·&nbsp;</span>
-      <span aria-hidden="true" style="display: block; white-space: nowrap; font-family: 'ivypresto-display', serif; font-weight: 300; font-style: italic; font-size: clamp(2rem, 5.4vw, 5rem); line-height: 1; letter-spacing: -.02em; color: #F2EBE7; padding-right: .4em;">autenticidade &nbsp;·&nbsp; cuidado &nbsp;·&nbsp; propósito &nbsp;·&nbsp; esperança &nbsp;·&nbsp; criação autoral &nbsp;·&nbsp;</span>
-    </div>
-  </section>
-
-  <section id="estudio" data-screen-label="03 Estúdio" style="position: relative; background: #E5D0B1; padding: clamp(80px, 14vh, 200px) clamp(18px, 3vw, 46px); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(12px, 1.6vw, 28px); row-gap: clamp(40px, 8vh, 96px);">
-    <div style="grid-column: 1 / -1; display: flex; align-items: baseline; justify-content: space-between; gap: 24px; border-top: 1px solid rgba(16,24,32,.22); padding-top: 14px;">
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.55);">02 — O estúdio</span>
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.55);">Criador · Sábio</span>
-    </div>
-
-    <h2 style="grid-column: 1 / -1; margin: 0; max-width: 100%;">
-      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(2rem, 8.6vw, 8.6rem); line-height: .9; letter-spacing: -.045em; color: #101820;">Toda marca</span></span>
-      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(2rem, 8.6vw, 8.6rem); line-height: .9; letter-spacing: -.045em; color: #101820;">carrega uma</span></span>
-      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-style: italic; font-size: clamp(2rem, 8.6vw, 8.6rem); line-height: .9; letter-spacing: -.04em; color: #D22630;">história anterior</span></span>
-      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(2rem, 8.6vw, 8.6rem); line-height: .9; letter-spacing: -.045em; color: #101820;">a si mesma.</span></span>
-    </h2>
-
-    <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: clamp(40px, 6vw, 120px);">
-      <div data-par=".08" style="flex: 0 1 clamp(180px, 22vw, 300px); display: flex; flex-direction: column; gap: 18px;">
-        <img data-fade src="assets/emblem-ink.svg" alt="" style="width: clamp(72px, 9vw, 124px); height: auto;">
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(16,24,32,.58);">O cordeiro — símbolo de<br>cuidado e recomeço</span>
+  <!-- 02 · Sumário -->
+  <section id="sumario" class="sec" data-screen-label="02 Sumário">
+    <div class="folio t-small"><span><b>Sumário</b> <span class="sep">|</span> Conteúdo desta edição</span><span>02</span></div>
+    <div class="toc">
+      <div class="toc-side">
+        <h2 data-mask style="overflow: hidden; margin: 0;"><span data-mask-in class="t-title" style="display: block;">Sumário</span></h2>
+        <img data-fade src="assets/emblem-verde.svg" alt="">
       </div>
-      <div style="flex: 1 1 min(100%, 460px); max-width: 52ch; display: flex; flex-direction: column; gap: 22px;">
-        <p data-fade style="margin: 0; font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-size: clamp(15px, 1.15vw, 19px); line-height: 1.5; letter-spacing: -.005em; color: #101820; text-wrap: pretty;">O estúdio existe para encontrar essa história, dar-lhe forma e devolvê-la ao mundo com clareza. Trabalhamos na interseção entre estratégia e imagem — diagnóstico antes de estética, intenção antes de efeito.</p>
-        <p data-fade style="margin: 0; font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-size: clamp(13px, .95vw, 15px); line-height: 1.6; color: rgba(16,24,32,.62); text-wrap: pretty;">Cada projeto começo por um diagnóstico: o que a marca é, o que ela diz sem perceber e o que ainda não conseguiu dizer. Só então o sistema visual é construído — tipografia, cor, imagem e movimento tratados como um corpo único.</p>
-        <div data-fade style="display: flex; flex-wrap: wrap; gap: 10px 28px; padding-top: 6px; border-top: 1px solid rgba(16,24,32,.2);">
-          <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(16,24,32,.58);">Diagnóstico</span>
-          <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(16,24,32,.58);">Sistema</span>
-          <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(16,24,32,.58);">Aplicação</span>
-        </div>
+      <div class="toc-list t-sub">
+        <a href="#manifesto"><span>Manifesto, o filme</span><span class="t-small">03</span></a>
+        <a href="#projetos"><span>Projetos</span><span class="t-small">06</span></a>
+        <a href="#estudio"><span>O estúdio</span><span class="t-small">04</span></a>
+        <a href="#carta"><span>Manifesto, o texto</span><span class="t-small">07</span></a>
+        <a href="#servicos"><span>Serviços</span><span class="t-small">05</span></a>
+        <a href="#contato"><span>Contato</span><span class="t-small">08</span></a>
       </div>
     </div>
   </section>
 
-  <section id="projetos" data-screen-label="04 Índice de projetos" style="position: relative; background: #F2EBE7; padding: clamp(80px, 14vh, 190px) clamp(18px, 3vw, 46px) clamp(60px, 10vh, 140px);">
-    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; border-top: 1px solid rgba(16,24,32,.22); padding-top: 14px; margin-bottom: clamp(40px, 7vh, 90px);">
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.55);">03 — Projetos selecionados</span>
-      <div style="display: flex; align-items: baseline; gap: clamp(14px, 2vw, 34px);">
-        <span data-counter style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: #D22630;">— / 06</span>
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.55);">2022 — 2026</span>
+  <!-- 03 · Manifesto em filme (4:3) -->
+  <section id="manifesto" class="film" data-film data-screen-label="03 Manifesto em filme">
+    <div class="folio t-small"><span><b>Manifesto</b> <span class="sep">|</span> O filme</span><span>03</span></div>
+    <div class="film-plate" data-film-plate>
+      <div class="film-ph">
+        <img src="assets/emblem-verde.svg" alt="">
+        <span class="t-small">Filme manifesto · em breve</span>
       </div>
+      <video data-film-video src="assets/manifesto.mp4" preload="metadata" aria-label="Filme manifesto do Samuel Cipriano Studio"></video>
     </div>
-
-    <div data-index onMouseLeave="{{ leaveIndex }}" style="display: flex; flex-direction: column;">
-      <sc-for list="{{ rows }}" as="p" hint-placeholder-count="6">
-        <a href="#projetos" onMouseEnter="{{ p.onEnter }}" data-row style="display: grid; grid-template-columns: clamp(38px, 5vw, 76px) minmax(0, 1fr) auto; align-items: baseline; column-gap: clamp(12px, 2vw, 40px); padding: clamp(14px, 2.2vh, 26px) 0; border-bottom: 1px solid rgba(16,24,32,.18); position: relative;">
-          <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .16em; color: rgba(16,24,32,.58);">{{ p.n }}</span>
-          <span data-row-title style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1.5rem, 5.2vw, 4.6rem); line-height: 1; letter-spacing: -.035em; color: #101820; will-change: transform;">{{ p.name }}</span>
-          <span data-row-meta style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
-            <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(16,24,32,.55);">{{ p.cat }}</span>
-            <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: .2em; color: rgba(16,24,32,.58);">{{ p.year }}</span>
-          </span>
-          <span data-row-slot style="display: none; grid-column: 2; width: 100%; max-width: 300px; aspect-ratio: 4 / 5; margin-top: 14px; position: relative; overflow: hidden; background: #0047BB;">
-            <span data-row-slot-hatch style="position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(242,235,231,.16) 0 1px, transparent 1px 8px);"></span>
-            <span data-row-slot-label style="position: absolute; left: 14px; bottom: 12px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(242,235,231,.9);">still do projeto</span>
-          </span>
-        </a>
-      </sc-for>
+    <div class="film-words" data-film-words aria-hidden="true">
+      <span data-film-line="-1" class="t-serif">Ame o que faz.</span>
+      <span data-film-gap style="display: block; flex: none; height: 30vh;"></span>
+      <span data-film-line="1" class="t-serif it">Faça por amor.</span>
     </div>
-
-    <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 20px; padding-top: clamp(20px, 3vh, 34px);">
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: rgba(16,24,32,.58);">Conteúdo provisório — nomes e categorias a substituir</span>
-      <a href="#projetos" style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #101820; border-bottom: 1px solid #D22630; padding-bottom: 3px;">Arquivo completo</a>
+    <div class="film-cap t-small" data-film-cap>
+      <span>(1) Filme manifesto, 2026. <span class="muted">Ame o que faz. Faça por amor.</span></span>
+      <button class="link-btn t-small" data-film-sound>Ativar som</button>
     </div>
   </section>
 
-  <section data-morph data-screen-label="05 Arquivo em movimento" style="position: relative; min-height: 100svh; background: #F2EBE7; overflow: hidden;">
-    <div data-morph-stage style="position: absolute; inset: 0;">
-      <div style="position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: clamp(70px, 10vh, 120px) clamp(18px, 3vw, 46px) 0;">
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.55);">04 — Arquivo em movimento</span>
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.55);">12 slots de imagem · 4:5</span>
-      </div>
-
-      <div data-morph-intro style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 clamp(18px, 3vw, 46px); text-align: center; pointer-events: none; z-index: 4;">
-        <span style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-style: italic; font-size: clamp(1.6rem, 4.4vw, 3.6rem); line-height: 1.02; letter-spacing: -.03em; color: #101820;">O arquivo se reorganiza<br>enquanto você desce.</span>
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: rgba(16,24,32,.55);">Continue rolando</span>
-      </div>
-
-      <div data-morph-outro style="position: absolute; top: clamp(120px, 17vh, 200px); left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 0 clamp(18px, 3vw, 46px); text-align: center; pointer-events: none; opacity: 0; z-index: 4;">
-        <span style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1.8rem, 5.4vw, 4.4rem); line-height: 1; letter-spacing: -.04em; color: #101820;">Doze peças, um sistema.</span>
-        <span style="max-width: 44ch; font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-size: clamp(12px, .95vw, 14px); line-height: 1.55; color: rgba(16,24,32,.66); text-wrap: pretty;">Cada carta é um slot de imagem do arquivo. Passe o cursor para virar a peça; as fotografias reais entram no lugar dos campos de cor.</span>
-      </div>
-
-      <sc-for list="{{ cards }}" as="c" hint-placeholder-count="12">
-        <div data-card onMouseEnter="{{ c.onEnter }}" onMouseLeave="{{ c.onLeave }}" style="position: absolute; left: 50%; top: 50%; width: 64px; height: 80px; margin-left: -32px; margin-top: -40px; opacity: 0; cursor: pointer; perspective: 900px; will-change: transform, opacity;">
-          <div data-card-inner style="position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .62s cubic-bezier(.76,0,.24,1);">
-            <div data-card-front style="position: absolute; inset: 0; overflow: hidden; background: #0047BB; backface-visibility: hidden; -webkit-backface-visibility: hidden;">
-              <div data-card-hatch style="position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(242,235,231,.16) 0 1px, transparent 1px 7px);"></div>
-              <span data-card-num style="position: absolute; left: 5px; bottom: 4px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 6px; font-weight: 500; letter-spacing: .16em; color: rgba(242,235,231,.85);">{{ c.n }}</span>
-            </div>
-            <div style="position: absolute; inset: 0; overflow: hidden; background: #F2EBE7; border: 1px solid rgba(16,24,32,.28); display: grid; place-items: center; gap: 3px; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg);">
-              <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 6px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #D22630;">Slot</span>
-              <span style="font-family: 'ivypresto-display', serif; font-weight: 300; font-size: 15px; line-height: 1; color: #101820;">{{ c.n }}</span>
-              <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 5px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: rgba(16,24,32,.6);">4:5</span>
-            </div>
-          </div>
-        </div>
-      </sc-for>
-    </div>
-  </section>
-
-  <section data-screen-label="06 Interlúdio" style="position: relative; background: #101820; padding: clamp(70px, 12vh, 170px) 0; overflow: hidden;">
-    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 0 clamp(18px, 3vw, 46px) clamp(40px, 7vh, 84px);">
-      <div data-mask style="overflow: hidden;">
-        <span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-style: italic; font-weight: 300; font-size: clamp(2rem, 6vw, 5.4rem); line-height: 1; letter-spacing: -.03em; color: #E5D0B1;">A imagem antes<br>da palavra.</span>
-      </div>
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(242,235,231,.55); max-width: 22ch; text-align: right;">05 — Interlúdio<br>Cinematografia · direção de arte</span>
-    </div>
-
-    <div data-strip-wrap style="position: relative;">
-      <div data-strip style="display: flex; gap: clamp(12px, 1.6vw, 28px); padding: 0 clamp(18px, 3vw, 46px); will-change: transform;">
-        <div style="flex: 0 0 clamp(280px, 46vw, 720px); aspect-ratio: 16 / 9; position: relative; background: repeating-linear-gradient(135deg, rgba(242,235,231,.1) 0 1px, transparent 1px 9px); border: 1px solid rgba(242,235,231,.16); display: grid; place-items: end start; padding: 16px;">
-          <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(242,235,231,.5);">Frame 01 — still de campanha</span>
-        </div>
-        <div style="flex: 0 0 clamp(200px, 26vw, 400px); aspect-ratio: 3 / 4; position: relative; background: #437D6D; display: grid; place-items: end start; padding: 16px; align-self: flex-end;">
-          <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(242,235,231,.88);">Frame 02 — retrato vertical</span>
-        </div>
-        <div style="flex: 0 0 clamp(280px, 42vw, 660px); aspect-ratio: 21 / 9; position: relative; background: repeating-linear-gradient(135deg, rgba(242,235,231,.1) 0 1px, transparent 1px 9px); border: 1px solid rgba(242,235,231,.16); display: grid; place-items: end start; padding: 16px;">
-          <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(242,235,231,.5);">Frame 03 — plano cinematográfico</span>
-        </div>
-        <div style="flex: 0 0 clamp(220px, 30vw, 460px); aspect-ratio: 1 / 1; position: relative; background: #D22630; display: grid; place-items: end start; padding: 16px;">
-          <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(242,235,231,.85);">Frame 04 — detalhe impresso</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="campos" data-screen-label="07 Campos de atuação" style="position: relative;">
-    <div style="background: #0047BB; padding: clamp(46px, 8vh, 110px) clamp(18px, 3vw, 46px); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(24px, 4vw, 80px); overflow: hidden;">
-      <div style="display: flex; align-items: flex-start; gap: clamp(14px, 2vw, 32px); flex: 1 1 min(100%, 520px);">
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .2em; color: rgba(242,235,231,.85); padding-top: .9em;">01</span>
-        <span data-band-word style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(2rem, 8.2vw, 8rem); line-height: .92; letter-spacing: -.045em; color: #F2EBE7; will-change: transform;">Branding</span>
-      </div>
-      <p style="margin: 0; flex: 0 1 clamp(220px, 26vw, 380px); font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.55; color: rgba(242,235,231,.78); text-wrap: pretty;">Estratégia, naming, sistemas de identidade, manuais e aplicação. A marca inteira, do conceito à peça final.</p>
-    </div>
-    <div style="background: #D22630; padding: clamp(46px, 8vh, 110px) clamp(18px, 3vw, 46px); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(24px, 4vw, 80px); overflow: hidden;">
-      <div style="display: flex; align-items: flex-start; gap: clamp(14px, 2vw, 32px); flex: 1 1 min(100%, 520px);">
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .2em; color: rgba(242,235,231,.85); padding-top: .9em;">02</span>
-        <span data-band-word style="display: block; font-family: 'ivypresto-display', serif; font-style: italic; font-weight: 300; font-size: clamp(2rem, 8.2vw, 8rem); line-height: .92; letter-spacing: -.04em; color: #E5D0B1; will-change: transform;">Artes</span>
-      </div>
-      <p style="margin: 0; flex: 0 1 clamp(220px, 26vw, 380px); font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.55; color: rgba(242,235,231,.8); text-wrap: pretty;">Direção de arte, composição editorial, ilustração e materiais impressos. A imagem como matéria gráfica.</p>
-    </div>
-    <div style="background: #437D6D; padding: clamp(46px, 8vh, 110px) clamp(18px, 3vw, 46px); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(24px, 4vw, 80px); overflow: hidden;">
-      <div style="display: flex; align-items: flex-start; gap: clamp(14px, 2vw, 32px); flex: 1 1 min(100%, 520px);">
-        <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .2em; color: rgba(242,235,231,.85); padding-top: .9em;">03</span>
-        <span data-band-word style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1.7rem, 7.2vw, 7rem); line-height: .92; letter-spacing: -.045em; color: #F2EBE7; will-change: transform;">Cinematografia</span>
-      </div>
-      <p style="margin: 0; flex: 0 1 clamp(220px, 26vw, 380px); font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.55; color: rgba(242,235,231,.8); text-wrap: pretty;">Direção, still, cor e montagem para peças de marca. O tempo como parte do sistema visual.</p>
-    </div>
-  </section>
-
-  <section data-screen-label="08 Manifesto" style="position: relative; background: #E5D0B1; padding: clamp(90px, 16vh, 220px) clamp(18px, 3vw, 46px); display: flex; flex-direction: column; gap: clamp(30px, 5vh, 60px);">
-    <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(16,24,32,.58);">06 — Manifesto</span>
-    <blockquote style="margin: 0; max-width: 100%;">
-      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1.9rem, 6.4vw, 6.2rem); line-height: .98; letter-spacing: -.04em; color: #101820;">Criar é um ato</span></span>
-      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-style: italic; font-size: clamp(1.9rem, 6.4vw, 6.2rem); line-height: .98; letter-spacing: -.035em; color: #101820;">de cuidado.</span></span>
-    </blockquote>
-    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(30px, 5vw, 90px);">
-      <p data-fade style="margin: 0; flex: 1 1 min(100%, 420px); max-width: 46ch; font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-size: clamp(14px, 1.05vw, 17px); line-height: 1.55; color: rgba(16,24,32,.72); text-wrap: pretty;">Nada aqui é feito por acaso — nem a cor, nem o silêncio entre as linhas. Um sistema visual honesto sobrevive ao tempo porque não depende de tendência: depende de decisão.</p>
-      <span data-fade style="font-family: 'sloop-script-two', cursive; font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1; color: #D22630; padding-right: clamp(0px, 4vw, 60px);">Samuel Cipriano</span>
-    </div>
-  </section>
-
-  <section id="contato" data-screen-label="09 Encerramento" style="position: relative; background: #101820; padding: clamp(90px, 18vh, 240px) clamp(18px, 3vw, 46px) clamp(24px, 4vh, 44px); display: flex; flex-direction: column; gap: clamp(60px, 12vh, 150px); overflow: hidden;">
-    <div style="display: flex; flex-direction: column; gap: clamp(24px, 4vh, 50px);">
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(242,235,231,.55);">07 — Contato</span>
-      <h2 style="margin: 0; max-width: 100%;">
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(2rem, 8.8vw, 9rem); line-height: .9; letter-spacing: -.045em; color: #F2EBE7;">Vamos criar</span></span>
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in style="display: block; font-family: 'ivypresto-display', serif; font-weight: 300; font-style: italic; font-size: clamp(2rem, 8.8vw, 9rem); line-height: .9; letter-spacing: -.04em; color: #E5D0B1;">algo que dure.</span></span>
+  <!-- 04 · O estúdio -->
+  <section id="estudio" class="sec" data-screen-label="04 O estúdio">
+    <div class="folio t-small"><span><b>O estúdio</b> <span class="sep">|</span> Origem</span><span>04</span></div>
+    <div class="est-head">
+      <span data-fade class="t-small sq">Sobre</span>
+      <h2 style="margin: 0;">
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Uma resposta <span class="it">humana</span></span></span>
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">a uma era artificial.</span></span>
       </h2>
-      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(24px, 4vw, 70px);">
-        <a data-fade href="mailto:ola@samuelcipriano.studio" style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: clamp(14px, 1.6vw, 22px); font-weight: 400; letter-spacing: -.01em; color: #F2EBE7; border-bottom: 1px solid rgba(242,235,231,.4); padding-bottom: 6px;" style-hover="color: #E5D0B1; border-bottom-color: #E5D0B1;">ola@samuelcipriano.studio</a>
-        <span data-fade style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,235,231,.58);">Endereço e telefone a confirmar</span>
+    </div>
+    <div class="est-grid">
+      <figure class="plate est-small" data-plate>
+        <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?w=700&amp;q=80&amp;auto=format&amp;fit=crop" alt="Mãos trabalhando sobre uma mesa de ateliê"></div>
+        <figcaption class="t-small"><span>(1)</span><span class="muted">Processo artesanal</span></figcaption>
+      </figure>
+      <figure class="plate est-big" data-plate>
+        <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Buquê de flores contra a luz quente do fim de tarde"></div>
+        <figcaption class="t-small"><span>(2)</span><span class="muted">A beleza está nos detalhes</span></figcaption>
+      </figure>
+      <div class="est-text">
+        <p data-fade class="t-body">Ao ver pessoas e marcas fazendo exatamente as mesmas coisas, usando as mesmas palavras, abrindo mão da humanidade em prol da performance, Samuel Cipriano abraçou a construção de marcas para dar voz a quem realmente se importa com o que faz e com quem consome o que faz.</p>
+        <p data-fade class="t-body muted">Somos um estúdio humano e artesanal. Nos dedicamos a poucos clientes por vez, não seguimos tendências passageiras e buscamos marcas relevantes, atemporais e desejadas.</p>
+        <p data-fade class="t-serif it muted">Fundado no Vale do Paraíba, MMXXII.</p>
       </div>
     </div>
-
-    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(30px, 5vw, 80px);">
-      <img data-par=".06" src="assets/emblem-bone.svg" alt="" style="width: clamp(54px, 6.5vw, 96px); height: auto; opacity: .5;">
-      <img src="assets/lockup-bone.svg" alt="Samuel Cipriano Studio" style="width: clamp(160px, 26vw, 420px); height: auto; opacity: .9;">
-    </div>
-
-    <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 18px; border-top: 1px solid rgba(242,235,231,.18); padding-top: 16px;">
-      <span style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,235,231,.58);">© 2026 Samuel Cipriano Studio</span>
-      <div style="display: flex; gap: clamp(14px, 2vw, 30px);">
-        <a href="#contato" style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,235,231,.6);">Instagram</a>
-        <a href="#contato" style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,235,231,.6);">Behance</a>
-        <a href="#contato" style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,235,231,.6);">LinkedIn</a>
+    <div class="values">
+      <div data-fade>
+        <span class="t-small muted">(i) Valor</span>
+        <h3 class="t-serif">Amor ao próximo</h3>
+        <p class="t-body">Independente das circunstâncias, escolhemos agir com empatia e gentileza em todas as nossas interações.</p>
       </div>
-      <span data-clock2 style="font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,235,231,.58);">Brasil</span>
+      <div data-fade>
+        <span class="t-small muted">(ii) Valor</span>
+        <h3 class="t-serif it">Autenticidade</h3>
+        <p class="t-body">Construímos marcas únicas a partir de um processo artesanal baseado em pesquisa, repertório e boas referências.</p>
+      </div>
+      <div data-fade>
+        <span class="t-small muted">(iii) Valor</span>
+        <h3 class="t-serif">Esperança</h3>
+        <p class="t-body">Tornamos possíveis os objetivos de marcas que querem levar resultados positivos ao seu nicho e à sociedade.</p>
+      </div>
     </div>
+  </section>
+
+  <!-- 05 · Serviços -->
+  <section id="servicos" class="sec" data-screen-label="05 Serviços">
+    <div class="folio t-small"><span><b>Serviços</b> <span class="sep">|</span> Quatro capítulos</span><span>05</span></div>
+    <div class="srv-head">
+      <h2 style="margin: 0;">
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Dar nome, cor e forma</span></span>
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">ao sonho de quem ama.</span></span>
+      </h2>
+      <p data-fade class="t-body muted">Cada marca é construída na mesma ordem do nosso próprio brandbook: primeiro os fundamentos, depois a voz, a forma e, por fim, a aplicação no mundo.</p>
+    </div>
+
+    <div class="pages">
+      <article class="page" style="--i: 0;">
+        <div class="page-tab"><span class="num">I</span><h3 class="t-serif">Estratégia de marca</h3><span class="t-small muted">Fundamentos</span></div>
+        <div class="page-body">
+          <div>
+            <p class="t-sub">Pesquisa, dados e estudo antes de qualquer traço. Definimos o que a marca é, para quem existe e por que importa.</p>
+            <ul class="page-list t-body">
+              <li><span>01</span><span>Pesquisa e diagnóstico</span></li>
+              <li><span>02</span><span>Posicionamento e proposta de valor</span></li>
+              <li><span>03</span><span>Missão, visão e valores</span></li>
+              <li><span>04</span><span>Personalidade e arquétipos</span></li>
+            </ul>
+          </div>
+          <figure class="plate">
+            <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=1100&amp;q=80&amp;auto=format&amp;fit=crop" alt="Caderno aberto com caneta tinteiro"></div>
+            <figcaption class="t-small"><span>(I)</span><span class="muted">O começo de toda marca</span></figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="page" style="--i: 1;">
+        <div class="page-tab"><span class="num">II</span><h3 class="t-serif it">Identidade verbal</h3><span class="t-small muted">A voz</span></div>
+        <div class="page-body">
+          <div>
+            <p class="t-sub">Nome, manifesto e a voz com que a marca fala: competente, gentil e poética em todos os pontos de contato.</p>
+            <ul class="page-list t-body">
+              <li><span>01</span><span>Naming</span></li>
+              <li><span>02</span><span>Manifesto</span></li>
+              <li><span>03</span><span>Voz e tom de voz</span></li>
+              <li><span>04</span><span>Slogan e frases</span></li>
+            </ul>
+          </div>
+          <figure class="plate">
+            <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1100&amp;q=80&amp;auto=format&amp;fit=crop" alt="Caneta tinteiro escrevendo sobre papel"></div>
+            <figcaption class="t-small"><span>(II)</span><span class="muted">Palavras escolhidas uma a uma</span></figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="page" style="--i: 2;">
+        <div class="page-tab"><span class="num">III</span><h3 class="t-serif">Identidade visual</h3><span class="t-small muted">A forma</span></div>
+        <div class="page-body">
+          <div>
+            <p class="t-sub">Um sistema desenhado à mão, pensado para durar e não para seguir tendência.</p>
+            <ul class="page-list t-body">
+              <li><span>01</span><span>Logotipo e variações</span></li>
+              <li><span>02</span><span>Paleta de cores</span></li>
+              <li><span>03</span><span>Tipografia e hierarquia</span></li>
+              <li><span>04</span><span>Ilustrações, patterns e fotografia</span></li>
+            </ul>
+          </div>
+          <figure class="plate">
+            <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?w=1100&amp;q=80&amp;auto=format&amp;fit=crop" alt="Tecidos estampados com flores em cabides"></div>
+            <figcaption class="t-small"><span>(III)</span><span class="muted">Cor, textura e padrão</span></figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="page" style="--i: 3;">
+        <div class="page-tab"><span class="num">IV</span><h3 class="t-serif it">Brandbook e aplicações</h3><span class="t-small muted">O mundo</span></div>
+        <div class="page-body">
+          <div>
+            <p class="t-sub">O manual que protege a marca e as primeiras peças que a colocam no mundo.</p>
+            <ul class="page-list t-body">
+              <li><span>01</span><span>Brandbook</span></li>
+              <li><span>02</span><span>Papelaria e embalagens</span></li>
+              <li><span>03</span><span>Peças digitais</span></li>
+              <li><span>04</span><span>Acompanhamento da implementação</span></li>
+            </ul>
+          </div>
+          <figure class="plate">
+            <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=1100&amp;q=80&amp;auto=format&amp;fit=crop" alt="Sacola de papel kraft sobre fundo neutro"></div>
+            <figcaption class="t-small"><span>(IV)</span><span class="muted">A marca nas mãos das pessoas</span></figcaption>
+          </figure>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 06 · Projetos -->
+  <section id="projetos" class="sec" data-screen-label="06 Projetos">
+    <div class="folio t-small"><span><b>Projetos</b> <span class="sep">|</span> Selecionados</span><span>06</span></div>
+    <div class="proj-head">
+      <h2 data-mask style="overflow: hidden; margin: 0;"><span data-mask-in class="t-title" style="display: block;">Projetos <span class="it">selecionados</span></span></h2>
+      <span class="t-small muted">Conteúdo provisório: nomes e imagens de banco a substituir.</span>
+    </div>
+
+    <article class="proj">
+      <div class="proj-bar t-small"><span>(1) Casa Vinhal</span><span class="muted">Branding · 2025</span></div>
+      <div class="spread a">
+        <div class="sp-text">
+          <h3 data-mask style="overflow: hidden; margin: 0;"><span data-mask-in class="t-title" style="display: block;">Casa <span class="it">Vinhal</span></span></h3>
+          <div class="sp-specs t-small"><span>Restaurante e carta de vinhos</span><span>Identidade visual e verbal</span><span>Manual de marca</span><span>São José dos Campos, SP</span></div>
+          <p data-fade class="t-body">Uma casa de família que queria ser lembrada pela mesa, não pelo cardápio. A marca nasceu da luz baixa, da louça antiga e da conversa que se estende.</p>
+        </div>
+        <figure class="plate sp-big" data-plate>
+          <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Salão de restaurante com luz baixa"></div>
+          <figcaption class="t-small"><span>(1)</span><span class="muted">O salão</span></figcaption>
+        </figure>
+        <figure class="plate sp-small" data-plate>
+          <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&amp;q=80&amp;auto=format&amp;fit=crop" alt="Prato servido à luz de velas"></div>
+          <figcaption class="t-small"><span>(2)</span><span class="muted">À mesa</span></figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-bar t-small"><span>(2) Aurora Filmes</span><span class="muted">Naming e identidade · 2025</span></div>
+      <div class="spread b">
+        <figure class="plate sp-big" data-plate>
+          <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=1300&amp;q=80&amp;auto=format&amp;fit=crop" alt="Projetor de cinema antigo projetando luz"></div>
+          <figcaption class="t-small"><span>(1)</span><span class="muted">A primeira luz</span></figcaption>
+        </figure>
+        <figure class="plate sp-small" data-plate>
+          <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=700&amp;q=80&amp;auto=format&amp;fit=crop" alt="Claquete de cinema segurada no set"></div>
+          <figcaption class="t-small"><span>(2)</span><span class="muted">No set</span></figcaption>
+        </figure>
+        <div class="sp-text">
+          <h3 data-mask style="overflow: hidden; margin: 0;"><span data-mask-in class="t-title" style="display: block;">Aurora <span class="it">Filmes</span></span></h3>
+          <div class="sp-specs t-small"><span>Produtora de cinema</span><span>Naming, identidade e direção de arte</span><span>Vale do Paraíba, SP</span></div>
+          <p data-fade class="t-body">Uma produtora nova com olhar de cinema clássico. O nome veio antes de tudo: a luz que chega primeiro e anuncia o dia.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-bar t-small"><span>(3) Atelier Pastoral</span><span class="muted">Moda autoral · 2024</span></div>
+      <div class="spread c">
+        <figure class="plate sp-full" data-plate>
+          <div class="frame">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1800&amp;q=80&amp;auto=format&amp;fit=crop" alt="Homem de terno escuro abotoando o paletó">
+            <div class="sp-over">
+              <span class="t-small top">Atelier Pastoral · Moda autoral</span>
+              <div class="center"><p class="t-serif">Naming&nbsp;/ <span class="it">Manifesto</span>&nbsp;/ Logotipo&nbsp;/ <span class="it">Paleta</span>&nbsp;/ Tipografia&nbsp;/ <span class="it">Etiquetas</span>&nbsp;/ Sacolas&nbsp;/ <span class="it">Lookbook</span></p></div>
+              <div class="corners t-small"><span>Alfaiataria sob medida<br>Feita à mão em São Paulo</span><span style="text-align: right;">Identidade completa<br>Samuel Cipriano Studio</span></div>
+            </div>
+          </div>
+          <figcaption class="t-small"><span>(1)</span><span class="muted">Campanha de lançamento</span></figcaption>
+        </figure>
+      </div>
+    </article>
+  </section>
+
+  <!-- 07 · Manifesto, o texto -->
+  <section id="carta" class="sec carta" data-screen-label="07 Manifesto escrito">
+    <div class="folio t-small" style="text-align: left;"><span><b>Manifesto</b> <span class="sep">|</span> O texto</span><span>07</span></div>
+    <hr class="rule">
+    <h2 style="margin: 0;">
+      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-display" style="display: block;">Um salve aos <span class="it">que amam.</span></span></span>
+    </h2>
+    <hr class="rule">
+    <p data-fade class="t-sub carta-lead">Que fazem o que fazem com um brilho no olhar. Que são profundos em suas relações, intensos. Estes que se importam com as consequências das suas ações, porque entendem que a mudança do mundo está nas pequenas atitudes.</p>
+    <hr class="rule">
+    <div class="carta-cols">
+      <p data-fade class="t-body">Essas pessoas são criativas, e não me refiro somente a pintar um quadro — elas criam caminhos onde não havia, dão forma ao que antes era sem forma e vazio.</p>
+      <p data-fade class="t-body">Quem ama não aceita entregar o mínimo, mas tem prazer em fazer a diferença. E o amor é a resposta humana que trará vida a um mundo artificial.</p>
+    </div>
+    <div class="carta-end">
+      <p data-fade class="t-serif it">Ame o que faz. Faça por amor.</p>
+      <span data-fade class="sign">Samuel Cipriano</span>
+    </div>
+  </section>
+
+  <!-- 08 · Contato e colofão -->
+  <section id="contato" class="sec" data-screen-label="08 Contato" style="padding-bottom: clamp(24px, 4vh, 44px);">
+    <div class="folio t-small"><span><b>Contato</b> <span class="sep">|</span> Colofão</span><span>08</span></div>
+    <div class="ct-grid">
+      <div class="ct-text">
+        <h2 style="margin: 0;">
+          <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Vamos criar</span></span>
+          <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">algo que dure.</span></span>
+        </h2>
+        <p data-fade class="t-body">Atendemos poucos clientes por vez. Conte sobre a sua marca e o que ela sonha ser; respondemos em até dois dias úteis.</p>
+        <a data-fade class="ct-mail t-sub" href="mailto:contatosamuelcipriano@gmail.com">contatosamuelcipriano@gmail.com</a>
+      </div>
+      <div class="card" data-fade>
+        <img src="assets/emblem-wool.svg" alt="">
+        <ul>
+          <li><a href="https://samuelciprianostudio.com">samuelciprianostudio.com</a></li>
+          <li><a href="mailto:contatosamuelcipriano@gmail.com">contatosamuelcipriano@gmail.com</a></li>
+          <li><a href="tel:+5512991550799">(12) 9 9155-0799</a></li>
+          <li><a href="https://instagram.com/samuelciprianostudio" target="_blank" rel="noopener">@samuelciprianostudio</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon t-small">
+      <span>© 2026 Samuel Cipriano Studio</span>
+      <span class="muted">Edição Nº 01 · IvyPresto Display e Neue Haas Grotesk</span>
+      <span data-clock2>Brasil</span>
+    </div>
+    <img class="masthead" src="assets/lockup-verde.svg" alt="Samuel Cipriano Studio">
   </section>
 
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#D22630&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#D22630&quot;,&quot;#0047BB&quot;,&quot;#437D6D&quot;,&quot;#101820&quot;],&quot;section&quot;:&quot;Direção de arte&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;cinematografico&quot;,&quot;options&quot;:[&quot;cinematografico&quot;,&quot;contido&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;indexPreview&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;cinematografico&quot;,&quot;options&quot;:[&quot;cinematografico&quot;,&quot;contido&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
 class Component extends DCLogic {
-  projects = [
-    { n: '01', name: 'Herdade', cat: 'Identidade', year: '2026', color: '#0047BB', media: 'still de identidade' },
-    { n: '02', name: 'Aurora Filmes', cat: 'Cinematografia', year: '2025', color: '#101820', media: 'frame de filme' },
-    { n: '03', name: 'Casa Vinhal', cat: 'Branding', year: '2025', color: '#437D6D', media: 'aplicação impressa' },
-    { n: '04', name: 'Éden Editorial', cat: 'Direção de arte', year: '2024', color: '#D22630', media: 'spread editorial' },
-    { n: '05', name: 'Pastoral', cat: 'Identidade', year: '2023', color: '#E5D0B1', media: 'símbolo e marca' },
-    { n: '06', name: 'Vento Norte', cat: 'Digital', year: '2022', color: '#0047BB', media: 'interface e web' }
-  ];
-
-  cardColors = ['#0047BB', '#D22630', '#437D6D', '#101820', '#E5D0B1'];
-
-  get accent() { return this.props.accentColor || '#D22630'; }
-
   renderVals() {
-    const cards = Array.from({ length: 12 }, (_, i) => ({
-      n: String(i + 1).padStart(2, '0'),
-      onEnter: () => this.flipCard(i, true),
-      onLeave: () => this.flipCard(i, false)
-    }));
-    const rows = this.projects.map((p, i) => ({
-      n: p.n, name: p.name, cat: p.cat, year: p.year,
-      onEnter: () => this.enterRow(i)
-    }));
     return {
-      cards,
-      rows,
-      leaveIndex: () => this.leaveRow(),
       openMenu: () => this.toggleMenu(true),
       closeMenu: () => this.toggleMenu(false)
     };
-  }
-
-  // mobile is composed, not shrunk: the nav collapses into the overlay, the index
-  // row restacks, and pointer-driven affordances step aside for touch
-  applyResponsive() {
-    const mob = window.innerWidth <= 700;
-    this.touch = window.matchMedia('(pointer: coarse)').matches;
-    this.mob = mob;
-    if (!this._base) this._base = new Map();
-    const save = (el) => { if (el && !this._base.has(el)) this._base.set(el, el.getAttribute('style') || ''); };
-    const restore = (el) => { if (el && this._base.has(el)) el.setAttribute('style', this._base.get(el)); };
-
-    const links = this.q('[data-nav-links] a');
-    const cta = this.one('[data-nav-cta]');
-    const menuNav = this.one('[data-menu-nav]');
-    const rows = this.q('[data-row]');
-    const metas = this.q('[data-row-meta]');
-    const titles = this.q('[data-row-title]');
-    const strip = this.one('[data-strip]');
-    const wrap = this.one('[data-strip-wrap]');
-    const hero = this.one('[data-hero-img]');
-    [...links, cta, menuNav, ...rows, ...metas, ...titles, wrap, strip, hero].forEach(save);
-    // the lockup is the hero: full width everywhere, capped only where a tall narrow
-    // screen would otherwise push the scroll cue out of the first fold
-    if (hero) hero.style.maxHeight = mob ? '30svh' : '';
-
-    if (mob) {
-      links.forEach((a) => { a.style.display = 'none'; });
-      if (cta) { cta.textContent = 'Menu'; cta.style.padding = '10px 0'; }
-      if (menuNav) menuNav.style.display = 'flex';
-      rows.forEach((r) => {
-        r.style.gridTemplateColumns = 'clamp(28px, 8vw, 44px) minmax(0, 1fr)';
-        r.style.alignItems = 'start';
-        r.style.rowGap = '4px';
-        r.style.padding = '18px 0';
-      });
-      metas.forEach((m) => {
-        m.style.gridColumn = '2';
-        m.style.flexDirection = 'row';
-        m.style.alignItems = 'baseline';
-        m.style.justifyContent = 'flex-start';
-        m.style.gap = '14px';
-      });
-      titles.forEach((t) => { t.style.fontSize = 'clamp(1.8rem, 9.5vw, 3rem)'; });
-    } else {
-      [...links, cta, menuNav, ...rows, ...metas, ...titles, hero].forEach(restore);
-      if (cta) cta.textContent = 'Contato';
-    }
-
-    // with the pin disabled below 720 the film strip becomes a real swipe rail
-    if (wrap && strip) {
-      const rail = window.innerWidth <= 720;
-      wrap.style.overflowX = rail ? 'auto' : '';
-      wrap.style.scrollSnapType = rail ? 'x proximity' : '';
-      strip.style.scrollSnapAlign = '';
-      this.q('[data-strip] > div').forEach((c) => { c.style.scrollSnapAlign = rail ? 'center' : ''; });
-    }
   }
 
   q(sel) { return Array.from(document.querySelectorAll(sel)); }
@@ -414,37 +602,28 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.mouse = { x: -200, y: -200 };
-    this.pos = { x: -200, y: -200 };
-    this.applyAccent();
-    this.applyResponsive();
-    this.onViewport = () => this.applyResponsive();
+    this.mob = window.innerWidth <= 760;
+    this.onViewport = () => { this.mob = window.innerWidth <= 760; };
     window.addEventListener('resize', this.onViewport);
     this.startClock();
-    this.bindPointer();
-    this.waitFor(() => window.gsap, 6000).then((ok) => {
-      if (!ok) { this.revealCurtain(true); this.staticMorph(); return; }
+    this.bindFilm();
+    // gsap and ScrollTrigger arrive as separate scripts; wait for both
+    this.waitFor(() => window.gsap && window.ScrollTrigger, 8000).then(() => {
+      if (!window.gsap) { this.revealCurtain(true); this.staticFilm(); return; }
       this.setupLenis();
       this.setupMotion();
     });
-    this.raf = requestAnimationFrame(this.tick);
   }
 
   componentWillUnmount() {
-    cancelAnimationFrame(this.raf);
     clearInterval(this.clockTimer);
-    window.removeEventListener('mousemove', this.onMove);
-    document.removeEventListener('mouseout', this.onOut);
-    window.removeEventListener('scroll', this.onScroll);
-    document.removeEventListener('scroll', this.onScroll, { capture: true });
-    window.removeEventListener('wheel', this.onScroll);
-    window.removeEventListener('touchmove', this.onScroll);
-    if (this.onResize) window.removeEventListener('resize', this.onResize);
-    if (this.onViewport) window.removeEventListener('resize', this.onViewport);
+    window.removeEventListener('resize', this.onViewport);
+    if (this.onFilmResize) window.removeEventListener('resize', this.onFilmResize);
+    if (this.filmIO) this.filmIO.disconnect();
+    if (this.filmSound && this.onFilmSound) this.filmSound.removeEventListener('click', this.onFilmSound);
     if (this.onAnchor) document.removeEventListener('click', this.onAnchor);
-    if (this.onRowTap) document.removeEventListener('click', this.onRowTap);
     if (this.lenis) this.lenis.destroy();
-    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(t => t.kill());
+    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach((t) => t.kill());
   }
 
   waitFor(test, timeout) {
@@ -457,20 +636,8 @@ class Component extends DCLogic {
     });
   }
 
-  applyAccent() {
-    const a = this.accent;
-    if (a === '#D22630') return;
-    const curtain = this.one('[data-curtain]');
-    if (curtain) curtain.style.background = a;
-
-  }
-
   startClock() {
-    const fmt = () => {
-      const d = new Date();
-      const t = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-      return 'Brasil · ' + t;
-    };
+    const fmt = () => 'Brasil · ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     const paint = () => {
       const a = this.one('[data-clock]'), b = this.one('[data-clock2]');
       if (a) a.textContent = fmt();
@@ -478,396 +645,6 @@ class Component extends DCLogic {
     };
     paint();
     this.clockTimer = setInterval(paint, 20000);
-  }
-
-  bindPointer() {
-    this.onMove = (e) => { this.mouse.x = e.clientX; this.mouse.y = e.clientY; };
-    this.onOut = (e) => { if (!e.relatedTarget && !e.toElement) this.leaveRow(); };
-    // scroll doesn't close the panel — it invalidates the measured slot, and the
-    // watchdog below decides open/closed from where the pointer actually is
-    this.onScroll = () => { this.slotStale = true; };
-    // always bound (not gated on Lenis): rows must never navigate anywhere
-    this.onRowTap = (e) => {
-      const row = e.target && e.target.closest ? e.target.closest('[data-row]') : null;
-      if (!row) return;
-      e.preventDefault();
-      this.toggleRowSlot(row);
-    };
-    document.addEventListener('click', this.onRowTap);
-    window.addEventListener('mousemove', this.onMove, { passive: true });
-    document.addEventListener('mouseout', this.onOut);
-    window.addEventListener('scroll', this.onScroll, { passive: true });
-    document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
-    window.addEventListener('wheel', this.onScroll, { passive: true });
-    window.addEventListener('touchmove', this.onScroll, { passive: true });
-  }
-
-  // touch's answer to the hover preview: the project's image opens in place
-  toggleRowSlot(row) {
-    const rows = this.q('[data-row]');
-    const i = rows.indexOf(row);
-    if (i < 0) return;
-    const slot = row.querySelector('[data-row-slot]');
-    if (!slot) return;
-    if (!this.touch) return;
-    const p = this.projects[i];
-    const open = slot.style.display !== 'block';
-    rows.forEach((r) => {
-      const s = r.querySelector('[data-row-slot]');
-      if (s && s !== slot) { s.style.display = 'none'; }
-    });
-    if (!open) { slot.style.display = 'none'; return; }
-    const light = p.color === '#E5D0B1';
-    slot.style.background = p.color;
-    const hatch = slot.querySelector('[data-row-slot-hatch]');
-    const label = slot.querySelector('[data-row-slot-label]');
-    if (hatch) hatch.style.background = 'repeating-linear-gradient(135deg, ' + (light ? 'rgba(16,24,32,.18)' : 'rgba(242,235,231,.16)') + ' 0 1px, transparent 1px 8px)';
-    if (label) { label.textContent = p.media; label.style.color = light ? 'rgba(16,24,32,.8)' : 'rgba(242,235,231,.9)'; }
-    slot.style.display = 'block';
-    if (window.gsap) window.gsap.from(slot, { clipPath: 'inset(100% 0 0 0)', duration: .6, ease: 'expo.out' });
-  }
-
-  // single source of truth: the panel reflects whichever row is under the pointer
-  // right now, whether that changed by moving the mouse or by the page scrolling
-  syncPreview() {
-    if (this.touch) return;
-    const el = document.elementFromPoint(this.mouse.x, this.mouse.y);
-    const row = el && el.closest ? el.closest('[data-row]') : null;
-    if (!row) { if (this.previewOn) this.leaveRow(); return; }
-    const i = this.q('[data-row]').indexOf(row);
-    if (i < 0) return;
-    // also retry when closed: a fit can fail mid-scroll and must not latch
-    if (row !== this.activeRow || !this.previewOn) { this.enterRow(i); return; }
-    if (this.slotStale) { this.slotStale = false; this.fitPreview(row); }
-  }
-
-  // sizes the panel to whatever gap the hovered row actually leaves, so it never
-  // has to overlap the name being read. Returns false when no slot is usable.
-  fitPreview(row) {
-    const p = this.one('[data-preview]');
-    const title = row && row.querySelector('[data-row-title]');
-    if (!p || !title) return false;
-    const vw = window.innerWidth, vh = window.innerHeight;
-    const pad = 12, gap = 28, MIN = 130;
-    const tr = this.textBox(title), rr = row.getBoundingClientRect();
-    const ratio = 1.25;
-    const maxW = Math.min(380, vw * 0.24);
-
-    tr.right += 22; // the hovered title slides 22px right; measure against where it lands
-    const side = vw - (tr.right + gap) - pad;
-    if (side >= MIN) {
-      let w = Math.min(maxW, side);
-      let h = Math.min(w * ratio, vh - pad * 2);
-      w = Math.min(w, h / ratio);
-      if (w >= MIN) { this.slot = { mode: 'side', w, h, minX: tr.right + gap }; return this.applySize(p, w, h); }
-    }
-
-    const below = vh - rr.bottom - gap - pad, above = rr.top - gap - pad;
-    const band = Math.max(below, above);
-    if (band >= MIN * ratio) {
-      let h = Math.min(band, vh * 0.8);
-      let w = Math.min(h / ratio, maxW, vw - pad * 2);
-      h = w * ratio;
-      if (w >= MIN) {
-        this.slot = { mode: below >= above ? 'below' : 'above', w, h, rowTop: rr.top, rowBottom: rr.bottom };
-        return this.applySize(p, w, h);
-      }
-    }
-    return false;
-  }
-
-  // glyph extent, not the grid cell the title block stretches across
-  textBox(el) {
-    const r = document.createRange();
-    r.selectNodeContents(el);
-    const rects = [...r.getClientRects()];
-    if (!rects.length) return el.getBoundingClientRect();
-    return {
-      left: Math.min(...rects.map(b => b.left)), right: Math.max(...rects.map(b => b.right)),
-      top: Math.min(...rects.map(b => b.top)), bottom: Math.max(...rects.map(b => b.bottom))
-    };
-  }
-
-  applySize(p, w, h) {
-    p.style.width = Math.round(w) + 'px';
-    p.style.height = Math.round(h) + 'px';
-    return true;
-  }
-
-  placePreview() {
-    const p = this.one('[data-preview]');
-    const s = this.slot;
-    if (!p || !s) return;
-    const vw = window.innerWidth, vh = window.innerHeight, pad = 12;
-    const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
-    let x, y;
-    if (s.mode === 'side') {
-      x = clamp(Math.max(this.pos.x + 34, s.minX), pad, vw - s.w - pad);
-      y = clamp(this.pos.y - s.h * 0.45, pad, vh - s.h - pad);
-    } else {
-      x = clamp(this.pos.x - s.w / 2, pad, vw - s.w - pad);
-      y = s.mode === 'below' ? s.rowBottom + 28 : s.rowTop - 28 - s.h;
-      y = clamp(y, pad, vh - s.h - pad);
-    }
-    p.style.transform = 'translate3d(' + Math.round(x) + 'px,' + Math.round(y) + 'px,0)';
-  }
-
-  tick = () => {
-    // one bad frame must never kill the loop — the loop is what closes the panel
-    try {
-      this.frame = (this.frame || 0) + 1;
-      if (this.frame % 4 === 0) this.syncPreview();
-      if (this.previewOn) {
-        this.pos.x += (this.mouse.x - this.pos.x) * 0.17;
-        this.pos.y += (this.mouse.y - this.pos.y) * 0.17;
-        this.placePreview();
-      }
-      if (this.morphActive) {
-        const target = ((this.mouse.x / window.innerWidth) * 2 - 1) * 42;
-        this.parX = (this.parX || 0) + (target - (this.parX || 0)) * 0.06;
-        this.morphLayout(this.lastP || 0);
-      }
-    } catch (e) {
-      if (!this.warned) { this.warned = true; console.warn('tick', e); }
-    }
-    this.raf = requestAnimationFrame(this.tick);
-  };
-
-  enterRow(i) {
-    if (this.props.indexPreview === false || this.touch) return;
-    const p = this.projects[i];
-    const fill = this.one('[data-preview-fill]');
-    const label = this.one('[data-preview-label]');
-    const wrap = this.one('[data-preview]');
-    const see = this.one('[data-preview-see]');
-    const counter = this.one('[data-counter]');
-    if (counter) counter.textContent = p.n + ' / 06';
-    if (fill) fill.style.background = p.color;
-    const light = p.color === '#E5D0B1';
-    if (label) {
-      label.textContent = p.media;
-      label.style.color = light ? 'rgba(16,24,32,.7)' : 'rgba(242,235,231,.8)';
-    }
-    if (see) see.style.color = light ? 'rgba(16,24,32,.8)' : 'rgba(242,235,231,.9)';
-    this.activeRow = this.q('[data-row]')[i];
-    const fits = this.fitPreview(this.activeRow);
-    if (wrap && fits) {
-      if (!this.previewOn) {
-        this.pos.x = this.mouse.x;
-        this.pos.y = this.mouse.y;
-        this.previewOn = true;
-      }
-      this.placePreview();
-      if (window.gsap) window.gsap.to(wrap, { clipPath: 'inset(0% 0 0% 0)', duration: .7, ease: 'expo.out' });
-      else wrap.style.clipPath = 'inset(0 0 0 0)';
-    } else if (wrap) {
-      this.previewOn = false;
-      this.slot = null;
-      if (window.gsap) window.gsap.to(wrap, { clipPath: 'inset(0 0 100% 0)', duration: .3 });
-      else wrap.style.clipPath = 'inset(0 0 100% 0)';
-    }
-    const rows = this.q('[data-row]');
-    rows.forEach((r, j) => {
-      const title = r.querySelector('[data-row-title]');
-      if (!title) return;
-      const on = j === i;
-      if (window.gsap) {
-        window.gsap.to(title, { x: on ? 22 : 0, color: on ? this.accent : '#101820', duration: .55, ease: 'expo.out' });
-      }
-      r.style.opacity = on ? '1' : '.42';
-    });
-  }
-
-  leaveRow() {
-    this.previewOn = false;
-    this.activeRow = null;
-    this.slot = null;
-    const wrap = this.one('[data-preview]');
-    const counter = this.one('[data-counter]');
-    if (counter) counter.textContent = '— / 06';
-    if (wrap) {
-      if (window.gsap) window.gsap.to(wrap, { clipPath: 'inset(0 0 100% 0)', duration: .5, ease: 'expo.inOut' });
-      else wrap.style.clipPath = 'inset(0 0 100% 0)';
-    }
-    this.q('[data-row]').forEach((r) => {
-      r.style.opacity = '1';
-      const title = r.querySelector('[data-row-title]');
-      if (title && window.gsap) window.gsap.to(title, { x: 0, color: '#101820', duration: .5, ease: 'expo.out' });
-    });
-  }
-
-  toggleMenu(open) {
-    const menu = this.one('[data-menu]');
-    if (!menu) return;
-    menu.style.pointerEvents = open ? 'auto' : 'none';
-    const items = this.q('[data-menu-item]');
-    if (!window.gsap) { menu.style.clipPath = open ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)'; return; }
-    const g = window.gsap;
-    if (open) {
-      g.timeline()
-        .to(menu, { clipPath: 'inset(0% 0 0% 0)', duration: .8, ease: 'power4.inOut' })
-        .from(items, { yPercent: 40, opacity: 0, duration: .7, stagger: .07, ease: 'expo.out' }, .25);
-    } else {
-      g.to(menu, { clipPath: 'inset(0 0 100% 0)', duration: .7, ease: 'power4.inOut' });
-    }
-  }
-
-  flipCard(i, on) {
-    const inner = this.q('[data-card-inner]')[i];
-    if (inner) inner.style.transform = on ? 'rotateY(180deg)' : 'rotateY(0deg)';
-  }
-
-  paintCards() {
-    this.cardEls = this.q('[data-card]');
-    let seed = 7;
-    const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
-    this.scatter = this.cardEls.map(() => ({
-      x: (rnd() - 0.5) * 1500, y: (rnd() - 0.5) * 900, r: (rnd() - 0.5) * 180
-    }));
-    this.cardEls.forEach((el, i) => {
-      if (!el.dataset.tap) {
-        el.dataset.tap = '1';
-        el.addEventListener('click', (e) => {
-          if (!this.touch) return;
-          e.preventDefault();
-          const inner = el.querySelector('[data-card-inner]');
-          const on = inner && inner.style.transform !== 'rotateY(180deg)';
-          this.flipCard(i, on);
-        });
-      }
-      const c = this.cardColors[i % this.cardColors.length];
-      const front = el.querySelector('[data-card-front]');
-      const hatch = el.querySelector('[data-card-hatch]');
-      const num = el.querySelector('[data-card-num]');
-      const light = c === '#E5D0B1';
-      if (front) front.style.background = c;
-      if (hatch) hatch.style.background = 'repeating-linear-gradient(135deg, ' + (light ? 'rgba(16,24,32,.16)' : 'rgba(242,235,231,.16)') + ' 0 1px, transparent 1px 7px)';
-      if (num) num.style.color = light ? 'rgba(16,24,32,.7)' : 'rgba(242,235,231,.85)';
-    });
-  }
-
-  measureCaption() {
-    const stage = this.one('[data-morph-stage]');
-    const outro = this.one('[data-morph-outro]');
-    if (!stage || !outro) return;
-    const prev = outro.style.transform;
-    outro.style.transform = 'none';
-    this.capBottom = outro.getBoundingClientRect().bottom - stage.getBoundingClientRect().top;
-    outro.style.transform = prev;
-  }
-
-  morphLayout(p) {
-    this.lastP = p;
-    const stage = this.one('[data-morph-stage]');
-    if (!stage || !this.cardEls || !this.cardEls.length) return;
-    const w = stage.clientWidth, h = stage.clientHeight, n = this.cardEls.length;
-    const mob = w < 760;
-    const cl = (v, a, b) => Math.min(Math.max(v, a), b);
-    const seg = (a, b) => cl((p - a) / (b - a), 0, 1);
-    const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    const lerp = (a, b, t) => a * (1 - t) + b * t;
-    const L = ease(seg(0, .14)), C = ease(seg(.14, .4)), A = ease(seg(.4, .68)), S = seg(.68, 1);
-    const rad = Math.min(Math.min(w, h) * .34, mob ? 152 : 300);
-    const spacing = mob ? 32 : 78;
-    const archR = Math.max(w, mob ? 620 : 980) * (mob ? 1.05 : 1.18);
-    // apex is derived from the caption's measured bottom, so a wrapping caption pushes the arch down
-    const apexTop = (this.capBottom || h * .34) + 24;
-    let arScale = mob ? 1.35 : 1.85;
-    let cardH = 80 * arScale;
-    // floor margin absorbs the extra height a rotated card's bounding box gains
-    let allowed = (h - 44 - cardH / 2) - (apexTop + cardH / 2);
-    if (allowed < 44) {
-      arScale = Math.max(1, arScale * .72);
-      cardH = 80 * arScale;
-      allowed = (h - 44 - cardH / 2) - (apexTop + cardH / 2);
-    }
-    const archCY = archR + (apexTop + cardH / 2 - h / 2);
-    // widest sag that still clears the stage floor, capped at the intended spread
-    const sagRatio = 1 - cl(Math.max(allowed, 0) / archR, 0, 1);
-    const spread = cl(Math.acos(sagRatio) * 2 * 180 / Math.PI, 22, mob ? 78 : 56);
-    const start = -90 - spread / 2, step = spread / n;
-    const sweep = S * spread * 1.6;
-    const fadeBand = spread * .09;
-    const sActive = cl(S * 8, 0, 1);
-    for (let i = 0; i < n; i++) {
-      const sc = this.scatter[i];
-      let x = sc.x, y = sc.y, r = sc.r, s = .6;
-      const lx = i * spacing - (n - 1) * spacing / 2;
-      const ly = -h * (mob ? .32 : .30);
-      x = lerp(x, lx, L); y = lerp(y, ly, L); r = lerp(r, 0, L); s = lerp(s, 1, L);
-      const ca = (i / n) * 360 - 90, crd = ca * Math.PI / 180;
-      x = lerp(x, Math.cos(crd) * rad, C); y = lerp(y, Math.sin(crd) * rad, C); r = lerp(r, ca + 90, C);
-      const t = (((i * step + sweep) % spread) + spread) % spread;
-      const aa = start + t, ard = aa * Math.PI / 180;
-      x = lerp(x, Math.cos(ard) * archR + (this.parX || 0), A);
-      y = lerp(y, Math.sin(ard) * archR + archCY, A);
-      r = lerp(r, aa + 90, A); s = lerp(s, arScale, A);
-      const edge = cl(Math.min(t, spread - t) / fadeBand, 0, 1);
-      const o = cl(L * 1.4, 0, 1) * (1 - sActive * A * (1 - edge));
-      const el = this.cardEls[i];
-      el.style.opacity = o.toFixed(3);
-      el.style.zIndex = String(10 + i);
-      el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + r.toFixed(2) + 'deg) scale(' + s.toFixed(3) + ')';
-    }
-    const intro = this.one('[data-morph-intro]');
-    const outro = this.one('[data-morph-outro]');
-    if (intro) intro.style.opacity = (1 - seg(.15, .26)).toFixed(3);
-    if (outro) {
-      const t = seg(.54, .72);
-      outro.style.opacity = t.toFixed(3);
-      outro.style.transform = 'translate3d(0,' + ((1 - t) * 18).toFixed(1) + 'px,0)';
-    }
-  }
-
-  setupMorph(g, ST) {
-    const sec = this.one('[data-morph]');
-    if (!sec) return;
-    this.paintCards();
-    // a pinned run that reads as deliberate on a mouse is a slog on a thumb
-    const dist = () => this.mob
-      ? Math.min(Math.max(window.innerHeight * 1.5, 900), 1500)
-      : Math.min(Math.max(window.innerHeight * 2.4, 1400), 2800);
-    ST.create({
-      trigger: sec, start: 'top top', end: () => '+=' + dist(),
-      pin: true, scrub: true, anticipatePin: 1, invalidateOnRefresh: true,
-      onToggle: (self) => { this.morphActive = self.isActive; },
-      onUpdate: (self) => this.morphLayout(self.progress),
-      onRefresh: (self) => { this.measureCaption(); this.morphLayout(self.progress || 0); }
-    });
-    this.measureCaption();
-    this.morphLayout(0);
-    this.onResize = () => { this.measureCaption(); this.morphLayout(this.lastP || 0); };
-    window.addEventListener('resize', this.onResize);
-  }
-
-  staticMorph() {
-    this.paintCards();
-    this.measureCaption();
-    this.morphLayout(.74);
-  }
-
-  setupNav(g, ST) {
-    const nav = this.one('[data-nav]');
-    const word = this.one('[data-nav-word]');
-    if (!nav) return;
-    let hidden = false;
-    const show = () => { if (!hidden) return; hidden = false; g.to(nav, { yPercent: 0, duration: .55, ease: 'power3.out' }); };
-    const hide = () => { if (hidden) return; hidden = true; g.to(nav, { yPercent: -140, duration: .5, ease: 'power3.inOut' }); };
-    ST.create({
-      start: 'top top',
-      end: 'max',
-      onUpdate: (self) => {
-        if (self.scroll() < 80) { show(); return; }
-        if (self.direction === 1) hide(); else show();
-      }
-    });
-    if (word) {
-      ST.create({
-        trigger: '#abertura', start: 'bottom top+=120', end: 'max',
-        onEnter: () => g.to(word, { opacity: 0, x: -8, duration: .4, ease: 'power2.out' }),
-        onLeaveBack: () => g.to(word, { opacity: 1, x: 0, duration: .4, ease: 'power2.out' })
-      });
-    }
   }
 
   setupLenis() {
@@ -878,7 +655,6 @@ class Component extends DCLogic {
       this.onAnchor = (e) => {
         const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
         if (!a) return;
-        if (a.closest('[data-row]')) return; // rows are handled by onRowTap
         const id = a.getAttribute('href');
         if (!id || id === '#') return;
         const el = document.querySelector(id);
@@ -895,6 +671,23 @@ class Component extends DCLogic {
     } catch (e) { this.lenis = null; }
   }
 
+  toggleMenu(open) {
+    const menu = this.one('[data-menu]');
+    if (!menu) return;
+    menu.style.pointerEvents = open ? 'auto' : 'none';
+    if (this.lenis) { if (open) this.lenis.stop(); else this.lenis.start(); }
+    const items = this.q('[data-menu-item]');
+    if (!window.gsap) { menu.style.clipPath = open ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)'; return; }
+    const g = window.gsap;
+    if (open) {
+      g.timeline()
+        .to(menu, { clipPath: 'inset(0% 0 0% 0)', duration: .8, ease: 'power4.inOut' })
+        .from(items, { yPercent: 30, opacity: 0, duration: .7, stagger: .05, ease: 'expo.out' }, .3);
+    } else {
+      g.to(menu, { clipPath: 'inset(0 0 100% 0)', duration: .7, ease: 'power4.inOut' });
+    }
+  }
+
   revealCurtain(instant) {
     const curtain = this.one('[data-curtain]');
     if (!curtain) return;
@@ -903,39 +696,150 @@ class Component extends DCLogic {
     const emblem = this.one('[data-curtain-emblem]');
     const fill = this.one('[data-curtain-fill]');
     const lockup = this.one('[data-curtain-lockup-in]');
-    const navMark = this.one('[data-nav] img');
+    const navMark = this.one('[data-nav-mark]');
     const load = { v: 0 };
-
-    // where the curtain emblem must land to sit exactly on the nav emblem
+    // where the curtain lamb must land to sit exactly on the nav lamb
     const flight = () => {
       if (!emblem || !navMark) return { x: 0, y: 0, s: .3 };
       const a = emblem.getBoundingClientRect(), b = navMark.getBoundingClientRect();
-      return {
-        x: (b.left + b.width / 2) - (a.left + a.width / 2),
-        y: (b.top + b.height / 2) - (a.top + a.height / 2),
-        s: b.width / a.width
-      };
+      return { x: (b.left + b.width / 2) - (a.left + a.width / 2), y: (b.top + b.height / 2) - (a.top + a.height / 2), s: b.width / a.width };
     };
-
     g.timeline({ delay: .12 })
-      .from(emblem, { scale: .82, opacity: 0, duration: .9, ease: 'expo.out' })
-      // the lamb fills bottom-up as the loader advances
+      .from(emblem, { scale: .86, opacity: 0, duration: .9, ease: 'expo.out' })
       .to(load, {
-        v: 1, duration: 1.5, ease: 'power2.inOut',
-        onUpdate: () => {
-          if (fill) fill.style.clipPath = 'inset(' + ((1 - load.v) * 100).toFixed(2) + '% 0 0 0)';
-        }
-      }, .35)
-      .from(lockup, { yPercent: 105, duration: 1, ease: 'expo.out' }, 1.15)
-      // the lamb flies into the nav slot, then the curtain lifts off it
-      .to(emblem, {
-        duration: 1.05, ease: 'power4.inOut',
-        x: () => flight().x, y: () => flight().y, scale: () => flight().s
-      }, 2.05)
-      .to(lockup, { yPercent: -105, duration: .8, ease: 'power4.inOut' }, 2.35)
-      .to(curtain, { clipPath: 'inset(0 0 100% 0)', duration: 1.05, ease: 'power4.inOut' }, 2.6)
-      .from('[data-hero-mark]', { yPercent: 8, duration: 1.2, ease: 'expo.out' }, 2.95)
+        v: 1, duration: 1.4, ease: 'power2.inOut',
+        onUpdate: () => { if (fill) fill.style.clipPath = 'inset(' + ((1 - load.v) * 100).toFixed(2) + '% 0 0 0)'; }
+      }, .3)
+      .from(lockup, { yPercent: 105, duration: 1, ease: 'expo.out' }, 1.05)
+      .to(emblem, { duration: 1.05, ease: 'power4.inOut', x: () => flight().x, y: () => flight().y, scale: () => flight().s }, 1.9)
+      .to(lockup, { yPercent: -105, duration: .8, ease: 'power4.inOut' }, 2.15)
+      .to(curtain, { opacity: 0, duration: .6, ease: 'power2.out' }, 2.8)
       .set(curtain, { display: 'none' });
+  }
+
+  // ---- 03 manifesto film: a small 4:3 plate that opens into a large plate on the page
+  bindFilm() {
+    const v = this.one('[data-film-video]');
+    const btn = this.one('[data-film-sound]');
+    this.filmVideo = v;
+    this.filmSound = btn;
+    if (!v) return;
+    // set as properties: the attributes don't survive the template renderer reliably
+    v.muted = true;
+    v.loop = true;
+    v.playsInline = true;
+    v.setAttribute('playsinline', '');
+    v.setAttribute('muted', '');
+    // judged by the element's own state: no file yet keeps the wool placeholder visible
+    const sync = () => {
+      const missing = !!v.error && v.readyState === 0;
+      v.style.display = missing ? 'none' : '';
+      if (btn) btn.style.visibility = missing ? 'hidden' : '';
+    };
+    ['error', 'loadeddata'].forEach((ev) => v.addEventListener(ev, sync));
+    sync();
+    this.paintSound();
+    if (btn) {
+      this.onFilmSound = () => {
+        v.muted = !v.muted;
+        if (v.paused) this.playFilm();
+        this.paintSound();
+      };
+      btn.addEventListener('click', this.onFilmSound);
+    }
+    // plays only while on screen; leaving also silences it
+    if ('IntersectionObserver' in window) {
+      this.filmIO = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { if (!this.reduced) this.playFilm(); }
+          else { v.pause(); if (!v.muted) { v.muted = true; this.paintSound(); } }
+        });
+      }, { threshold: 0.15 });
+      this.filmIO.observe(this.one('[data-film]'));
+    }
+  }
+
+  playFilm() {
+    const v = this.filmVideo;
+    if (!v) return;
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+  }
+
+  paintSound() {
+    const v = this.filmVideo, btn = this.filmSound;
+    if (!v || !btn) return;
+    btn.textContent = this.reduced && v.paused ? 'Assistir com som' : (v.muted ? 'Ativar som' : 'Silenciar');
+  }
+
+  filmLayout(p) {
+    this.lastFP = p;
+    const sec = this.one('[data-film]');
+    const plate = this.one('[data-film-plate]');
+    if (!sec || !plate) return;
+    const vw = sec.clientWidth, vh = sec.clientHeight;
+    const cl = (v, a, b) => Math.min(Math.max(v, a), b);
+    const seg = (a, b) => cl((p - a) / (b - a), 0, 1);
+    const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const gut = cl(vw * .03, 16, 46);
+    const top = 56 + cl(vh * .05, 28, 56) + 32;   // nav + folio
+    const bottom = 64;                              // caption
+    // the plate at rest: as large as the page allows, always 4:3
+    const H1 = Math.max(120, Math.min((vw - gut * 2) * 3 / 4, vh - top - bottom));
+    const W1 = H1 * 4 / 3;
+    const y1 = top + (vh - top - bottom - H1) / 2;
+    const x1 = (vw - W1) / 2;
+    const W0 = this.mob ? vw * .5 : Math.min(vw * .24, 360);
+    const s0 = Math.min(1, W0 / W1);
+    const E = ease(seg(0, .74));
+    const s = lerp(s0, 1, E);
+    Object.assign(plate.style, { left: x1.toFixed(1) + 'px', top: y1.toFixed(1) + 'px', width: W1.toFixed(1) + 'px', height: H1.toFixed(1) + 'px', margin: '0', transform: 'scale(' + s.toFixed(4) + ')' });
+    if (this.filmVideo) this.filmVideo.style.transform = 'scale(' + lerp(1.12, 1, E).toFixed(4) + ')';
+
+    // the two lines sit on the plate's centre line and are pushed out by its edges
+    const words = this.one('[data-film-words]');
+    if (words) words.style.transform = 'translate3d(0,' + (y1 + H1 / 2 - vh / 2).toFixed(1) + 'px,0)';
+    const H0 = H1 * s0;
+    const gap = this.one('[data-film-gap]');
+    if (gap) gap.style.height = (H0 + (this.mob ? 24 : 40)).toFixed(0) + 'px';
+    const push = (H1 * s - H0) / 2;
+    const fade = 1 - seg(.3, .62);
+    this.q('[data-film-line]').forEach((el) => {
+      const dir = parseFloat(el.getAttribute('data-film-line')) || 1;
+      el.style.transform = 'translate3d(0,' + (dir * push * 1.1).toFixed(1) + 'px,0)';
+      el.style.opacity = fade.toFixed(3);
+    });
+    const cap = this.one('[data-film-cap]');
+    if (cap) {
+      const t = seg(.76, .94);
+      Object.assign(cap.style, { left: x1.toFixed(1) + 'px', top: (y1 + H1 + 12).toFixed(1) + 'px', width: W1.toFixed(1) + 'px', opacity: t.toFixed(3), pointerEvents: t > .5 ? 'auto' : 'none' });
+    }
+  }
+
+  setupFilm(g, ST) {
+    const sec = this.one('[data-film]');
+    if (!sec) return;
+    const dist = () => this.mob
+      ? Math.min(Math.max(window.innerHeight * 1.1, 700), 1100)
+      : Math.min(Math.max(window.innerHeight * 1.5, 1000), 1700);
+    ST.create({
+      trigger: sec, start: 'top top', end: () => '+=' + dist(),
+      pin: true, scrub: true, anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate: (self) => this.filmLayout(self.progress),
+      onRefresh: (self) => this.filmLayout(self.progress || 0)
+    });
+    this.filmLayout(0);
+    this.onFilmResize = () => this.filmLayout(this.lastFP || 0);
+    window.addEventListener('resize', this.onFilmResize);
+  }
+
+  // no scroll engine or reduced motion: the film simply rests as the large plate
+  staticFilm() {
+    this.filmLayout(1);
+    this.paintSound();
+    this.onFilmResize = () => this.filmLayout(1);
+    window.addEventListener('resize', this.onFilmResize);
   }
 
   setupMotion() {
@@ -944,59 +848,42 @@ class Component extends DCLogic {
     if (ST) g.registerPlugin(ST);
     const soft = this.props.motion === 'contido';
 
-    if (this.reduced) { this.revealCurtain(true); this.staticMorph(); return; }
+    if (this.reduced) { this.revealCurtain(true); this.staticFilm(); return; }
     this.revealCurtain(false);
 
+    // type rises out of its line; on the cover it waits for the curtain to clear
     this.q('[data-mask]').forEach((wrap) => {
       const inner = wrap.querySelectorAll('[data-mask-in]');
       if (!inner.length) return;
+      const onCover = !!wrap.closest('#capa');
       g.from(inner, {
         yPercent: 108, duration: soft ? .9 : 1.25, ease: 'expo.out', stagger: .09,
-        scrollTrigger: ST ? { trigger: wrap, start: 'top 88%', once: true } : undefined
+        delay: onCover ? 2.7 : 0,
+        scrollTrigger: ST && !onCover ? { trigger: wrap, start: 'top 90%', once: true } : undefined
       });
     });
 
     this.q('[data-fade]').forEach((el) => {
       g.from(el, {
-        y: soft ? 12 : 26, opacity: 0, duration: soft ? .7 : 1, ease: 'expo.out',
+        y: soft ? 10 : 18, opacity: 0, duration: soft ? .7 : 1, ease: 'expo.out',
         scrollTrigger: ST ? { trigger: el, start: 'top 92%', once: true } : undefined
       });
     });
 
-    if (!ST) return;
+    if (!ST) { this.staticFilm(); return; }
 
-    this.setupNav(g, ST);
-    this.setupMorph(g, ST);
-
-    this.q('[data-par]').forEach((el) => {
-      const amt = parseFloat(el.getAttribute('data-par')) || .08;
-      g.to(el, { yPercent: -amt * 100, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
+    // plates are uncovered like a print laid on the page
+    this.q('[data-plate]').forEach((fig) => {
+      const frame = fig.querySelector('.frame');
+      const img = fig.querySelector('img');
+      if (!frame) return;
+      g.timeline({ scrollTrigger: { trigger: fig, start: 'top 88%', once: true } })
+        .fromTo(frame, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: soft ? 1 : 1.4, ease: 'expo.out' })
+        .fromTo(img, { scale: 1.12 }, { scale: 1, duration: soft ? 1.2 : 1.8, ease: 'expo.out' }, 0);
     });
 
-    this.q('[data-band-word]').forEach((el, i) => {
-      g.from(el, {
-        xPercent: i % 2 === 0 ? -6 : 6, ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 }
-      });
-    });
-
-    const strip = this.one('[data-strip]');
-    const wrap = this.one('[data-strip-wrap]');
-    if (strip && wrap && window.innerWidth > 720) {
-      const dist = () => Math.max(0, strip.scrollWidth - window.innerWidth + 60);
-      g.to(strip, {
-        x: () => -dist(), ease: 'none',
-        scrollTrigger: { trigger: wrap, start: 'center center', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 }
-      });
-    }
-
-    const rows = this.q('[data-row]');
-    if (rows.length) {
-      g.from(rows, {
-        yPercent: 30, opacity: 0, duration: 1, ease: 'expo.out', stagger: .06,
-        scrollTrigger: { trigger: this.one('[data-index]'), start: 'top 82%', once: true }
-      });
-    }
+    this.setupFilm(g, ST);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
   }
 }
 
