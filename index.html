@@ -12,7 +12,7 @@
 <title>Samuel Cipriano Studio</title>
 <link rel="stylesheet" href="https://use.typekit.net/elq3gla.css">
 <style>
-  /* Edição 01 — one sheet of paper from cover to colophon. Color lives only inside
+  /* One sheet of paper from cover to colophon. Color lives only inside
      pieces (plates, the film, the business card), never as a section background.
      Type follows the brandbook: IvyPresto Display Thin for titles, Neue Haas Grotesk
      for text, sentence case, tracking 0, scale ×1,618 from 12. */
@@ -21,13 +21,15 @@
     --ink: #034638;
     --wool: #E5D0B1;
     --red: #D22630;
-    --muted: rgba(3,70,56,.72);
-    --rule: rgba(3,70,56,.22);
+    --muted: #034638;
+    --rule: rgba(3,70,56,.2);
     --g: clamp(16px, 3vw, 46px);
-    --nav: 56px;
+    --nav: 60px;
   }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-kerning: normal; }
-  body { margin: 0; background: var(--paper); color: var(--ink); overflow-x: clip; }
+  html { overflow-x: clip; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-kerning: normal; }
+  /* paper grain: a faint printed texture on the sheet itself (behind everything, never on the logo) */
+  :root { --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .012 0 0 0 0 .275 0 0 0 0 .22 .9 0 0 0 -.56'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  body { margin: 0; background: var(--paper) var(--grain); color: var(--ink); overflow-x: clip; }
   * { box-sizing: border-box; }
   a { color: inherit; text-decoration: none; }
   a:hover { color: var(--red); }
@@ -35,16 +37,16 @@
   img { display: block; }
   button { font: inherit; color: inherit; }
 
-  .scs { position: relative; width: 100%; background: var(--paper); font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; }
+  .scs { position: relative; width: 100%; background: var(--paper) var(--grain); font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; }
   .scs section { scroll-margin-top: var(--nav); }
 
   /* ---- type */
   .t-display, .t-title, .t-serif { font-family: 'ivypresto-display', serif; font-weight: 100; letter-spacing: 0; margin: 0; }
   .t-display { font-size: clamp(3.1rem, 9.2vw, 8.3rem); line-height: 1.02; }
   .t-title { font-size: clamp(2.4rem, 5.6vw, 5.1rem); line-height: 1.04; }
-  .t-sub { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.96rem); line-height: 1.22; letter-spacing: 0; margin: 0; }
-  .t-body { font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.4; margin: 0; }
-  .t-small { font-family: 'neue-haas-grotesk-text', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.35; letter-spacing: 0; }
+  .t-sub { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.96rem); line-height: calc(1em + 5px); letter-spacing: 0; margin: 0; }
+  .t-body { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.3; margin: 0; }
+  .t-small { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.35; letter-spacing: 0; }
   .it { font-style: italic; }
   .muted { color: var(--muted); }
   .t-body + .t-body { margin-top: 1em; }
@@ -64,85 +66,93 @@
   .plate figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; }
 
   /* ---- nav */
-  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 120; height: var(--nav); display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 var(--g); background: var(--paper); border-bottom: 1px solid var(--rule); }
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 120; height: var(--nav); display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 var(--g); background: var(--paper) var(--grain); border-bottom: 1px solid var(--rule); }
   .nav-home { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
-  .nav-home img { width: 13px; height: auto; }
+  .nav-home img { height: 40px; width: auto; }
   .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
   .nav-btn { appearance: none; border: 0; background: none; padding: 8px 0; cursor: pointer; }
   .nav-btn:hover { color: var(--red); }
 
   /* ---- curtain: same paper as the page, the lamb fills in as the loader */
-  .curtain { position: fixed; inset: 0; z-index: 200; background: var(--paper); pointer-events: none; overflow: hidden; }
+  .curtain { position: fixed; inset: 0; z-index: 200; background: var(--paper) var(--grain); pointer-events: none; overflow: hidden; }
   .curtain-emblem { position: absolute; top: 50%; left: 50%; width: clamp(96px, 11vw, 150px); transform: translate3d(-50%,-50%,0); will-change: transform; }
-  .curtain-lockup { position: absolute; left: var(--g); bottom: var(--g); width: min(30vw, 260px); overflow: hidden; }
 
   /* ---- menu: the table of contents, full page */
-  .menu { position: fixed; inset: 0; z-index: 150; background: var(--paper); clip-path: inset(0 0 100% 0); pointer-events: none; display: grid; grid-template-rows: var(--nav) 1fr auto; padding: 0 var(--g) var(--g); }
+  .menu { position: fixed; inset: 0; z-index: 150; background: var(--paper) var(--grain); clip-path: inset(0 0 100% 0); pointer-events: none; display: grid; grid-template-rows: var(--nav) 1fr auto; padding: 0 var(--g) var(--g); }
   .menu-top { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); }
   .menu-list { display: flex; flex-direction: column; justify-content: center; }
   .menu-list a { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: clamp(8px, 1.6vh, 16px) 0; border-bottom: 1px solid var(--rule); }
   .menu-list .t-serif { font-size: clamp(2rem, 5.2vw, 4.4rem); line-height: 1.04; }
   .menu-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 18px; }
 
+  /* ---- flora: public-domain botanical plates (brandbook p. 44) that grow in from the page edges.
+     .flora takes the scroll drift, .flora-turn the fixed angle, .flora-clip the ragged reveal and
+     the wind, the img the settling. Stem is always at the bottom of the plate. */
+  .flora { position: absolute; z-index: 0; pointer-events: none; aspect-ratio: var(--ar); transform-origin: 50% 100%; }
+  .flora-turn, .flora-clip { width: 100%; height: 100%; transform-origin: 50% 100%; }
+  .flora-turn { translate: var(--tx, 0) var(--ty, 0); }
+  .flora img { display: block; width: 100%; height: 100%; transform-origin: 50% 100%; }
+
   /* ---- 01 capa */
-  .capa { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; padding: calc(var(--nav) + clamp(18px, 3.5vh, 36px)) var(--g) clamp(18px, 3.5vh, 34px); }
-  .capa-meta { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: baseline; }
-  .capa-meta > :last-child { text-align: right; }
-  .capa-center { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(18px, 3.4vh, 36px); padding: clamp(20px, 4vh, 48px) 0; text-align: center; }
-  .capa-mark { height: max(110px, min(calc((100vw - 2 * var(--g)) / 1.511), 640px, calc(100svh - 400px))); width: auto; max-width: 100%; }
-  .capa-tag { font-size: clamp(1.5rem, 2.8vw, 2.6rem); line-height: 1.1; }
+  .capa { position: relative; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; padding: calc(var(--nav) + clamp(18px, 3.5vh, 36px)) var(--g) clamp(18px, 3.5vh, 34px); }
+  .capa-meta { text-align: center; }
+  /* logotipo is 338.36 × 77.54; its safe area is the height of its "O", 0.104 of its width */
+  .capa-center { --logo-w: min(100vw - 2 * var(--g), 1180px, (100svh - 300px) * 4.364); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(var(--logo-w) * .104); padding: clamp(20px, 4vh, 48px) 0; text-align: center; }
+  .capa-mark { width: var(--logo-w); height: auto; }
+  .capa-tag { font-size: clamp(1.5rem, 2.8vw, 2.6rem); line-height: calc(1em + 4px); }
+  .capa-center, .capa-meta { position: relative; z-index: 1; }
+  /* height is set by layoutCapaFlora so the plates stay clear of the logo's safe area and the line */
+  .flora-capa-l { left: 0; bottom: 0; height: 0; --tx: -16%; }
+  .flora-capa-r { right: 0; bottom: 0; height: 0; --tx: 14%; }
 
   /* ---- 02 sumário */
-  .toc { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(40px, 6vw, 96px); }
-  .toc-side { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
-  .toc-side img { width: clamp(52px, 5vw, 76px); height: auto; }
-  .toc-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(24px, 4vw, 64px); align-content: start; }
-  .toc-list a { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 18px 0; border-top: 1px solid var(--rule); }
 
   /* ---- 03 manifesto em filme (4:3) */
   .film { position: relative; height: 100svh; overflow: hidden; }
   .film > .folio { position: absolute; top: 0; left: 0; right: 0; padding: calc(var(--nav) + clamp(28px, 5vh, 56px)) var(--g) 0; z-index: 3; }
   .film-plate { position: absolute; left: 50%; top: 50%; width: 320px; height: 240px; margin: -120px 0 0 -160px; overflow: hidden; background: var(--wool); transform-origin: 50% 50%; will-change: transform; z-index: 1; }
-  .film-plate video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; will-change: transform; }
+  .film-yt { position: absolute; inset: 0; transform-origin: 50% 50%; will-change: transform; }
+  .film-yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
   .film-ph { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; text-align: center; }
-  .film-ph img { width: clamp(34px, 3.4vw, 56px); height: auto; }
+  .film-ph img { height: clamp(36px, 3.4vw, 56px); width: auto; }
   .film-words { position: absolute; left: 0; right: 0; top: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 var(--g); text-align: center; pointer-events: none; z-index: 2; }
   .film-words .t-serif { font-size: clamp(2.2rem, 6.4vw, 6.2rem); line-height: 1.02; will-change: transform, opacity; }
   .film-cap { position: absolute; left: 0; top: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; opacity: 0; z-index: 3; }
   .link-btn { appearance: none; border: 0; border-bottom: 1px solid currentColor; background: none; padding: 0 0 2px; cursor: pointer; }
   .link-btn:hover { color: var(--red); }
 
-  /* ---- 04 estúdio */
-  .est-head { display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
-  .sq { display: inline-flex; align-items: center; gap: 8px; }
-  .sq::before { content: ""; width: 8px; height: 8px; background: var(--red); }
-  .est-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 40px; margin-top: clamp(56px, 9vh, 110px); }
-  .est-small { grid-column: 2 / span 2; align-self: start; }
-  .est-small .frame { aspect-ratio: 4 / 5; }
-  .est-big { grid-column: 4 / span 4; }
-  .est-big .frame { aspect-ratio: 4 / 5; }
-  .est-text { grid-column: 9 / span 4; align-self: end; max-width: 42ch; }
-  .est-text .t-serif { font-size: clamp(1.2rem, 1.6vw, 1.5rem); line-height: 1.2; margin-top: 1.6em; }
-  .values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 64px); margin-top: clamp(72px, 12vh, 140px); }
-  .values > div { border-top: 1px solid var(--rule); padding-top: 16px; }
-  .values .t-serif { font-size: clamp(1.6rem, 2.4vw, 2.2rem); line-height: 1.1; margin: 10px 0 12px; }
+  /* ---- 04 estúdio + 05 serviços: editorial and quiet — type, white space and hairlines only */
+  .ed { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 40px; align-items: start; }
+  .ed + .ed { margin-top: clamp(110px, 18vh, 220px); }
+  .ed-side { grid-column: 1 / span 4; }
+  .ed-main { grid-column: 6 / span 5; }
+  .ed-title { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed-attrs { list-style: none; margin: clamp(28px, 5vh, 48px) 0 0; padding: 0; }
+  .ed-attrs li { font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: calc(1em + 4px); padding: .28em 0; }
+  .ed-lead { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed-note { max-width: 44ch; margin-top: clamp(28px, 5vh, 48px); }
+  /* a number in a hairline circle, as a footnote mark */
+  .nc { display: inline-grid; place-items: center; width: 1.75em; height: 1.75em; margin-left: .3em; border: 1px solid currentColor; border-radius: 50%; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-style: normal; font-weight: 400; font-size: max(12px, .42em); line-height: 1; letter-spacing: 0; vertical-align: .95em; }
+  .vals { margin: 0; }
+  .vals > div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(16px, 3vw, 48px); padding: clamp(18px, 3vh, 28px) 0; border-top: 1px solid var(--rule); }
+  .vals > div:last-child { border-bottom: 1px solid var(--rule); }
+  .vals dt { font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: calc(1em + 4px); }
+  .vals dd { margin: 0; }
+  #estudio > :not(.flora) { position: relative; z-index: 1; }
+  /* hangs from the right edge beside the text, like the trumpet vine on brandbook p. 44 */
+  .flora-est { right: 0; top: calc(var(--nav) + clamp(64px, 9vh, 96px)); height: clamp(320px, 30vw, 460px); --tx: 30%; }
+  .flora-est .flora-turn { transform-origin: 50% 50%; rotate: 196deg; }
 
-  /* ---- 05 serviços: chapters stacked like pages, each leaving its tab */
-  .srv-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(56px, 9vh, 100px); }
-  .pages { --tab: 58px; position: relative; }
-  .page { position: relative; background: var(--paper); border-top: 1px solid var(--ink); padding-bottom: clamp(36px, 6vh, 64px); }
-  .page-tab { display: grid; grid-template-columns: clamp(44px, 6vw, 92px) minmax(0, 1fr) auto; align-items: baseline; gap: 16px; height: var(--tab); padding-top: 12px; }
-  .page-tab .num { font-family: 'ivypresto-display', serif; font-weight: 100; font-size: 30px; line-height: 1; }
-  .page-tab .t-serif { font-size: clamp(1.4rem, 2vw, 1.9rem); line-height: 1.1; }
-  .page-body { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); padding-top: clamp(16px, 3vh, 32px); padding-left: calc(clamp(44px, 6vw, 92px) + 16px); }
-  .page-list { list-style: none; margin: clamp(22px, 4vh, 40px) 0 0; padding: 0; }
-  .page-list li { display: flex; gap: 16px; padding: 10px 0; border-top: 1px solid var(--rule); }
-  .page-list li span:first-child { width: 2.2em; flex: none; color: var(--muted); }
-  .page .plate .frame { aspect-ratio: 4 / 3; }
-  @media (min-width: 900px) and (min-height: 640px) {
-    .page { position: sticky; top: calc(var(--nav) + var(--i) * var(--tab)); height: calc(100svh - var(--nav) - 3 * var(--tab)); padding-bottom: 0; }
-    .page .plate .frame { aspect-ratio: auto; height: calc(100svh - var(--nav) - 4 * var(--tab) - clamp(16px, 3vh, 32px) - 64px); }
-  }
+  /* the four stages climb like steps; one hairline draws through them as the page is read */
+  .srv-lead { grid-column: 1 / span 5; }
+  .srv-lead .ed-lead { margin-top: clamp(28px, 5vh, 56px); }
+  .stairs { --rise: clamp(70px, 8vw, 120px); position: relative; grid-column: 6 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: clamp(18px, 2vw, 32px); padding-top: 1px; }
+  .stairs-line { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .stairs-line path { fill: none; stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .step { margin-top: calc((3 - var(--i)) * var(--rise)); padding-top: clamp(16px, 2.4vh, 24px); }
+  .step h3 { white-space: nowrap; font-size: clamp(1.1rem, 1.45vw, 1.4rem); line-height: calc(1em + 4px); margin: 0 0 clamp(14px, 2.4vh, 22px); }
+  .step ul { list-style: none; margin: 0; padding: 0; }
+  .step li { padding: .18em 0; }
 
   /* ---- 06 projetos: catalogue spreads */
   .proj-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px; }
@@ -165,62 +175,68 @@
   .c .sp-full .frame { aspect-ratio: 16 / 8; }
   .sp-over { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; padding: clamp(16px, 2.4vw, 32px); color: var(--paper); background: rgba(16,24,32,.34); z-index: 1; }
   .sp-over .center { display: grid; place-items: center; text-align: center; }
-  .sp-over .t-serif { font-weight: 300; font-size: clamp(1.3rem, 2.5vw, 2.4rem); line-height: 1.22; max-width: 26ch; }
+  .sp-over .t-serif { font-size: clamp(1.3rem, 2.5vw, 2.4rem); line-height: calc(1em + 4px); max-width: 26ch; }
   .sp-over .corners { display: flex; justify-content: space-between; gap: 16px; }
   .sp-over .top { text-align: center; }
 
   /* ---- 07 carta (manifesto escrito) */
-  .carta { text-align: center; }
+  .carta { position: relative; text-align: center; }
+  .carta > :not(.flora) { position: relative; z-index: 1; }
+  .flora-carta-l { left: 0; bottom: 0; height: clamp(360px, 36vw, 540px); --tx: -40%; }
+  .flora-carta-r { right: 0; bottom: 0; height: clamp(300px, 30vw, 460px); --tx: 36%; }
   .carta .t-display { padding: clamp(32px, 6vh, 64px) 0; }
   .carta-lead { max-width: 33ch; margin: clamp(40px, 7vh, 80px) auto; }
   .carta-cols { columns: 2; column-gap: clamp(32px, 5vw, 72px); max-width: 920px; margin: clamp(40px, 7vh, 80px) auto 0; text-align: center; }
   .carta-cols p { break-inside: avoid; }
   .carta-end { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-top: clamp(56px, 9vh, 100px); }
   .carta-end .t-serif { font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1.08; }
-  .sign { font-family: 'sloop-script-two', cursive; font-size: clamp(2.4rem, 4.6vw, 4rem); line-height: 1; color: var(--red); }
+  .sign { font-family: 'ivypresto-display', serif; font-weight: 100; font-style: italic; font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1; color: var(--red); }
 
   /* ---- 08 contato + colofão */
   .ct-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 56px; align-items: center; }
   .ct-text { grid-column: 1 / span 6; }
   .ct-text .t-body { max-width: 40ch; margin-top: clamp(22px, 4vh, 36px); }
   .ct-mail { display: inline-block; margin-top: 26px; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
-  .card { grid-column: 8 / span 5; aspect-ratio: 1.62; background: var(--ink); color: var(--wool); display: grid; grid-template-rows: auto 1fr; padding: clamp(18px, 2.4vw, 32px) clamp(20px, 3vw, 40px); }
-  .card img { width: 18px; height: auto; margin: 0 auto; }
+  .flora-card { grid-column: 8 / span 1; grid-row: 1; justify-self: start; align-self: start; position: relative; height: clamp(260px, 26vw, 400px); --tx: -52%; --ty: -30%; }
+  .card { position: relative; z-index: 1; grid-row: 1; grid-column: 8 / span 5; aspect-ratio: 1.62; background: var(--ink); color: var(--wool); display: grid; grid-template-rows: auto 1fr; padding: clamp(18px, 2.4vw, 32px) clamp(20px, 3vw, 40px); }
+  .card img { height: 36px; width: auto; margin: 0 auto; }
   .card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; }
   .card li { border-top: 1px solid rgba(229,208,177,.3); }
   .card li:first-child { border-top: 0; }
-  .card a { display: block; padding: clamp(6px, 1vw, 12px) 0; text-align: center; font-family: 'ivypresto-display', serif; font-weight: 300; font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.2; }
+  .card a { display: block; padding: clamp(6px, 1vw, 12px) 0; text-align: center; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.3; }
   .card a:hover { color: var(--paper); }
-  .colophon { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: baseline; margin-top: clamp(88px, 14vh, 160px); padding-top: 14px; border-top: 1px solid var(--rule); }
-  .colophon > :last-child { text-align: right; }
-  .masthead { height: min(38svh, calc((100vw - 2 * var(--g)) / 1.511)); width: auto; max-width: 100%; margin-top: clamp(40px, 7vh, 80px); }
+  .colophon { margin-top: clamp(88px, 14vh, 160px); padding-top: 14px; border-top: 1px solid var(--rule); }
+  .masthead { --logo-w: min(100vw - 2 * var(--g), 720px, 38svh * 2.275); width: var(--logo-w); height: auto; margin: calc(var(--logo-w) * .101) 0 max(0px, var(--logo-w) * .101 - clamp(24px, 4vh, 44px)); }
 
   @media (max-width: 900px) {
-    .toc { grid-template-columns: 1fr; }
-    .toc-side { flex-direction: row; align-items: end; }
-    .est-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-    .est-big { grid-column: 1 / span 4; }
-    .est-small { grid-column: 5 / span 2; align-self: end; }
-    .est-text { grid-column: 1 / -1; max-width: none; }
-    .values { grid-template-columns: 1fr; row-gap: 28px; }
-    .srv-head { grid-template-columns: 1fr; }
-    .page-body { grid-template-columns: 1fr; padding-left: 0; }
+    .ed-side, .ed-main, .srv-lead { grid-column: 1 / -1; }
+    .vals > div { grid-template-columns: 1fr; gap: 8px; }
     .spread { grid-template-columns: repeat(6, minmax(0, 1fr)); }
     .a .sp-text, .b .sp-text { grid-column: 1 / -1; grid-row: auto; }
     .a .sp-big, .b .sp-big { grid-column: 1 / span 4; grid-row: auto; }
     .a .sp-small, .b .sp-small { grid-column: 5 / span 2; grid-row: auto; align-self: end; }
     .c .sp-full .frame { aspect-ratio: 4 / 5; }
     .ct-text, .card { grid-column: 1 / -1; }
+    .ct-text { grid-row: 1; }
+    .card { grid-row: 2; }
+    .flora-card { grid-column: 1 / -1; grid-row: 2; height: 240px; --tx: 8%; --ty: -64%; }
     .card { aspect-ratio: auto; row-gap: 14px; }
   }
+  @media (max-width: 1100px) {
+    .flora-est, .flora-carta-l, .flora-carta-r { display: none; }
+    .stairs { grid-column: 1 / -1; margin-top: clamp(24px, 4vh, 48px); }
+  }
+  @media (min-width: 901px) and (max-width: 1100px) {
+    .ed-main { grid-column: 6 / -1; }
+    .srv-lead { grid-column: 1 / span 8; }
+  }
+  @media (max-width: 700px) {
+    .stairs { grid-template-columns: 1fr; }
+    .stairs-line { display: none; }
+    .step { margin-top: 0; padding: 18px 0 28px; border-top: 1px solid var(--ink); }
+  }
   @media (max-width: 600px) {
-    .toc-list { grid-template-columns: 1fr; }
-    .capa-meta { grid-template-columns: 1fr 1fr; }
-    .capa-meta > :nth-child(2) { display: none; }
     .carta-cols { columns: 1; }
-    .colophon { grid-template-columns: 1fr; }
-    .colophon > :last-child { text-align: left; }
-    .nav-home .ed { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 </style>
@@ -233,32 +249,24 @@
 
   <div class="curtain" data-curtain>
     <div class="curtain-emblem" data-curtain-emblem>
-      <div style="position: relative; width: 100%;">
-        <img src="assets/emblem-verde.svg" alt="" style="width: 100%; height: auto; opacity: .16;">
-        <div data-curtain-fill style="position: absolute; inset: 0; clip-path: inset(100% 0 0 0); will-change: clip-path;">
-          <img src="assets/emblem-verde.svg" alt="Samuel Cipriano Studio" style="width: 100%; height: auto;">
-        </div>
+      <div data-curtain-fill style="clip-path: inset(100% 0 0 0); will-change: clip-path;">
+        <img src="assets/isotipo-verde.svg" alt="Samuel Cipriano Studio" style="width: 100%; height: auto;">
       </div>
-    </div>
-    <div class="curtain-lockup">
-      <img data-curtain-lockup-in src="assets/lockup-verde.svg" alt="" style="width: 100%; height: auto; will-change: transform;">
     </div>
   </div>
 
   <nav class="nav t-small" data-nav>
-    <a class="nav-home" href="#capa">
-      <img data-nav-mark src="assets/emblem-verde.svg" alt="">
-      <span><b style="font-weight: 600;">Samuel Cipriano Studio</b> <span class="ed">Edição 01</span></span>
+    <a class="nav-home" href="#capa" aria-label="Samuel Cipriano Studio, início">
+      <img data-nav-mark src="assets/imagotipo-verde.svg" alt="Samuel Cipriano Studio">
     </a>
     <div class="nav-links">
-      <span data-clock class="muted" style="white-space: nowrap;">Brasil</span>
       <button class="nav-btn t-small" onClick="{{ openMenu }}">Sumário</button>
     </div>
   </nav>
 
   <div class="menu" data-menu>
     <div class="menu-top t-small">
-      <span><b style="font-weight: 600;">Sumário</b> <span class="muted">Edição 01</span></span>
+      <span><b style="font-weight: 600;">Sumário</b></span>
       <button class="nav-btn t-small" onClick="{{ closeMenu }}">Fechar</button>
     </div>
     <div class="menu-list">
@@ -277,42 +285,18 @@
 
   <!-- 01 · Capa -->
   <section id="capa" class="capa" data-screen-label="01 Capa">
-    <div class="capa-meta t-small">
-      <span>Edição Nº 01</span>
-      <span>Estúdio de branding</span>
-      <span>MMXXVI</span>
-    </div>
+    <div class="flora flora-capa-l" data-flora aria-hidden="true" style="--ar: 0.5493;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-04.webp" alt="" decoding="async"></div></div></div>
+    <div class="flora flora-capa-r" data-flora aria-hidden="true" style="--ar: 0.615;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-01.webp" alt="" decoding="async"></div></div></div>
     <div class="capa-center">
       <div data-mask style="overflow: hidden; max-width: 100%;">
-        <img data-mask-in class="capa-mark" src="assets/lockup-verde.svg" alt="Samuel Cipriano Studio">
+        <img data-mask-in class="capa-mark" src="assets/logotipo-verde.svg" alt="Samuel Cipriano Studio">
       </div>
       <h1 data-mask style="overflow: hidden; margin: 0;">
         <span data-mask-in class="t-serif it capa-tag" style="display: block;">Construímos marcas diferentes, relevantes e desejadas.</span>
       </h1>
     </div>
     <div class="capa-meta t-small">
-      <span>Vale do Paraíba, SP</span>
       <span class="muted">Role para ler</span>
-      <span>Est. MMXXII</span>
-    </div>
-  </section>
-
-  <!-- 02 · Sumário -->
-  <section id="sumario" class="sec" data-screen-label="02 Sumário">
-    <div class="folio t-small"><span><b>Sumário</b> <span class="sep">|</span> Conteúdo desta edição</span><span>02</span></div>
-    <div class="toc">
-      <div class="toc-side">
-        <h2 data-mask style="overflow: hidden; margin: 0;"><span data-mask-in class="t-title" style="display: block;">Sumário</span></h2>
-        <img data-fade src="assets/emblem-verde.svg" alt="">
-      </div>
-      <div class="toc-list t-sub">
-        <a href="#manifesto"><span>Manifesto, o filme</span><span class="t-small">03</span></a>
-        <a href="#projetos"><span>Projetos</span><span class="t-small">06</span></a>
-        <a href="#estudio"><span>O estúdio</span><span class="t-small">04</span></a>
-        <a href="#carta"><span>Manifesto, o texto</span><span class="t-small">07</span></a>
-        <a href="#servicos"><span>Serviços</span><span class="t-small">05</span></a>
-        <a href="#contato"><span>Contato</span><span class="t-small">08</span></a>
-      </div>
     </div>
   </section>
 
@@ -321,10 +305,10 @@
     <div class="folio t-small"><span><b>Manifesto</b> <span class="sep">|</span> O filme</span><span>03</span></div>
     <div class="film-plate" data-film-plate>
       <div class="film-ph">
-        <img src="assets/emblem-verde.svg" alt="">
+        <img src="assets/isotipo-verde.svg" alt="">
         <span class="t-small">Filme manifesto · em breve</span>
       </div>
-      <video data-film-video src="assets/manifesto.mp4" preload="metadata" aria-label="Filme manifesto do Samuel Cipriano Studio"></video>
+      <div class="film-yt" data-film-yt aria-label="Filme manifesto do Samuel Cipriano Studio"></div>
     </div>
     <div class="film-words" data-film-words aria-hidden="true">
       <span data-film-line="-1" class="t-serif">Ame o que faz.</span>
@@ -339,135 +323,62 @@
 
   <!-- 04 · O estúdio -->
   <section id="estudio" class="sec" data-screen-label="04 O estúdio">
+    <div class="flora flora-est" data-flora aria-hidden="true" style="--ar: 0.6814;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-02.webp" alt="" loading="lazy" decoding="async"></div></div></div>
     <div class="folio t-small"><span><b>O estúdio</b> <span class="sep">|</span> Origem</span><span>04</span></div>
-    <div class="est-head">
-      <span data-fade class="t-small sq">Sobre</span>
-      <h2 style="margin: 0;">
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Uma resposta <span class="it">humana</span></span></span>
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">a uma era artificial.</span></span>
-      </h2>
-    </div>
-    <div class="est-grid">
-      <figure class="plate est-small" data-plate>
-        <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?w=700&amp;q=80&amp;auto=format&amp;fit=crop" alt="Mãos trabalhando sobre uma mesa de ateliê"></div>
-        <figcaption class="t-small"><span>(1)</span><span class="muted">Processo artesanal</span></figcaption>
-      </figure>
-      <figure class="plate est-big" data-plate>
-        <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Buquê de flores contra a luz quente do fim de tarde"></div>
-        <figcaption class="t-small"><span>(2)</span><span class="muted">A beleza está nos detalhes</span></figcaption>
-      </figure>
-      <div class="est-text">
-        <p data-fade class="t-body">Ao ver pessoas e marcas fazendo exatamente as mesmas coisas, usando as mesmas palavras, abrindo mão da humanidade em prol da performance, Samuel Cipriano abraçou a construção de marcas para dar voz a quem realmente se importa com o que faz e com quem consome o que faz.</p>
-        <p data-fade class="t-body muted">Somos um estúdio humano e artesanal. Nos dedicamos a poucos clientes por vez, não seguimos tendências passageiras e buscamos marcas relevantes, atemporais e desejadas.</p>
-        <p data-fade class="t-serif it muted">Fundado no Vale do Paraíba, MMXXII.</p>
+    <div class="ed">
+      <div class="ed-side">
+        <h2 data-fade class="t-serif ed-title">Somos um<br>estúdio de branding</h2>
+        <ul class="ed-attrs t-serif">
+          <li data-fade>Humano</li>
+          <li data-fade>Artesanal</li>
+          <li data-fade>Autêntico</li>
+          <li data-fade>Atemporal</li>
+        </ul>
+      </div>
+      <div class="ed-main">
+        <p data-fade class="t-serif ed-lead">Samuel Cipriano Studio nasce como uma resposta humana a uma era artificial. Ao observar muitas pessoas e marcas fazendo exatamente as mesmas coisas, usando as mesmas palavras, abrindo mão da humanidade em prol da performance, Samuel Cipriano abraçou a construção de marcas para dar voz a organizações de pessoas que realmente se importam com o que fazem e com quem consome seus produtos e serviços.</p>
+        <p data-fade class="t-body ed-note">Nos dedicamos a poucos clientes por vez e entregamos resultados autênticos. Não seguimos tendências passageiras e somos contra a mediocridade, buscando construir marcas relevantes, atemporais e desejadas.</p>
       </div>
     </div>
-    <div class="values">
-      <div data-fade>
-        <span class="t-small muted">(i) Valor</span>
-        <h3 class="t-serif">Amor ao próximo</h3>
-        <p class="t-body">Independente das circunstâncias, escolhemos agir com empatia e gentileza em todas as nossas interações.</p>
+    <div class="ed">
+      <div class="ed-side">
+        <h3 data-fade class="t-serif ed-title">Valores</h3>
       </div>
-      <div data-fade>
-        <span class="t-small muted">(ii) Valor</span>
-        <h3 class="t-serif it">Autenticidade</h3>
-        <p class="t-body">Construímos marcas únicas a partir de um processo artesanal baseado em pesquisa, repertório e boas referências.</p>
-      </div>
-      <div data-fade>
-        <span class="t-small muted">(iii) Valor</span>
-        <h3 class="t-serif">Esperança</h3>
-        <p class="t-body">Tornamos possíveis os objetivos de marcas que querem levar resultados positivos ao seu nicho e à sociedade.</p>
-      </div>
+      <dl class="ed-main vals">
+        <div data-fade><dt class="t-serif">Amor ao próximo<span class="nc">1</span></dt><dd class="t-body">Independente das circunstâncias, escolhemos agir com empatia e gentileza em todas as nossas interações.</dd></div>
+        <div data-fade><dt class="t-serif">Autenticidade<span class="nc">2</span></dt><dd class="t-body">Construímos marcas únicas a partir de um processo artesanal baseado em pesquisa, repertório e boas referências.</dd></div>
+        <div data-fade><dt class="t-serif">Esperança<span class="nc">3</span></dt><dd class="t-body">Nosso trabalho é tornar possíveis os objetivos de marcas que genuinamente querem levar resultados positivos para o seu nicho e para a sociedade.</dd></div>
+      </dl>
     </div>
   </section>
 
   <!-- 05 · Serviços -->
   <section id="servicos" class="sec" data-screen-label="05 Serviços">
-    <div class="folio t-small"><span><b>Serviços</b> <span class="sep">|</span> Quatro capítulos</span><span>05</span></div>
-    <div class="srv-head">
-      <h2 style="margin: 0;">
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Dar nome, cor e forma</span></span>
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">ao sonho de quem ama.</span></span>
-      </h2>
-      <p data-fade class="t-body muted">Cada marca é construída na mesma ordem do nosso próprio brandbook: primeiro os fundamentos, depois a voz, a forma e, por fim, a aplicação no mundo.</p>
-    </div>
-
-    <div class="pages">
-      <article class="page" style="--i: 0;">
-        <div class="page-tab"><span class="num">I</span><h3 class="t-serif">Estratégia de marca</h3><span class="t-small muted">Fundamentos</span></div>
-        <div class="page-body">
-          <div>
-            <p class="t-sub">Pesquisa, dados e estudo antes de qualquer traço. Definimos o que a marca é, para quem existe e por que importa.</p>
-            <ul class="page-list t-body">
-              <li><span>01</span><span>Pesquisa e diagnóstico</span></li>
-              <li><span>02</span><span>Posicionamento e proposta de valor</span></li>
-              <li><span>03</span><span>Missão, visão e valores</span></li>
-              <li><span>04</span><span>Personalidade e arquétipos</span></li>
-            </ul>
-          </div>
-          <figure class="plate">
-            <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=1100&amp;q=80&amp;auto=format&amp;fit=crop" alt="Caderno aberto com caneta tinteiro"></div>
-            <figcaption class="t-small"><span>(I)</span><span class="muted">O começo de toda marca</span></figcaption>
-          </figure>
+    <div class="folio t-small"><span><b>Serviços</b> <span class="sep">|</span> Quatro etapas</span><span>05</span></div>
+    <div class="ed">
+      <div class="srv-lead">
+        <h2 data-fade class="t-serif ed-title">Serviços &amp; etapas</h2>
+        <p data-fade class="t-serif ed-lead">Construímos marcas em quatro etapas: Estratégia<span class="nc">1</span>, Identidade verbal<span class="nc">2</span>, Identidade visual<span class="nc">3</span> e Aplicações<span class="nc">4</span>. Elas não são separadas, mas sucessivas: a estratégia, baseada em dados, estudos e pesquisas, dá origem a uma identidade verbal e visual que a traduz para o consumidor final.</p>
+      </div>
+      <div class="stairs" data-stairs>
+        <svg class="stairs-line" aria-hidden="true"><path data-stairs-path d=""></path></svg>
+        <div class="step" data-step style="--i: 0;">
+          <h3 class="t-serif">Estratégia<span class="nc">1</span></h3>
+          <ul class="t-body"><li>Pesquisa e diagnóstico</li><li>Posicionamento</li><li>Proposta de valor</li><li>Missão, visão e valores</li><li>Personalidade</li></ul>
         </div>
-      </article>
-
-      <article class="page" style="--i: 1;">
-        <div class="page-tab"><span class="num">II</span><h3 class="t-serif it">Identidade verbal</h3><span class="t-small muted">A voz</span></div>
-        <div class="page-body">
-          <div>
-            <p class="t-sub">Nome, manifesto e a voz com que a marca fala: competente, gentil e poética em todos os pontos de contato.</p>
-            <ul class="page-list t-body">
-              <li><span>01</span><span>Naming</span></li>
-              <li><span>02</span><span>Manifesto</span></li>
-              <li><span>03</span><span>Voz e tom de voz</span></li>
-              <li><span>04</span><span>Slogan e frases</span></li>
-            </ul>
-          </div>
-          <figure class="plate">
-            <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1100&amp;q=80&amp;auto=format&amp;fit=crop" alt="Caneta tinteiro escrevendo sobre papel"></div>
-            <figcaption class="t-small"><span>(II)</span><span class="muted">Palavras escolhidas uma a uma</span></figcaption>
-          </figure>
+        <div class="step" data-step style="--i: 1;">
+          <h3 class="t-serif">Identidade verbal<span class="nc">2</span></h3>
+          <ul class="t-body"><li>Naming</li><li>Manifesto</li><li>Voz e tom de voz</li><li>Slogan e frases</li></ul>
         </div>
-      </article>
-
-      <article class="page" style="--i: 2;">
-        <div class="page-tab"><span class="num">III</span><h3 class="t-serif">Identidade visual</h3><span class="t-small muted">A forma</span></div>
-        <div class="page-body">
-          <div>
-            <p class="t-sub">Um sistema desenhado à mão, pensado para durar e não para seguir tendência.</p>
-            <ul class="page-list t-body">
-              <li><span>01</span><span>Logotipo e variações</span></li>
-              <li><span>02</span><span>Paleta de cores</span></li>
-              <li><span>03</span><span>Tipografia e hierarquia</span></li>
-              <li><span>04</span><span>Ilustrações, patterns e fotografia</span></li>
-            </ul>
-          </div>
-          <figure class="plate">
-            <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?w=1100&amp;q=80&amp;auto=format&amp;fit=crop" alt="Tecidos estampados com flores em cabides"></div>
-            <figcaption class="t-small"><span>(III)</span><span class="muted">Cor, textura e padrão</span></figcaption>
-          </figure>
+        <div class="step" data-step style="--i: 2;">
+          <h3 class="t-serif">Identidade visual<span class="nc">3</span></h3>
+          <ul class="t-body"><li>Logotipo e variações</li><li>Paleta de cores</li><li>Tipografia</li><li>Ilustrações e patterns</li><li>Fotografia</li></ul>
         </div>
-      </article>
-
-      <article class="page" style="--i: 3;">
-        <div class="page-tab"><span class="num">IV</span><h3 class="t-serif it">Brandbook e aplicações</h3><span class="t-small muted">O mundo</span></div>
-        <div class="page-body">
-          <div>
-            <p class="t-sub">O manual que protege a marca e as primeiras peças que a colocam no mundo.</p>
-            <ul class="page-list t-body">
-              <li><span>01</span><span>Brandbook</span></li>
-              <li><span>02</span><span>Papelaria e embalagens</span></li>
-              <li><span>03</span><span>Peças digitais</span></li>
-              <li><span>04</span><span>Acompanhamento da implementação</span></li>
-            </ul>
-          </div>
-          <figure class="plate">
-            <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=1100&amp;q=80&amp;auto=format&amp;fit=crop" alt="Sacola de papel kraft sobre fundo neutro"></div>
-            <figcaption class="t-small"><span>(IV)</span><span class="muted">A marca nas mãos das pessoas</span></figcaption>
-          </figure>
+        <div class="step" data-step style="--i: 3;">
+          <h3 class="t-serif">Aplicações<span class="nc">4</span></h3>
+          <ul class="t-body"><li>Brandbook</li><li>Papelaria</li><li>Embalagens</li><li>Peças digitais</li><li>Implementação</li></ul>
         </div>
-      </article>
+      </div>
     </div>
   </section>
 
@@ -537,6 +448,8 @@
 
   <!-- 07 · Manifesto, o texto -->
   <section id="carta" class="sec carta" data-screen-label="07 Manifesto escrito">
+    <div class="flora flora-carta-l" data-flora aria-hidden="true" style="--ar: 0.6521;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/merian-01.webp" alt="" loading="lazy" decoding="async"></div></div></div>
+    <div class="flora flora-carta-r" data-flora aria-hidden="true" style="--ar: 0.7007;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/merian-03.webp" alt="" loading="lazy" decoding="async"></div></div></div>
     <div class="folio t-small" style="text-align: left;"><span><b>Manifesto</b> <span class="sep">|</span> O texto</span><span>07</span></div>
     <hr class="rule">
     <h2 style="margin: 0;">
@@ -567,8 +480,9 @@
         <p data-fade class="t-body">Atendemos poucos clientes por vez. Conte sobre a sua marca e o que ela sonha ser; respondemos em até dois dias úteis.</p>
         <a data-fade class="ct-mail t-sub" href="mailto:contatosamuelcipriano@gmail.com">contatosamuelcipriano@gmail.com</a>
       </div>
+      <div class="flora flora-card" data-flora aria-hidden="true" style="--ar: 0.4886;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-03.webp" alt="" loading="lazy" decoding="async"></div></div></div>
       <div class="card" data-fade>
-        <img src="assets/emblem-wool.svg" alt="">
+        <img src="assets/isotipo-wool.svg" alt="">
         <ul>
           <li><a href="https://samuelciprianostudio.com">samuelciprianostudio.com</a></li>
           <li><a href="mailto:contatosamuelcipriano@gmail.com">contatosamuelcipriano@gmail.com</a></li>
@@ -579,16 +493,16 @@
     </div>
     <div class="colophon t-small">
       <span>© 2026 Samuel Cipriano Studio</span>
-      <span class="muted">Edição Nº 01 · IvyPresto Display e Neue Haas Grotesk</span>
-      <span data-clock2>Brasil</span>
     </div>
-    <img class="masthead" src="assets/lockup-verde.svg" alt="Samuel Cipriano Studio">
+    <img class="masthead" src="assets/imagotipo-verde.svg" alt="Samuel Cipriano Studio">
   </section>
 
 </div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;cinematografico&quot;,&quot;options&quot;:[&quot;cinematografico&quot;,&quot;contido&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+const FILM_ID = 'UV6QA-hE1Y4';
+
 class Component extends DCLogic {
   renderVals() {
     return {
@@ -605,7 +519,16 @@ class Component extends DCLogic {
     this.mob = window.innerWidth <= 760;
     this.onViewport = () => { this.mob = window.innerWidth <= 760; };
     window.addEventListener('resize', this.onViewport);
-    this.startClock();
+    this.onFloraResize = () => this.layoutCapaFlora();
+    window.addEventListener('resize', this.onFloraResize);
+    this.onStairsResize = () => this.drawStairs();
+    window.addEventListener('resize', this.onStairsResize);
+    this.drawStairs();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.drawStairs());
+    const capaMark = this.one('.capa-mark');
+    if (capaMark) capaMark.addEventListener('load', this.onFloraResize);
+    this.layoutCapaFlora();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.layoutCapaFlora());
     this.bindFilm();
     // gsap and ScrollTrigger arrive as separate scripts; wait for both
     this.waitFor(() => window.gsap && window.ScrollTrigger, 8000).then(() => {
@@ -616,11 +539,13 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
-    clearInterval(this.clockTimer);
     window.removeEventListener('resize', this.onViewport);
     if (this.onFilmResize) window.removeEventListener('resize', this.onFilmResize);
+    if (this.onFloraResize) window.removeEventListener('resize', this.onFloraResize);
+    if (this.onStairsResize) window.removeEventListener('resize', this.onStairsResize);
     if (this.filmIO) this.filmIO.disconnect();
     if (this.filmSound && this.onFilmSound) this.filmSound.removeEventListener('click', this.onFilmSound);
+    if (this.ytPlayer && this.ytPlayer.destroy) this.ytPlayer.destroy();
     if (this.onAnchor) document.removeEventListener('click', this.onAnchor);
     if (this.lenis) this.lenis.destroy();
     if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach((t) => t.kill());
@@ -634,17 +559,6 @@ class Component extends DCLogic {
         else if (Date.now() - t0 > timeout) { clearInterval(i); res(false); }
       }, 60);
     });
-  }
-
-  startClock() {
-    const fmt = () => 'Brasil · ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    const paint = () => {
-      const a = this.one('[data-clock]'), b = this.one('[data-clock2]');
-      if (a) a.textContent = fmt();
-      if (b) b.textContent = fmt();
-    };
-    paint();
-    this.clockTimer = setInterval(paint, 20000);
   }
 
   setupLenis() {
@@ -695,14 +609,15 @@ class Component extends DCLogic {
     const g = window.gsap;
     const emblem = this.one('[data-curtain-emblem]');
     const fill = this.one('[data-curtain-fill]');
-    const lockup = this.one('[data-curtain-lockup-in]');
     const navMark = this.one('[data-nav-mark]');
     const load = { v: 0 };
-    // where the curtain lamb must land to sit exactly on the nav lamb
+    // where the curtain lamb must land to sit exactly on the lamb of the nav imagotipo,
+    // which takes the left 155.27 / 348.82 of its width and its full height
     const flight = () => {
       if (!emblem || !navMark) return { x: 0, y: 0, s: .3 };
       const a = emblem.getBoundingClientRect(), b = navMark.getBoundingClientRect();
-      return { x: (b.left + b.width / 2) - (a.left + a.width / 2), y: (b.top + b.height / 2) - (a.top + a.height / 2), s: b.width / a.width };
+      const lw = b.width * (155.27 / 348.82);
+      return { x: (b.left + lw / 2) - (a.left + a.width / 2), y: (b.top + b.height / 2) - (a.top + a.height / 2), s: lw / a.width };
     };
     g.timeline({ delay: .12 })
       .from(emblem, { scale: .86, opacity: 0, duration: .9, ease: 'expo.out' })
@@ -710,39 +625,61 @@ class Component extends DCLogic {
         v: 1, duration: 1.4, ease: 'power2.inOut',
         onUpdate: () => { if (fill) fill.style.clipPath = 'inset(' + ((1 - load.v) * 100).toFixed(2) + '% 0 0 0)'; }
       }, .3)
-      .from(lockup, { yPercent: 105, duration: 1, ease: 'expo.out' }, 1.05)
       .to(emblem, { duration: 1.05, ease: 'power4.inOut', x: () => flight().x, y: () => flight().y, scale: () => flight().s }, 1.9)
-      .to(lockup, { yPercent: -105, duration: .8, ease: 'power4.inOut' }, 2.15)
       .to(curtain, { opacity: 0, duration: .6, ease: 'power2.out' }, 2.8)
       .set(curtain, { display: 'none' });
   }
 
   // ---- 03 manifesto film: a small 4:3 plate that opens into a large plate on the page
   bindFilm() {
-    const v = this.one('[data-film-video]');
+    const wrap = this.one('[data-film-yt]');
     const btn = this.one('[data-film-sound]');
-    this.filmVideo = v;
+    this.filmWrap = wrap;
     this.filmSound = btn;
-    if (!v) return;
-    // set as properties: the attributes don't survive the template renderer reliably
-    v.muted = true;
-    v.loop = true;
-    v.playsInline = true;
-    v.setAttribute('playsinline', '');
-    v.setAttribute('muted', '');
-    // judged by the element's own state: no file yet keeps the wool placeholder visible
-    const sync = () => {
-      const missing = !!v.error && v.readyState === 0;
-      v.style.display = missing ? 'none' : '';
-      if (btn) btn.style.visibility = missing ? 'hidden' : '';
+    this.filmMuted = true;
+    this.filmPlaying = false;
+    if (!wrap) return;
+    // hidden until the player is ready: until then the wool placeholder shows
+    wrap.style.visibility = 'hidden';
+    if (btn) btn.style.visibility = 'hidden';
+    const mount = document.createElement('div');
+    wrap.appendChild(mount);
+    const create = () => {
+      this.ytPlayer = new window.YT.Player(mount, {
+        videoId: FILM_ID,
+        host: 'https://www.youtube-nocookie.com',
+        playerVars: { autoplay: 0, mute: 1, controls: 0, loop: 1, playlist: FILM_ID, playsinline: 1, rel: 0, modestbranding: 1, iv_load_policy: 3, disablekb: 1, fs: 0, cc_load_policy: 0 },
+        events: {
+          onReady: () => {
+            this.filmReady = true;
+            this.ytPlayer.mute();
+            this.noCaptions();
+            wrap.style.visibility = '';
+            if (btn) btn.style.visibility = '';
+            if (this.filmInView && !this.reduced) this.playFilm();
+            this.paintSound();
+          },
+          onStateChange: (e) => { this.filmPlaying = e.data === 1; if (this.filmPlaying) this.noCaptions(); this.paintSound(); }
+        }
+      });
     };
-    ['error', 'loadeddata'].forEach((ev) => v.addEventListener(ev, sync));
-    sync();
+    if (window.YT && window.YT.Player) create();
+    else {
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => { if (prev) prev(); create(); };
+      if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+        const sc = document.createElement('script');
+        sc.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(sc);
+      }
+    }
     this.paintSound();
     if (btn) {
       this.onFilmSound = () => {
-        v.muted = !v.muted;
-        if (v.paused) this.playFilm();
+        if (!this.filmReady) return;
+        this.filmMuted = !this.filmMuted;
+        if (this.filmMuted) this.ytPlayer.mute();
+        else { this.ytPlayer.unMute(); this.playFilm(); }
         this.paintSound();
       };
       btn.addEventListener('click', this.onFilmSound);
@@ -751,25 +688,34 @@ class Component extends DCLogic {
     if ('IntersectionObserver' in window) {
       this.filmIO = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
+          this.filmInView = e.isIntersecting;
+          if (!this.filmReady) return;
           if (e.isIntersecting) { if (!this.reduced) this.playFilm(); }
-          else { v.pause(); if (!v.muted) { v.muted = true; this.paintSound(); } }
+          else {
+            this.ytPlayer.pauseVideo();
+            if (!this.filmMuted) { this.filmMuted = true; this.ytPlayer.mute(); this.paintSound(); }
+          }
         });
       }, { threshold: 0.15 });
       this.filmIO.observe(this.one('[data-film]'));
     }
   }
 
+  // the film carries its own subtitles; YouTube's captions would double them
+  noCaptions() {
+    const p = this.ytPlayer;
+    if (!p || !p.unloadModule) return;
+    try { p.unloadModule('captions'); p.unloadModule('cc'); } catch (e) {}
+  }
+
   playFilm() {
-    const v = this.filmVideo;
-    if (!v) return;
-    const p = v.play();
-    if (p && p.catch) p.catch(() => {});
+    if (this.filmReady && this.ytPlayer) this.ytPlayer.playVideo();
   }
 
   paintSound() {
-    const v = this.filmVideo, btn = this.filmSound;
-    if (!v || !btn) return;
-    btn.textContent = this.reduced && v.paused ? 'Assistir com som' : (v.muted ? 'Ativar som' : 'Silenciar');
+    const btn = this.filmSound;
+    if (!btn) return;
+    btn.textContent = this.reduced && !this.filmPlaying ? 'Assistir com som' : (this.filmMuted ? 'Ativar som' : 'Silenciar');
   }
 
   filmLayout(p) {
@@ -783,7 +729,8 @@ class Component extends DCLogic {
     const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     const lerp = (a, b, t) => a + (b - a) * t;
     const gut = cl(vw * .03, 16, 46);
-    const top = 56 + cl(vh * .05, 28, 56) + 32;   // nav + folio
+    const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav')) || 60;
+    const top = nav + cl(vh * .05, 28, 56) + 32;  // nav + folio
     const bottom = 64;                              // caption
     // the plate at rest: as large as the page allows, always 4:3
     const H1 = Math.max(120, Math.min((vw - gut * 2) * 3 / 4, vh - top - bottom));
@@ -795,7 +742,7 @@ class Component extends DCLogic {
     const E = ease(seg(0, .74));
     const s = lerp(s0, 1, E);
     Object.assign(plate.style, { left: x1.toFixed(1) + 'px', top: y1.toFixed(1) + 'px', width: W1.toFixed(1) + 'px', height: H1.toFixed(1) + 'px', margin: '0', transform: 'scale(' + s.toFixed(4) + ')' });
-    if (this.filmVideo) this.filmVideo.style.transform = 'scale(' + lerp(1.12, 1, E).toFixed(4) + ')';
+    if (this.filmWrap) this.filmWrap.style.transform = 'scale(' + lerp(1.12, 1, E).toFixed(4) + ')';
 
     // the two lines sit on the plate's centre line and are pushed out by its edges
     const words = this.one('[data-film-words]');
@@ -842,13 +789,137 @@ class Component extends DCLogic {
     window.addEventListener('resize', this.onFilmResize);
   }
 
+  // ---- 05 serviços: one hairline runs along the top of each stage, rising between them with rounded turns
+  drawStairs() {
+    const box = this.one('[data-stairs]');
+    const path = this.one('[data-stairs-path]');
+    if (!box || !path) return;
+    const steps = this.q('[data-step]');
+    if (!steps.length || getComputedStyle(path.parentNode).display === 'none') return;
+    const W = box.clientWidth;
+    const r = 12;
+    let d = '';
+    steps.forEach((st, i) => {
+      const x = st.offsetLeft, y = st.offsetTop + .5;
+      if (i === 0) { d = 'M' + x + ' ' + y; return; }
+      const prev = steps[i - 1];
+      const py = prev.offsetTop + .5;
+      const rx = (prev.offsetLeft + prev.offsetWidth + x) / 2;
+      d += ' H' + (rx - r) + ' Q' + rx + ' ' + py + ' ' + rx + ' ' + (py - r) + ' V' + (y + r) + ' Q' + rx + ' ' + y + ' ' + (rx + r) + ' ' + y;
+    });
+    d += ' H' + W;
+    path.setAttribute('d', d);
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    if (!this.stairsAnimated) path.style.strokeDashoffset = 0;
+    this.stairsLen = len;
+  }
+
+  setupStairs(g, ST) {
+    const box = this.one('[data-stairs]');
+    const path = this.one('[data-stairs-path]');
+    if (!box || !path || !ST) return;
+    const steps = this.q('[data-step]');
+    this.stairsAnimated = true;
+    this.drawStairs();
+    if (getComputedStyle(path.parentNode).display === 'none') {
+      steps.forEach((st) => g.from(st, { opacity: 0, y: 18, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: st, start: 'top 90%', once: true } }));
+      return;
+    }
+    // the line is drawn with the scroll; each stage comes up to full ink as the line reaches it
+    const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 85%', end: 'bottom 92%', scrub: 1.2, invalidateOnRefresh: true, onRefresh: () => this.drawStairs() } });
+    tl.fromTo(path, { strokeDashoffset: () => this.stairsLen }, { strokeDashoffset: 0, ease: 'none', duration: 1 }, 0);
+    steps.forEach((st, i) => tl.fromTo(st, { opacity: .16, y: 14 }, { opacity: 1, y: 0, ease: 'power2.out', duration: .2 }, .04 + i * .24));
+  }
+
+  // ---- flora
+  // the cover plates grow from the bottom corners only as tall as the room left under
+  // the logotipo's safe area (the height of its "O") and the line, so they never touch either
+  layoutCapaFlora() {
+    const capa = this.one('#capa');
+    if (!capa) return;
+    const logo = this.one('.capa-mark');
+    const box = (el) => el ? el.getBoundingClientRect() : null;
+    const c = capa.getBoundingClientRect();
+    const vw = capa.clientWidth;
+    const L = box(logo && logo.parentElement), T = box(this.one('.capa-tag') && this.one('.capa-tag').parentElement), M = box(this.one('.capa-meta span'));
+    const obstacles = [];
+    if (L && L.height) { const safe = L.width * .104; obstacles.push({ l: L.left - c.left - safe, r: L.right - c.left + safe, b: L.bottom - c.top + safe }); }
+    if (T && T.height) obstacles.push({ l: T.left - c.left - 24, r: T.right - c.left + 24, b: T.bottom - c.top + 24 });
+    if (M && M.height) obstacles.push({ l: M.left - c.left - 20, r: M.right - c.left + 20, b: M.bottom - c.top + 8 });
+    this.q('.flora-capa-l, .flora-capa-r').forEach((el) => {
+      const ar = parseFloat(el.style.getPropertyValue('--ar')) || .6;
+      const left = el.classList.contains('flora-capa-l');
+      const bleed = left ? .16 : .14;
+      // the tallest plate whose visible part clears every obstacle above it
+      const fits = (h) => {
+        const vis = h * ar * (1 - bleed);
+        if (vis > vw * .4) return false;
+        const span = left ? [0, vis] : [vw - vis, vw];
+        return obstacles.every((o) => !(o.l < span[1] && o.r > span[0]) || o.b <= c.height - h);
+      };
+      let h = Math.min(c.height * .62, 620);
+      while (h >= 120 && !fits(h)) h -= 6;
+      el.style.height = (h >= 120 ? h : 0).toFixed(1) + 'px';
+      el.style.display = h >= 120 ? '' : 'none';
+    });
+  }
+
+  // a torn-paper edge that rises from the stem: p = 0 hidden, p = 1 whole plate
+  ragged(p, seed) {
+    const n = 22, pts = [];
+    for (let i = 0; i <= n; i++) {
+      const r = Math.abs(Math.sin((i + 1) * 12.9898 + seed * 78.233) * 43758.5453) % 1;
+      const wob = .5 + .5 * Math.sin(p * 7 + i * 1.7 + seed);
+      const y = (1 - p) * 116 - 16 * (.65 * r + .35 * wob);
+      pts.push((i / n * 100).toFixed(2) + '% ' + y.toFixed(2) + '%');
+    }
+    return 'polygon(' + pts.join(',') + ',100% 100%,0% 100%)';
+  }
+
+  setupFlora(g, ST) {
+    const soft = this.props.motion === 'contido';
+    this.q('[data-flora]').forEach((el, i) => {
+      const clip = el.querySelector('[data-flora-clip]');
+      const img = el.querySelector('[data-flora-img]');
+      if (!clip || !img) return;
+      const seed = i * 3.1 + 1;
+      const onCover = !!el.closest('#capa');
+      const side = el.getBoundingClientRect().left + el.offsetWidth / 2 < window.innerWidth / 2 ? -1 : 1;
+      const st = { p: 0 };
+      const paint = () => { clip.style.clipPath = st.p >= .999 ? 'none' : this.ragged(st.p, seed); };
+      paint();
+
+      // the wind: each plate sways on its stem at its own pace, forever
+      const amp = soft ? .7 : 1.3, dur = 3.6 + (i % 3) * .9;
+      const sway = () => g.fromTo(clip, { rotation: 0 }, { rotation: amp * side, duration: dur / 2, ease: 'sine.out', onComplete: () => {
+        g.fromTo(clip, { rotation: amp * side }, { rotation: -amp * side, duration: dur, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+      } });
+
+      if (onCover) {
+        // entrance: grows out of the corner as the curtain clears, then drifts away from the logo on scroll
+        g.timeline({ delay: 2.55 + (side > 0 ? .3 : 0), onComplete: sway })
+          .to(st, { p: 1, duration: soft ? 1.6 : 2.4, ease: 'power2.out', onUpdate: paint }, 0)
+          .from(img, { rotation: -9 * side, scale: .86, duration: soft ? 1.8 : 2.8, ease: 'expo.out' }, 0);
+        if (ST) g.to(el, { y: () => window.innerHeight * .12, rotation: 3.5 * side, ease: 'none', scrollTrigger: { trigger: '#capa', start: 'top top', end: 'bottom top', scrub: 1.2 } });
+        return;
+      }
+      if (!ST) { st.p = 1; paint(); return; }
+      // in the page: the plate unfurls from its stem as it is scrolled into view, then keeps drifting
+      g.timeline({ scrollTrigger: { trigger: el, start: 'top 96%', end: 'top 38%', scrub: 1.4, onLeave: () => { if (!el.dataset.swaying) { el.dataset.swaying = '1'; sway(); } } } })
+        .to(st, { p: 1, ease: 'none', onUpdate: paint }, 0)
+        .fromTo(img, { rotation: -12 * side, scale: .84 }, { rotation: 0, scale: 1, ease: 'power1.out' }, 0);
+      g.fromTo(el, { y: soft ? 30 : 70 }, { y: soft ? -30 : -70, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1.6 } });
+    });
+  }
+
   setupMotion() {
     const g = window.gsap;
     const ST = window.ScrollTrigger;
     if (ST) g.registerPlugin(ST);
     const soft = this.props.motion === 'contido';
 
-    if (this.reduced) { this.revealCurtain(true); this.staticFilm(); return; }
+    if (this.reduced) { this.revealCurtain(true); this.staticFilm(); this.layoutCapaFlora(); return; }
     this.revealCurtain(false);
 
     // type rises out of its line; on the cover it waits for the curtain to clear
@@ -883,6 +954,8 @@ class Component extends DCLogic {
     });
 
     this.setupFilm(g, ST);
+    this.setupFlora(g, ST);
+    this.setupStairs(g, ST);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
   }
 }
