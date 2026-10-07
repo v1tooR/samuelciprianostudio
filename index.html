@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 <script src="assets/contato.js" defer></script>
+<script src="assets/cursor.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -22,6 +23,7 @@
     --ink: #034638;
     --wool: #E5D0B1;
     --red: #D22630;
+    --blue: #0047BB;
     --muted: #034638;
     --rule: rgba(3,70,56,.2);
     --g: clamp(16px, 3vw, 46px);
@@ -33,7 +35,7 @@
   body { margin: 0; background: var(--paper) var(--grain); color: var(--ink); overflow-x: clip; }
   * { box-sizing: border-box; }
   a { color: inherit; text-decoration: none; }
-  a:hover { color: var(--red); }
+  a:hover { color: var(--blue); }
   ::selection { background: var(--red); color: var(--paper); }
   img { display: block; }
   button { font: inherit; color: inherit; }
@@ -77,7 +79,7 @@
   .has-hlogo .capa-mark { visibility: hidden; }
   .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px); margin-left: auto; }
   .nav-btn { appearance: none; border: 0; background: none; padding: 8px 0; cursor: pointer; }
-  .nav-btn:hover { color: var(--red); }
+  .nav-btn:hover { color: var(--blue); }
 
   /* ---- curtain: same paper as the page, the lamb fills in as the loader */
   .curtain { position: fixed; inset: 0; z-index: 200; background: var(--paper) var(--grain); pointer-events: none; overflow: hidden; }
@@ -136,7 +138,7 @@
   .film-words .t-serif { font-size: clamp(2.2rem, 6.4vw, 6.2rem); line-height: 1.02; will-change: transform, opacity; }
   .film-cap { position: absolute; left: 0; top: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; opacity: 0; z-index: 3; }
   .link-btn { appearance: none; border: 0; border-bottom: 1px solid currentColor; background: none; padding: 0 0 2px; cursor: pointer; }
-  .link-btn:hover { color: var(--red); }
+  .link-btn:hover { color: var(--blue); }
 
   /* ---- 04 estúdio + 05 serviços: editorial and quiet — type, white space and hairlines only */
   .ed { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 40px; align-items: start; }
@@ -144,17 +146,12 @@
   .ed-side { grid-column: 1 / span 4; }
   .ed-main { grid-column: 6 / span 5; }
   .ed-title { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
-  .ed-attrs { list-style: none; margin: clamp(28px, 5vh, 48px) 0 0; padding: 0; }
-  .ed-attrs li { font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: calc(1em + 4px); padding: .28em 0; }
+  .ed-big { font-size: clamp(1.9rem, 3.4vw, 3.17rem); line-height: calc(1em + 4px); margin: 0; }
+  #estudio .ed-main { grid-column: 6 / span 6; }
   .ed-lead { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
   .ed-note { max-width: 44ch; margin-top: clamp(28px, 5vh, 48px); }
   /* a number in a hairline circle, as a footnote mark */
   .nc { display: inline-grid; place-items: center; width: 1.75em; height: 1.75em; margin-left: .3em; border: 1px solid currentColor; border-radius: 50%; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-style: normal; font-weight: 400; font-size: max(12px, .42em); line-height: 1; letter-spacing: 0; vertical-align: .95em; }
-  .vals { margin: 0; }
-  .vals > div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(16px, 3vw, 48px); padding: clamp(18px, 3vh, 28px) 0; border-top: 1px solid var(--rule); }
-  .vals > div:last-child { border-bottom: 1px solid var(--rule); }
-  .vals dt { font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: calc(1em + 4px); }
-  .vals dd { margin: 0; }
   #estudio > :not(.flora) { position: relative; z-index: 1; }
   /* hangs from the right edge beside the text, like the trumpet vine on brandbook p. 44 */
   .flora-est { right: 0; top: calc(var(--nav) + clamp(64px, 9vh, 96px)); height: clamp(320px, 30vw, 460px); --tx: 30%; }
@@ -182,27 +179,12 @@
   .pj-svc { margin-top: 14px; color: var(--paper); }
   .pj-more { display: inline-block; margin-top: clamp(20px, 3vh, 32px); padding-bottom: 3px; border-bottom: 1px solid currentColor; align-self: flex-start; }
 
-  /* ---- 07 carta (manifesto escrito) */
-  .carta { position: relative; text-align: center; }
-  .carta > :not(.flora) { position: relative; z-index: 1; }
-  .flora-carta-l { left: 0; bottom: 0; height: clamp(360px, 36vw, 540px); --tx: -40%; }
-  .flora-carta-r { right: 0; bottom: 0; height: clamp(300px, 30vw, 460px); --tx: 36%; }
-  .carta .t-display { padding: clamp(32px, 6vh, 64px) 0; }
-  .carta-lead { max-width: 33ch; margin: clamp(40px, 7vh, 80px) auto; }
-  .carta-cols { columns: 2; column-gap: clamp(32px, 5vw, 72px); max-width: 920px; margin: clamp(40px, 7vh, 80px) auto 0; text-align: center; }
-  .carta-cols p { break-inside: avoid; }
-  .carta-end { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-top: clamp(56px, 9vh, 100px); }
-  .carta-end .t-serif { font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1.08; }
-  .sign { font-family: 'ivypresto-display', serif; font-weight: 100; font-style: italic; font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1; color: var(--red); }
-
-  /* ---- 08 contato */
-  .ct-text { max-width: 760px; }
-  .ct-text .t-body { max-width: 40ch; margin-top: clamp(22px, 4vh, 36px); }
-  .ct-mail { display: inline-block; margin-top: 26px; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
-  #contato { padding-bottom: clamp(120px, 20vh, 220px); }
-  #contato > :not(.flora) { position: relative; z-index: 1; }
-  /* the poppy grows out of the green footer */
-  .flora-ct { right: clamp(24px, 12vw, 220px); bottom: 0; height: clamp(300px, 30vw, 460px); --ty: 8%; }
+  /* ---- 08 contato: the closing page, plates growing out of the green footer */
+  .cta { position: relative; text-align: center; padding-bottom: clamp(200px, 30vh, 320px); }
+  .cta > :not(.flora) { position: relative; z-index: 1; }
+  .cta .btn { margin-top: clamp(32px, 5vh, 48px); }
+  .flora-cta-l { left: 0; bottom: 0; height: clamp(260px, 30vw, 460px); --tx: -18%; --ty: 8%; }
+  .flora-cta-r { right: 0; bottom: 0; height: clamp(220px, 24vw, 380px); --tx: 20%; --ty: 8%; }
 
   /* ---- rodapé: the one full green page, brandbook secondary colour with wool type */
   .foot { position: relative; z-index: 2; background: var(--ink); color: var(--wool); padding: clamp(56px, 10vh, 110px) var(--g) clamp(20px, 3vh, 32px); }
@@ -225,9 +207,9 @@
   /* pill button, as on the brandbook's download buttons */
   .btn { appearance: none; border: 0; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: min(100%, 220px); padding: 14px 28px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 600; font-size: 1rem; line-height: 1; transition: background-color .3s, color .3s; }
   .btn-wool { background: var(--wool); color: var(--ink); }
-  .btn-wool:hover { background: var(--paper); color: var(--ink); }
+  .btn-wool:hover { background: var(--blue); color: var(--paper); }
   .btn-ink { background: var(--ink); color: var(--paper); }
-  .btn-ink:hover { background: var(--red); color: var(--paper); }
+  .btn-ink:hover { background: var(--blue); color: var(--paper); }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   /* imagotipo 348.82 × 153.36: "O" safe area of 0.101 × its width above it */
   .foot-logo { --logo-w: min(100vw - 2 * var(--g), 640px); width: var(--logo-w); height: auto; margin: max(72px, var(--logo-w) * .101 + 32px) 0 calc(var(--logo-w) * .101); }
@@ -235,24 +217,23 @@
 
   @media (max-width: 900px) {
     .ed-side, .ed-main { grid-column: 1 / -1; }
+    #estudio .ed-main { grid-column: 1 / -1; }
     .svc-name, .svc-scope { grid-column: 1 / -1; }
     .svc-scope { padding-top: 0; }
-    .vals > div { grid-template-columns: 1fr; gap: 8px; }
     .foot-col:nth-child(1), .foot-col:nth-child(2) { grid-column: span 6; }
     .foot-form { grid-column: 1 / -1; }
-    .flora-ct { right: 0; height: 240px; --tx: 22%; }
-    #contato { padding-bottom: 260px; }
   }
   @media (max-width: 1100px) {
-    .flora-est, .flora-carta-l, .flora-carta-r { display: none; }
+    .flora-est { display: none; }
   }
   @media (min-width: 901px) and (max-width: 1100px) {
     .ed-main { grid-column: 6 / -1; }
   }
   @media (max-width: 600px) {
+    .flora-cta-l { height: 220px; }
+    .flora-cta-r { display: none; }
     .foot-col:nth-child(1), .foot-col:nth-child(2) { grid-column: 1 / -1; }
     .form-end { flex-direction: column-reverse; align-items: stretch; }
-    .carta-cols { columns: 1; }
   }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 </style>
@@ -285,11 +266,10 @@
       <button class="nav-btn t-small" onClick="{{ closeMenu }}">Fechar</button>
     </div>
     <div class="menu-list">
-      <a data-menu-item href="#manifesto"><span class="t-serif">Manifesto, o filme</span></a>
+      <a data-menu-item href="#manifesto"><span class="t-serif">Manifesto</span></a>
       <a data-menu-item href="#estudio"><span class="t-serif">O estúdio</span></a>
       <a data-menu-item href="#servicos"><span class="t-serif it">Serviços</span></a>
       <a data-menu-item href="#projetos"><span class="t-serif">Projetos</span></a>
-      <a data-menu-item href="#carta"><span class="t-serif">Manifesto, o texto</span></a>
       <a data-menu-item href="#contato"><span class="t-serif it">Contato</span></a>
     </div>
     <div class="menu-foot t-small">
@@ -341,28 +321,12 @@
     <div class="flora flora-est" data-flora aria-hidden="true" style="--ar: 0.6814;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-02.webp" alt="" loading="lazy" decoding="async"></div></div></div>
     <div class="ed">
       <div class="ed-side">
-        <h2 data-fade class="t-serif ed-title">Somos um<br>estúdio de branding</h2>
-        <ul class="ed-attrs t-serif">
-          <li data-fade>Humano</li>
-          <li data-fade>Artesanal</li>
-          <li data-fade>Autêntico</li>
-          <li data-fade>Atemporal</li>
-        </ul>
+        <h2 data-fade class="t-serif ed-title">Somos um<br>estúdio de branding.</h2>
       </div>
       <div class="ed-main">
-        <p data-fade class="t-serif ed-lead">Samuel Cipriano Studio nasce como uma resposta humana a uma era artificial. Ao observar muitas pessoas e marcas fazendo exatamente as mesmas coisas, usando as mesmas palavras, abrindo mão da humanidade em prol da performance, Samuel Cipriano abraçou a construção de marcas para dar voz a organizações de pessoas que realmente se importam com o que fazem e com quem consome seus produtos e serviços.</p>
-        <p data-fade class="t-body ed-note">Nos dedicamos a poucos clientes por vez e entregamos resultados autênticos. Não seguimos tendências passageiras e somos contra a mediocridade, buscando construir marcas relevantes, atemporais e desejadas.</p>
+        <p data-fade class="t-serif ed-big">Somos movidos pelo desejo de criar legados que inspiram amor, esperança e autenticidade.</p>
+        <p data-fade class="t-sub ed-note">Unimos estratégias e criatividade para tornar sua marca única, relevante e desejada.</p>
       </div>
-    </div>
-    <div class="ed">
-      <div class="ed-side">
-        <h3 data-fade class="t-serif ed-title">Valores</h3>
-      </div>
-      <dl class="ed-main vals">
-        <div data-fade><dt class="t-serif">Amor ao próximo<span class="nc">1</span></dt><dd class="t-body">Independente das circunstâncias, escolhemos agir com empatia e gentileza em todas as nossas interações.</dd></div>
-        <div data-fade><dt class="t-serif">Autenticidade<span class="nc">2</span></dt><dd class="t-body">Construímos marcas únicas a partir de um processo artesanal baseado em pesquisa, repertório e boas referências.</dd></div>
-        <div data-fade><dt class="t-serif">Esperança<span class="nc">3</span></dt><dd class="t-body">Nosso trabalho é tornar possíveis os objetivos de marcas que genuinamente querem levar resultados positivos para o seu nicho e para a sociedade.</dd></div>
-      </dl>
     </div>
   </section>
 
@@ -421,38 +385,15 @@
     </a>
   </section>
 
-  <!-- 07 · Manifesto, o texto -->
-  <section id="carta" class="sec carta" data-screen-label="07 Manifesto escrito">
-    <div class="flora flora-carta-l" data-flora aria-hidden="true" style="--ar: 0.6521;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/merian-01.webp" alt="" loading="lazy" decoding="async"></div></div></div>
-    <div class="flora flora-carta-r" data-flora aria-hidden="true" style="--ar: 0.7007;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/merian-03.webp" alt="" loading="lazy" decoding="async"></div></div></div>
-    <hr class="rule">
-    <h2 style="margin: 0;">
-      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-display" style="display: block;">Um salve aos <span class="it">que amam.</span></span></span>
-    </h2>
-    <hr class="rule">
-    <p data-fade class="t-sub carta-lead">Que fazem o que fazem com um brilho no olhar. Que são profundos em suas relações, intensos. Estes que se importam com as consequências das suas ações, porque entendem que a mudança do mundo está nas pequenas atitudes.</p>
-    <hr class="rule">
-    <div class="carta-cols">
-      <p data-fade class="t-body">Essas pessoas são criativas, e não me refiro somente a pintar um quadro — elas criam caminhos onde não havia, dão forma ao que antes era sem forma e vazio.</p>
-      <p data-fade class="t-body">Quem ama não aceita entregar o mínimo, mas tem prazer em fazer a diferença. E o amor é a resposta humana que trará vida a um mundo artificial.</p>
-    </div>
-    <div class="carta-end">
-      <p data-fade class="t-serif it">Ame o que faz. Faça por amor.</p>
-      <span data-fade class="sign">Samuel Cipriano</span>
-    </div>
-  </section>
-
   <!-- 08 · Contato -->
-  <section id="contato" class="sec" data-screen-label="08 Contato">
-    <div class="flora flora-ct" data-flora data-flora-rooted aria-hidden="true" style="--ar: 0.4886;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-03.webp" alt="" loading="lazy" decoding="async"></div></div></div>
-    <div class="ct-text">
-      <h2 style="margin: 0;">
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Vamos criar</span></span>
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">algo que dure.</span></span>
-      </h2>
-      <p data-fade class="t-body">Atendemos poucos clientes por vez. Conte sobre a sua marca e o que ela sonha ser; respondemos em até dois dias úteis.</p>
-      <a data-fade class="ct-mail t-sub" href="mailto:contatosamuelcipriano@gmail.com">contatosamuelcipriano@gmail.com</a>
-    </div>
+  <section id="contato" class="sec cta" data-screen-label="08 Contato">
+    <div class="flora flora-cta-l" data-flora data-flora-rooted aria-hidden="true" style="--ar: 0.4886;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-03.webp" alt="" loading="lazy" decoding="async"></div></div></div>
+    <div class="flora flora-cta-r" data-flora data-flora-rooted aria-hidden="true" style="--ar: 0.7007;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/merian-03.webp" alt="" loading="lazy" decoding="async"></div></div></div>
+    <h2>
+      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Gostaria de falar sobre um projeto?</span></span>
+      <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">Vamos conversar.</span></span>
+    </h2>
+    <a data-fade class="btn btn-ink" href="#rodape">↗ Entrar em contato</a>
   </section>
 
   <!-- Rodapé -->

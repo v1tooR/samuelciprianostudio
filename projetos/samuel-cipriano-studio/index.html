@@ -15,6 +15,7 @@
     --ink: #034638;
     --wool: #E5D0B1;
     --red: #D22630;
+    --blue: #0047BB;
     --rule: rgba(3,70,56,.2);
     --g: clamp(16px, 3vw, 46px);
     --nav: 60px;
@@ -25,7 +26,7 @@
   body { margin: 0; background: var(--paper) var(--grain); color: var(--ink); overflow-x: clip; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; }
   * { box-sizing: border-box; }
   a { color: inherit; text-decoration: none; }
-  a:hover { color: var(--red); }
+  a:hover { color: var(--blue); }
   ::selection { background: var(--red); color: var(--paper); }
   img { display: block; }
   button { font: inherit; color: inherit; }
@@ -105,7 +106,7 @@
   /* ---- next project */
   .next { display: block; border-top: 1px solid var(--ink); padding-top: 16px; }
   .next .t-title { display: block; margin-top: 10px; }
-  .next:hover { color: var(--red); }
+  .next:hover { color: var(--blue); }
 
   /* ---- 04 cta */
   .cta { position: relative; text-align: center; padding-bottom: clamp(200px, 30vh, 320px); }
@@ -124,9 +125,9 @@
   /* ---- buttons: pill, as on the brandbook's download buttons */
   .btn { appearance: none; border: 0; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: min(100%, 220px); padding: 14px 28px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 600; font-size: 1rem; line-height: 1; transition: background-color .3s, color .3s; }
   .btn-wool { background: var(--wool); color: var(--ink); }
-  .btn-wool:hover { background: var(--paper); color: var(--ink); }
+  .btn-wool:hover { background: var(--blue); color: var(--paper); }
   .btn-ink { background: var(--ink); color: var(--paper); }
-  .btn-ink:hover { background: var(--red); color: var(--paper); }
+  .btn-ink:hover { background: var(--blue); color: var(--paper); }
 
   /* ---- rodapé: the one full green page */
   .foot { position: relative; z-index: 2; background: var(--ink); color: var(--wool); padding: clamp(56px, 10vh, 110px) var(--g) clamp(20px, 3vh, 32px); }
@@ -172,6 +173,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
 <script src="../../assets/contato.js" defer></script>
+<script src="../../assets/cursor.js" defer></script>
 </head>
 <body>
 
@@ -267,11 +269,10 @@
       <div class="flora flora-cta-l" data-flora aria-hidden="true" style="--ar: 0.5493;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="../../assets/flora/vermelha-04.webp" alt="" loading="lazy" decoding="async"></div></div></div>
       <div class="flora flora-cta-r" data-flora aria-hidden="true" style="--ar: 0.6150;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="../../assets/flora/vermelha-01.webp" alt="" loading="lazy" decoding="async"></div></div></div>
       <h2>
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Vamos dar nome, cor e forma</span></span>
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">ao seu sonho?</span></span>
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Gostaria de falar sobre um projeto?</span></span>
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">Vamos conversar.</span></span>
       </h2>
-      <p data-fade class="t-body">Atendemos poucos clientes por vez. Conte sobre a sua marca e o que ela sonha ser.</p>
-      <a data-fade class="btn btn-ink" href="#rodape">↗ Falar sobre um projeto</a>
+      <a data-fade class="btn btn-ink" href="#rodape">↗ Entrar em contato</a>
     </section>
   </main>
 
