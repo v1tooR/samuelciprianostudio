@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Samuel Cipriano Studio · Identidade própria</title>
-<meta name="description" content="Projeto: a identidade do próprio Samuel Cipriano Studio. Estratégia, identidade verbal, identidade visual e brandbook.">
+<title>Entremeio · Samuel Cipriano Studio</title>
+<meta name="description" content="Entremeio: identidade visual de uma pousada na Serra da Mantiqueira. Projeto conceitual de Samuel Cipriano Studio.">
 <link rel="stylesheet" href="https://use.typekit.net/elq3gla.css">
 <style>
   /* Project page. Same sheet, type and colour as the home page (brandbook 1.0):
@@ -44,12 +44,14 @@
   /* ---- folio, sections */
   .folio { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
   .folio b { font-weight: 600; }
-  .sec { position: relative; padding: calc(var(--nav) + clamp(28px, 5vh, 56px)) var(--g) clamp(88px, 13vh, 170px); }
+  .sec { position: relative; padding: calc(var(--nav) + clamp(64px, 12vh, 140px)) var(--g) clamp(88px, 13vh, 170px); }
   .sec > .folio { margin-bottom: clamp(48px, 9vh, 110px); }
 
   /* ---- nav */
   .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 120; height: var(--nav); display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 var(--g); background: var(--paper) var(--grain); border-bottom: 1px solid var(--rule); }
-  .nav-home img { height: 40px; width: auto; }
+  /* logotipo in the centre of the bar, a link on each side */
+  .nav-home { position: absolute; left: 50%; top: 50%; translate: -50% -50%; }
+  .nav-home img { height: 30px; width: auto; }
   .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
 
   /* ---- plates: every image is a piece placed on the page, with a numbered caption */
@@ -94,6 +96,16 @@
   .g-card .frame { aspect-ratio: 1280 / 1290; }
   .g-wide { grid-column: 4 / -1; }
   .g-wide .frame { aspect-ratio: 2000 / 1008; }
+
+  .hero-note { margin-top: clamp(16px, 3vh, 28px); }
+  /* a project still without photographs: the green page with the isotipo */
+  .frame.ph { display: grid; place-items: center; align-content: center; gap: 14px; background: var(--ink); color: var(--wool); }
+  .frame.ph img { width: clamp(56px, 6vw, 88px); height: auto; object-fit: contain; }
+
+  /* ---- next project */
+  .next { display: block; border-top: 1px solid var(--ink); padding-top: 16px; }
+  .next .t-title { display: block; margin-top: 10px; }
+  .next:hover { color: var(--red); }
 
   /* ---- 04 cta */
   .cta { position: relative; text-align: center; padding-bottom: clamp(200px, 30vh, 320px); }
@@ -159,66 +171,55 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
-<script src="assets/contato.js" defer></script>
+<script src="../../assets/contato.js" defer></script>
 </head>
 <body>
 
   <nav class="nav t-small">
-    <a class="nav-home" href="index.html" aria-label="Samuel Cipriano Studio, início">
-      <img src="assets/imagotipo-verde.svg" alt="Samuel Cipriano Studio">
+    <a class="nav-home" href="../../" aria-label="Samuel Cipriano Studio, início">
+      <img src="../../assets/logotipo-verde.svg" alt="Samuel Cipriano Studio">
     </a>
-    <div class="nav-links">
-      <a href="index.html#projetos">Todos os projetos</a>
-      <a href="#rodape">Contato</a>
-    </div>
+    <a href="../../#projetos">Projetos</a>
+    <a href="#rodape">Contato</a>
   </nav>
 
   <main>
     <!-- 01 · Abertura -->
     <section class="sec" id="abertura">
-      <div class="folio t-small"><span><b>Projeto</b> | Identidade própria</span><span>2026</span></div>
       <h1 class="hero-title">
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-display" style="display: block;">Samuel Cipriano</span></span>
-        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-display it" style="display: block;">Studio</span></span>
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-display" style="display: block;">Entremeio</span></span>
       </h1>
+      <p data-fade class="t-body hero-note">Projeto conceitual para fins de estudo de branding.</p>
       <dl class="grid meta">
-        <div data-fade><dt class="t-small">Cliente</dt><dd class="t-body">Samuel Cipriano Studio</dd></div>
-        <div data-fade><dt class="t-small">Ano</dt><dd class="t-body">2026</dd></div>
-        <div data-fade><dt class="t-small">Escopo</dt><dd class="t-body">Estratégia, identidade verbal, identidade visual e brandbook</dd></div>
-        <div data-fade><dt class="t-small">Local</dt><dd class="t-body">Vale do Paraíba, SP</dd></div>
+        <div data-fade><dt class="t-small">Cliente</dt><dd class="t-body">Pousada Entremeio</dd></div>
+        <div data-fade><dt class="t-small">Tipo</dt><dd class="t-body">Projeto conceitual</dd></div>
+        <div data-fade><dt class="t-small">Serviços</dt><dd class="t-body">Identidade visual</dd></div>
+        <div data-fade><dt class="t-small">Local</dt><dd class="t-body">Santo Antônio do Pinhal, SP</dd></div>
       </dl>
       <figure class="plate hero-plate" data-plate>
-        <div class="frame"><img src="assets/projetos/samuel-cipriano-studio/lacres.webp" alt="Lacres de cera dourado e prateado sobre papelaria com ilustrações de flores vermelhas" decoding="async"></div>
-        <figcaption class="t-small"><span>(1)</span><span>Papelaria e lacres</span></figcaption>
+        <div class="frame" style="aspect-ratio: 2400 / 1350;"><img src="../../assets/projetos/entremeio/capa.webp" alt="Logotipo da Pousada Entremeio sobre a sala de estar da pousada" decoding="async"></div>
+        <figcaption class="t-small"><span>(1)</span><span>Pousada Entremeio, Serra da Mantiqueira</span></figcaption>
       </figure>
     </section>
 
     <!-- 02 · O projeto -->
     <section class="sec" id="projeto">
-      <div class="folio t-small"><span><b>O projeto</b> | Contexto, desafio e solução</span><span>02</span></div>
       <div class="grid ed">
         <div class="ed-side"><h2 data-fade class="t-serif ed-title">Contexto</h2></div>
         <div class="ed-main">
-          <p data-fade class="t-serif ed-lead">Samuel Cipriano Studio nasce como uma resposta humana a uma era artificial. O estúdio precisava de uma marca à altura do que promete aos seus clientes: humana, artesanal e atemporal, capaz de dar voz a pessoas que amam o que fazem.</p>
+          <p data-fade class="t-serif ed-lead">Entremeio é uma pousada de onze quartos no centro de Santo Antônio do Pinhal, na Serra da Mantiqueira.</p>
         </div>
       </div>
       <div class="grid ed">
-        <div class="ed-side"><h2 data-fade class="t-serif ed-title">Desafio e solução</h2></div>
+        <div class="ed-side"><h2 data-fade class="t-serif ed-title">Conceito e identidade</h2></div>
         <dl class="ed-main ds">
           <div data-fade>
-            <dt class="t-serif">Desafio<span class="nc">1</span></dt>
-            <dd class="t-body">Se diferenciar num mercado em que muitas marcas fazem as mesmas coisas e usam as mesmas palavras, sem seguir tendências passageiras. A marca precisava soar tradicional e responsável, sem perder a sensibilidade.</dd>
+            <dt class="t-serif">Conceito<span class="nc">1</span></dt>
+            <dd class="t-body">Diferente do que se pratica, a marca não aponta para o que existe dentro do quarto, mas comunica o que está fora dele: a cidade. Onde ficam as coisas, a que horas abrem, melhores roteiros nas diversas épocas do ano, a condição da estrada. Entremeio é a casa que te apresenta o lado de fora.</dd>
           </div>
           <div data-fade>
-            <dt class="t-serif">Solução<span class="nc">2</span></dt>
-            <dd class="t-body">Um nome patronímico, que transmite tradição e responsabilidade. Um cordeiro desenhado à mão, que representa o lado orgânico e artesanal, com uma tipografia serifada de toque clássico. Uma voz competente, gentil e poética, e ilustrações botânicas de domínio público.
-              <ul>
-                <li>Missão, visão, valores e posicionamento</li>
-                <li>Manifesto, slogan e tom de voz</li>
-                <li>Logo, paleta, tipografia e patterns</li>
-                <li>Brandbook e aplicações</li>
-              </ul>
-            </dd>
+            <dt class="t-serif">Identidade visual<span class="nc">2</span></dt>
+            <dd class="t-body">O objetivo da identidade visual foi refletir o pertencimento do local em que se está, com elementos característicos da região desenhados à mão, trazendo um tom de artesanato para a marca. A ideia central é passar aconchego e requinte, explorando a beleza do que já se é, abraçando a própria essência do ambiente e da cidade. Para isso, foram exploradas texturas naturais, elementos da paisagem da Mantiqueira e uma comunicação amigável em todos os pontos de contato.</dd>
           </div>
         </dl>
       </div>
@@ -228,32 +229,57 @@
     <section class="sec" id="imagens" style="padding-top: 0;">
       <div class="grid">
         <figure class="plate g-full" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="assets/projetos/samuel-cipriano-studio/caderno.webp" alt="Pessoa lendo um caderno com capa listrada em verde e o cordeiro da marca"></div>
-          <figcaption class="t-small"><span>(2)</span><span>Caderno com o pattern da marca</span></figcaption>
-        </figure>
-        <figure class="plate g-poster" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="assets/projetos/samuel-cipriano-studio/poster.webp" alt="Pôster com o logotipo e ilustração de íris roxas sobre fundo verde"></div>
-          <figcaption class="t-small"><span>(3)</span><span>Pôster</span></figcaption>
-        </figure>
-        <figure class="plate g-card" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="assets/projetos/samuel-cipriano-studio/cartao.webp" alt="Cartão de visita frente e verso sobre pintura de nenúfares"></div>
-          <figcaption class="t-small"><span>(4)</span><span>Cartão de visita</span></figcaption>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/logotipos.webp" alt="Logotipo da Entremeio com a araucária e selos em variações"></div>
+          <figcaption class="t-small"><span>(2)</span><span>Logotipo e selos</span></figcaption>
         </figure>
         <figure class="plate g-full" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="assets/projetos/samuel-cipriano-studio/site.webp" alt="Notebook aberto mostrando o site com o logotipo e flores vermelhas"></div>
-          <figcaption class="t-small"><span>(5)</span><span>Site</span></figcaption>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/sinalizacao.webp" alt="Placa vertical com o logotipo na fachada de madeira e poltrona verde junto à janela"></div>
+          <figcaption class="t-small"><span>(3)</span><span>Sinalização e ambientes</span></figcaption>
         </figure>
         <figure class="plate g-wide" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="assets/projetos/samuel-cipriano-studio/bone.webp" alt="Boné verde bordado com o cordeiro, contra o céu azul"></div>
-          <figcaption class="t-small"><span>(6)</span><span>Boné bordado</span></figcaption>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/chaveiro.webp" alt="Chaveiro do quarto 2 com chave antiga e sala de jantar da pousada"></div>
+          <figcaption class="t-small"><span>(4)</span><span>Chaveiro do quarto</span></figcaption>
+        </figure>
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/papelaria.webp" alt="Cartões de boas-vindas da pousada sobre fundo verde"></div>
+          <figcaption class="t-small"><span>(5)</span><span>Papelaria de boas-vindas</span></figcaption>
+        </figure>
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/arquitetura.webp" alt="Fachada de madeira da pousada e aviso de porta “Vivendo momentos lá fora”"></div>
+          <figcaption class="t-small"><span>(6)</span><span>Arquitetura e aviso de porta</span></figcaption>
+        </figure>
+        <figure class="plate g-wide" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/ecobag.webp" alt="Ecobag com a araucária e araucária ao pôr do sol"></div>
+          <figcaption class="t-small"><span>(7)</span><span>Ecobag e a paisagem da Mantiqueira</span></figcaption>
+        </figure>
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/bone.webp" alt="Homem usando boné verde bordado com o logotipo da Entremeio"></div>
+          <figcaption class="t-small"><span>(8)</span><span>Boné bordado</span></figcaption>
+        </figure>
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/cartoes.webp" alt="Cartões de visita da Entremeio entre folhas e sobre madeira"></div>
+          <figcaption class="t-small"><span>(9)</span><span>Cartões de visita</span></figcaption>
+        </figure>
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/site.webp" alt="Notebook com o site da Entremeio: “Aqui você vive a cidade”"></div>
+          <figcaption class="t-small"><span>(10)</span><span>Site</span></figcaption>
+        </figure>
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/entremeio/redes-sociais.webp" alt="Cinco celulares com stories da pousada"></div>
+          <figcaption class="t-small"><span>(11)</span><span>Redes sociais</span></figcaption>
         </figure>
       </div>
     </section>
 
+    <!-- Próximo projeto -->
+    <section class="sec" style="padding-top: 0; padding-bottom: clamp(56px, 9vh, 110px);">
+      <a class="next" href="../samuel-cipriano-studio/"><span class="t-small">Próximo projeto</span><span class="t-title">Samuel Cipriano Studio</span></a>
+    </section>
+
     <!-- 04 · CTA -->
     <section class="sec cta" id="conversar">
-      <div class="flora flora-cta-l" data-flora aria-hidden="true" style="--ar: 0.5493;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-04.webp" alt="" loading="lazy" decoding="async"></div></div></div>
-      <div class="flora flora-cta-r" data-flora aria-hidden="true" style="--ar: 0.6150;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-01.webp" alt="" loading="lazy" decoding="async"></div></div></div>
+      <div class="flora flora-cta-l" data-flora aria-hidden="true" style="--ar: 0.5493;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="../../assets/flora/vermelha-04.webp" alt="" loading="lazy" decoding="async"></div></div></div>
+      <div class="flora flora-cta-r" data-flora aria-hidden="true" style="--ar: 0.6150;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="../../assets/flora/vermelha-01.webp" alt="" loading="lazy" decoding="async"></div></div></div>
       <h2>
         <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Vamos dar nome, cor e forma</span></span>
         <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">ao seu sonho?</span></span>
@@ -289,7 +315,7 @@
         </div>
       </form>
     </div>
-    <img class="foot-logo" src="assets/imagotipo-wool.svg" alt="Samuel Cipriano Studio">
+    <img class="foot-logo" src="../../assets/imagotipo-wool.svg" alt="Samuel Cipriano Studio">
     <div class="foot-base t-small">
       <span>© 2026 Samuel Cipriano Studio</span>
       <span>Ame o que faz. Faça por amor.</span>

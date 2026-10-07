@@ -56,7 +56,7 @@
   .folio { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
   .folio b { font-weight: 600; }
   .folio .sep { color: var(--muted); }
-  .sec { position: relative; padding: calc(var(--nav) + clamp(28px, 5vh, 56px)) var(--g) clamp(88px, 13vh, 170px); }
+  .sec { position: relative; padding: calc(var(--nav) + clamp(64px, 12vh, 140px)) var(--g) clamp(88px, 13vh, 170px); }
   .sec > .folio { margin-bottom: clamp(48px, 9vh, 110px); }
   .rule { height: 1px; background: var(--rule); border: 0; margin: 0; }
 
@@ -68,9 +68,14 @@
 
   /* ---- nav */
   .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 120; height: var(--nav); display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 var(--g); background: var(--paper) var(--grain); border-bottom: 1px solid var(--rule); }
-  .nav-home { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
-  .nav-home img { height: 40px; width: auto; }
-  .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
+  /* the slot the cover logotipo shrinks into: 30px tall (min. 26px), its "O" safe area fits the 60px bar */
+  .nav-home { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: block; height: 30px; aspect-ratio: 338.36 / 77.54; }
+  /* the cover logotipo, lifted out of the page: JS moves and scales it from the cover into .nav-home */
+  .hlogo { position: fixed; left: 0; top: 0; z-index: 121; display: none; overflow: hidden; transform-origin: 0 0; }
+  .hlogo img { display: block; width: 100%; height: auto; }
+  .has-hlogo .hlogo { display: block; }
+  .has-hlogo .capa-mark { visibility: hidden; }
+  .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px); margin-left: auto; }
   .nav-btn { appearance: none; border: 0; background: none; padding: 8px 0; cursor: pointer; }
   .nav-btn:hover { color: var(--red); }
 
@@ -114,6 +119,17 @@
   .film-plate { position: absolute; left: 50%; top: 50%; width: 320px; height: 240px; margin: -120px 0 0 -160px; overflow: hidden; background: var(--wool); transform-origin: 50% 50%; will-change: transform; z-index: 1; }
   .film-yt { position: absolute; inset: 0; transform-origin: 50% 50%; will-change: transform; }
   .film-yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
+  /* a still from the film covers the player until it plays, so no YouTube chrome ever shows */
+  .film-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s; }
+  .film-on .film-poster { opacity: 0; }
+  /* the whole plate is the play / pause button; the visible mark sits in its centre */
+  .film-play { appearance: none; position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; align-content: center; gap: 12px; border: 0; padding: 0; background: none; color: var(--paper); cursor: pointer; }
+  .film-play-in { display: grid; justify-items: center; gap: 12px; }
+  .film-play-dot { width: clamp(56px, 6vw, 84px); aspect-ratio: 1; border-radius: 50%; background: var(--paper); position: relative; transition: transform .4s; }
+  .film-play-dot::after { content: ""; position: absolute; left: 54%; top: 50%; translate: -50% -50%; border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent var(--ink); }
+  .film-play:hover .film-play-dot { transform: scale(1.08); }
+  .film-play [data-film-play-label] { color: var(--paper); }
+  .film-on .film-play-dot, .film-on [data-film-play-label] { opacity: 0; transition: opacity .3s; }
   .film-ph { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; text-align: center; }
   .film-ph img { height: clamp(36px, 3.4vw, 56px); width: auto; }
   .film-words { position: absolute; left: 0; right: 0; top: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 var(--g); text-align: center; pointer-events: none; z-index: 2; }
@@ -144,41 +160,27 @@
   .flora-est { right: 0; top: calc(var(--nav) + clamp(64px, 9vh, 96px)); height: clamp(320px, 30vw, 460px); --tx: 30%; }
   .flora-est .flora-turn { transform-origin: 50% 50%; rotate: 196deg; }
 
-  /* the four stages climb like steps; one hairline draws through them as the page is read */
-  .srv-lead { grid-column: 1 / span 5; }
-  .srv-lead .ed-lead { margin-top: clamp(28px, 5vh, 56px); }
-  .stairs { --rise: clamp(70px, 8vw, 120px); position: relative; grid-column: 6 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: clamp(18px, 2vw, 32px); padding-top: 1px; }
-  .stairs-line { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-  .stairs-line path { fill: none; stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
-  .step { margin-top: calc((3 - var(--i)) * var(--rise)); padding-top: clamp(16px, 2.4vh, 24px); }
-  .step h3 { white-space: nowrap; font-size: clamp(1.1rem, 1.45vw, 1.4rem); line-height: calc(1em + 4px); margin: 0 0 clamp(14px, 2.4vh, 22px); }
-  .step ul { list-style: none; margin: 0; padding: 0; }
-  .step li { padding: .18em 0; }
+  /* the three services: the service large on the left, its scope smaller on the right */
+  .svc { margin-top: clamp(80px, 13vh, 160px); border-top: 1px solid var(--ink); }
+  .svc-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 20px; align-items: start; padding: clamp(28px, 5vh, 56px) 0; border-bottom: 1px solid var(--rule); }
+  .svc-name { grid-column: 1 / span 7; font-size: clamp(2.4rem, 5.6vw, 5.1rem); line-height: calc(1em + 4px); }
+  .svc-name .nc { font-size: max(12px, .28em); vertical-align: 2.4em; }
+  .svc-scope { grid-column: 9 / span 4; list-style: none; margin: 0; padding: .6em 0 0; }
+  .svc-scope li { padding: .18em 0; }
 
-  /* ---- 06 projetos: catalogue spreads */
-  .proj-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px; }
-  .proj { margin-top: clamp(72px, 12vh, 150px); }
-  .proj-bar { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--rule); padding-top: 12px; }
-  .spread { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 32px; margin-top: clamp(28px, 5vh, 56px); }
-  .sp-text .t-title { margin-bottom: clamp(20px, 3vh, 32px); }
-  .sp-specs { display: flex; flex-direction: column; gap: 2px; margin-bottom: 22px; }
-  .a .sp-text { grid-column: 1 / span 4; }
-  .a .sp-big { grid-column: 6 / span 4; }
-  .a .sp-big .frame { aspect-ratio: 4 / 5; }
-  .a .sp-small { grid-column: 10 / span 2; align-self: start; }
-  .a .sp-small .frame { aspect-ratio: 3 / 4; }
-  .b .sp-big { grid-column: 1 / span 5; grid-row: 1; }
-  .b .sp-big .frame { aspect-ratio: 5 / 4; }
-  .b .sp-small { grid-column: 6 / span 2; grid-row: 1; align-self: end; }
-  .b .sp-small .frame { aspect-ratio: 3 / 4; }
-  .b .sp-text { grid-column: 9 / span 4; grid-row: 1; align-self: start; }
-  .c .sp-full { grid-column: 1 / -1; }
-  .c .sp-full .frame { aspect-ratio: 16 / 8; }
-  .sp-over { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; padding: clamp(16px, 2.4vw, 32px); color: var(--paper); background: rgba(16,24,32,.34); z-index: 1; }
-  .sp-over .center { display: grid; place-items: center; text-align: center; }
-  .sp-over .t-serif { font-size: clamp(1.3rem, 2.5vw, 2.4rem); line-height: calc(1em + 4px); max-width: 26ch; }
-  .sp-over .corners { display: flex; justify-content: space-between; gap: 16px; }
-  .sp-over .top { text-align: center; }
+  /* ---- 06 projetos: one full screen per project; each screen stays while the next slides over it */
+  .projs { position: relative; }
+  .projs-head { padding: calc(var(--nav) + clamp(64px, 12vh, 140px)) var(--g) clamp(40px, 7vh, 80px); }
+  .pj { position: sticky; top: 0; display: block; height: 100svh; overflow: hidden; color: var(--paper); background: var(--ink); }
+  .pj:hover { color: var(--paper); }
+  .pj-media { position: absolute; inset: 0; }
+  .pj-media img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.001); transition: transform 1.4s cubic-bezier(.16, 1, .3, 1); }
+  .pj:hover .pj-media img { transform: scale(1.035); }
+  /* a flat veil of the brandbook's #101820 for legibility; no gradients */
+  .pj-over { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: calc(var(--nav) + 24px) var(--g) clamp(28px, 6vh, 64px); background: rgba(16,24,32,.3); }
+  .pj-title { color: var(--paper); }
+  .pj-svc { margin-top: 14px; color: var(--paper); }
+  .pj-more { display: inline-block; margin-top: clamp(20px, 3vh, 32px); padding-bottom: 3px; border-bottom: 1px solid currentColor; align-self: flex-start; }
 
   /* ---- 07 carta (manifesto escrito) */
   .carta { position: relative; text-align: center; }
@@ -232,13 +234,10 @@
   .foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid rgba(229,208,177,.35); }
 
   @media (max-width: 900px) {
-    .ed-side, .ed-main, .srv-lead { grid-column: 1 / -1; }
+    .ed-side, .ed-main { grid-column: 1 / -1; }
+    .svc-name, .svc-scope { grid-column: 1 / -1; }
+    .svc-scope { padding-top: 0; }
     .vals > div { grid-template-columns: 1fr; gap: 8px; }
-    .spread { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-    .a .sp-text, .b .sp-text { grid-column: 1 / -1; grid-row: auto; }
-    .a .sp-big, .b .sp-big { grid-column: 1 / span 4; grid-row: auto; }
-    .a .sp-small, .b .sp-small { grid-column: 5 / span 2; grid-row: auto; align-self: end; }
-    .c .sp-full .frame { aspect-ratio: 4 / 5; }
     .foot-col:nth-child(1), .foot-col:nth-child(2) { grid-column: span 6; }
     .foot-form { grid-column: 1 / -1; }
     .flora-ct { right: 0; height: 240px; --tx: 22%; }
@@ -246,16 +245,9 @@
   }
   @media (max-width: 1100px) {
     .flora-est, .flora-carta-l, .flora-carta-r { display: none; }
-    .stairs { grid-column: 1 / -1; margin-top: clamp(24px, 4vh, 48px); }
   }
   @media (min-width: 901px) and (max-width: 1100px) {
     .ed-main { grid-column: 6 / -1; }
-    .srv-lead { grid-column: 1 / span 8; }
-  }
-  @media (max-width: 700px) {
-    .stairs { grid-template-columns: 1fr; }
-    .stairs-line { display: none; }
-    .step { margin-top: 0; padding: 18px 0 28px; border-top: 1px solid var(--ink); }
   }
   @media (max-width: 600px) {
     .foot-col:nth-child(1), .foot-col:nth-child(2) { grid-column: 1 / -1; }
@@ -280,26 +272,25 @@
   </div>
 
   <nav class="nav t-small" data-nav>
-    <a class="nav-home" href="#capa" aria-label="Samuel Cipriano Studio, início">
-      <img data-nav-mark src="assets/imagotipo-verde.svg" alt="Samuel Cipriano Studio">
-    </a>
+    <a class="nav-home" href="#capa" data-nav-slot aria-label="Samuel Cipriano Studio, início"></a>
+    <a class="hlogo" href="#capa" data-hlogo aria-hidden="true" tabindex="-1"><img data-hlogo-in src="assets/logotipo-verde.svg" alt=""></a>
     <div class="nav-links">
-      <button class="nav-btn t-small" onClick="{{ openMenu }}">Sumário</button>
+      <button class="nav-btn t-small" onClick="{{ openMenu }}">Menu</button>
     </div>
   </nav>
 
   <div class="menu" data-menu>
     <div class="menu-top t-small">
-      <span><b style="font-weight: 600;">Sumário</b></span>
+      <span><b style="font-weight: 600;">Menu</b></span>
       <button class="nav-btn t-small" onClick="{{ closeMenu }}">Fechar</button>
     </div>
     <div class="menu-list">
-      <a data-menu-item href="#manifesto"><span class="t-serif">Manifesto, o filme</span><span class="t-small">03</span></a>
-      <a data-menu-item href="#estudio"><span class="t-serif">O estúdio</span><span class="t-small">04</span></a>
-      <a data-menu-item href="#servicos"><span class="t-serif it">Serviços</span><span class="t-small">05</span></a>
-      <a data-menu-item href="#projetos"><span class="t-serif">Projetos</span><span class="t-small">06</span></a>
-      <a data-menu-item href="#carta"><span class="t-serif">Manifesto, o texto</span><span class="t-small">07</span></a>
-      <a data-menu-item href="#contato"><span class="t-serif it">Contato</span><span class="t-small">08</span></a>
+      <a data-menu-item href="#manifesto"><span class="t-serif">Manifesto, o filme</span></a>
+      <a data-menu-item href="#estudio"><span class="t-serif">O estúdio</span></a>
+      <a data-menu-item href="#servicos"><span class="t-serif it">Serviços</span></a>
+      <a data-menu-item href="#projetos"><span class="t-serif">Projetos</span></a>
+      <a data-menu-item href="#carta"><span class="t-serif">Manifesto, o texto</span></a>
+      <a data-menu-item href="#contato"><span class="t-serif it">Contato</span></a>
     </div>
     <div class="menu-foot t-small">
       <a href="mailto:contatosamuelcipriano@gmail.com">contatosamuelcipriano@gmail.com</a>
@@ -319,20 +310,20 @@
         <span data-mask-in class="t-serif it capa-tag" style="display: block;">Construímos marcas diferentes, relevantes e desejadas.</span>
       </h1>
     </div>
-    <div class="capa-meta t-small">
-      <span class="muted">Role para ler</span>
-    </div>
   </section>
 
   <!-- 03 · Manifesto em filme (4:3) -->
   <section id="manifesto" class="film" data-film data-screen-label="03 Manifesto em filme">
-    <div class="folio t-small"><span><b>Manifesto</b> <span class="sep">|</span> O filme</span><span>03</span></div>
     <div class="film-plate" data-film-plate>
       <div class="film-ph">
         <img src="assets/isotipo-verde.svg" alt="">
         <span class="t-small">Filme manifesto · em breve</span>
       </div>
       <div class="film-yt" data-film-yt aria-label="Filme manifesto do Samuel Cipriano Studio"></div>
+      <img class="film-poster" data-film-poster src="assets/manifesto-poster.webp" alt="" decoding="async">
+      <button class="film-play" data-film-play aria-label="Assistir ao filme manifesto com som">
+        <span class="film-play-in" data-film-play-in><span class="film-play-dot" aria-hidden="true"></span><span class="t-small" data-film-play-label>Assistir com som</span></span>
+      </button>
     </div>
     <div class="film-words" data-film-words aria-hidden="true">
       <span data-film-line="-1" class="t-serif">Ame o que faz.</span>
@@ -340,15 +331,14 @@
       <span data-film-line="1" class="t-serif it">Faça por amor.</span>
     </div>
     <div class="film-cap t-small" data-film-cap>
-      <span>(1) Filme manifesto, 2026. <span class="muted">Ame o que faz. Faça por amor.</span></span>
-      <button class="link-btn t-small" data-film-sound>Ativar som</button>
+      <span>Filme manifesto</span>
+      <button class="link-btn t-small" data-film-sound>Assistir com som</button>
     </div>
   </section>
 
   <!-- 04 · O estúdio -->
   <section id="estudio" class="sec" data-screen-label="04 O estúdio">
     <div class="flora flora-est" data-flora aria-hidden="true" style="--ar: 0.6814;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-02.webp" alt="" loading="lazy" decoding="async"></div></div></div>
-    <div class="folio t-small"><span><b>O estúdio</b> <span class="sep">|</span> Origem</span><span>04</span></div>
     <div class="ed">
       <div class="ed-side">
         <h2 data-fade class="t-serif ed-title">Somos um<br>estúdio de branding</h2>
@@ -378,103 +368,63 @@
 
   <!-- 05 · Serviços -->
   <section id="servicos" class="sec" data-screen-label="05 Serviços">
-    <div class="folio t-small"><span><b>Serviços</b> <span class="sep">|</span> Quatro etapas</span><span>05</span></div>
     <div class="ed">
-      <div class="srv-lead">
-        <h2 data-fade class="t-serif ed-title">Serviços &amp; etapas</h2>
-        <p data-fade class="t-serif ed-lead">Construímos marcas em quatro etapas: Estratégia<span class="nc">1</span>, Identidade verbal<span class="nc">2</span>, Identidade visual<span class="nc">3</span> e Aplicações<span class="nc">4</span>. Elas não são separadas, mas sucessivas: a estratégia, baseada em dados, estudos e pesquisas, dá origem a uma identidade verbal e visual que a traduz para o consumidor final.</p>
+      <div class="ed-side">
+        <h2 data-fade class="t-serif ed-title">Serviços</h2>
       </div>
-      <div class="stairs" data-stairs>
-        <svg class="stairs-line" aria-hidden="true"><path data-stairs-path d=""></path></svg>
-        <div class="step" data-step style="--i: 0;">
-          <h3 class="t-serif">Estratégia<span class="nc">1</span></h3>
-          <ul class="t-body"><li>Pesquisa e diagnóstico</li><li>Posicionamento</li><li>Proposta de valor</li><li>Missão, visão e valores</li><li>Personalidade</li></ul>
-        </div>
-        <div class="step" data-step style="--i: 1;">
-          <h3 class="t-serif">Identidade verbal<span class="nc">2</span></h3>
-          <ul class="t-body"><li>Naming</li><li>Manifesto</li><li>Voz e tom de voz</li><li>Slogan e frases</li></ul>
-        </div>
-        <div class="step" data-step style="--i: 2;">
-          <h3 class="t-serif">Identidade visual<span class="nc">3</span></h3>
-          <ul class="t-body"><li>Logotipo e variações</li><li>Paleta de cores</li><li>Tipografia</li><li>Ilustrações e patterns</li><li>Fotografia</li></ul>
-        </div>
-        <div class="step" data-step style="--i: 3;">
-          <h3 class="t-serif">Aplicações<span class="nc">4</span></h3>
-          <ul class="t-body"><li>Brandbook</li><li>Papelaria</li><li>Embalagens</li><li>Peças digitais</li><li>Implementação</li></ul>
-        </div>
+      <div class="ed-main">
+        <p data-fade class="t-serif ed-lead">Construímos marcas em três frentes: Estratégia<span class="nc">1</span>, Identidade verbal<span class="nc">2</span> e Identidade visual<span class="nc">3</span>. Elas não são separadas, mas sucessivas: a estratégia, baseada em dados, estudos e pesquisas, dá origem a uma identidade verbal e visual que a traduz para o consumidor final.</p>
+      </div>
+    </div>
+    <div class="svc">
+      <div class="svc-row" data-fade>
+        <h3 class="t-serif svc-name">Estratégia de marca<span class="nc">1</span></h3>
+        <ul class="t-body svc-scope"><li>Pesquisa e diagnóstico</li><li>Posicionamento e proposta de valor</li><li>Missão, visão e valores</li><li>Personalidade e arquétipos</li></ul>
+      </div>
+      <div class="svc-row" data-fade>
+        <h3 class="t-serif svc-name">Identidade verbal<span class="nc">2</span></h3>
+        <ul class="t-body svc-scope"><li>Naming</li><li>Manifesto</li><li>Voz e tom de voz</li><li>Slogan e frases</li></ul>
+      </div>
+      <div class="svc-row" data-fade>
+        <h3 class="t-serif svc-name">Identidade visual<span class="nc">3</span></h3>
+        <ul class="t-body svc-scope"><li>Logotipo e variações</li><li>Paleta de cores e tipografia</li><li>Ilustrações e patterns</li><li>Fotografia</li><li>Brandbook e aplicações</li></ul>
       </div>
     </div>
   </section>
 
   <!-- 06 · Projetos -->
-  <section id="projetos" class="sec" data-screen-label="06 Projetos">
-    <div class="folio t-small"><span><b>Projetos</b> <span class="sep">|</span> Selecionados</span><span>06</span></div>
-    <div class="proj-head">
-      <h2 data-mask style="overflow: hidden; margin: 0;"><span data-mask-in class="t-title" style="display: block;">Projetos <span class="it">selecionados</span></span></h2>
-      <span class="t-small muted">Conteúdo provisório: nomes e imagens de banco a substituir.</span>
-    </div>
-
-    <article class="proj">
-      <div class="proj-bar t-small"><span>(1) Casa Vinhal</span><span class="muted">Branding · 2025</span></div>
-      <div class="spread a">
-        <div class="sp-text">
-          <h3 data-mask style="overflow: hidden; margin: 0;"><span data-mask-in class="t-title" style="display: block;">Casa <span class="it">Vinhal</span></span></h3>
-          <div class="sp-specs t-small"><span>Restaurante e carta de vinhos</span><span>Identidade visual e verbal</span><span>Manual de marca</span><span>São José dos Campos, SP</span></div>
-          <p data-fade class="t-body">Uma casa de família que queria ser lembrada pela mesa, não pelo cardápio. A marca nasceu da luz baixa, da louça antiga e da conversa que se estende.</p>
-        </div>
-        <figure class="plate sp-big" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Salão de restaurante com luz baixa"></div>
-          <figcaption class="t-small"><span>(1)</span><span class="muted">O salão</span></figcaption>
-        </figure>
-        <figure class="plate sp-small" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&amp;q=80&amp;auto=format&amp;fit=crop" alt="Prato servido à luz de velas"></div>
-          <figcaption class="t-small"><span>(2)</span><span class="muted">À mesa</span></figcaption>
-        </figure>
+  <section id="projetos" class="projs" data-screen-label="06 Projetos">
+    <div class="projs-head"><h2 data-fade class="t-serif ed-title">Projetos selecionados</h2></div>
+    <a class="pj" href="projetos/entremeio/">
+      <div class="pj-media"><img loading="lazy" decoding="async" src="assets/projetos/entremeio/capa.webp" alt="Logotipo da Pousada Entremeio sobre a sala de estar da pousada"></div>
+      <div class="pj-over">
+        <h3 class="t-display pj-title">Entremeio</h3>
+        <p class="t-body pj-svc">Identidade visual · Projeto conceitual</p>
+        <span class="t-small pj-more">Ver projeto</span>
       </div>
-    </article>
-
-    <article class="proj">
-      <div class="proj-bar t-small"><span>(2) Aurora Filmes</span><span class="muted">Naming e identidade · 2025</span></div>
-      <div class="spread b">
-        <figure class="plate sp-big" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=1300&amp;q=80&amp;auto=format&amp;fit=crop" alt="Projetor de cinema antigo projetando luz"></div>
-          <figcaption class="t-small"><span>(1)</span><span class="muted">A primeira luz</span></figcaption>
-        </figure>
-        <figure class="plate sp-small" data-plate>
-          <div class="frame"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=700&amp;q=80&amp;auto=format&amp;fit=crop" alt="Claquete de cinema segurada no set"></div>
-          <figcaption class="t-small"><span>(2)</span><span class="muted">No set</span></figcaption>
-        </figure>
-        <div class="sp-text">
-          <h3 data-mask style="overflow: hidden; margin: 0;"><span data-mask-in class="t-title" style="display: block;">Aurora <span class="it">Filmes</span></span></h3>
-          <div class="sp-specs t-small"><span>Produtora de cinema</span><span>Naming, identidade e direção de arte</span><span>Vale do Paraíba, SP</span></div>
-          <p data-fade class="t-body">Uma produtora nova com olhar de cinema clássico. O nome veio antes de tudo: a luz que chega primeiro e anuncia o dia.</p>
-        </div>
+    </a>
+    <a class="pj" href="projetos/samuel-cipriano-studio/">
+      <div class="pj-media"><img loading="lazy" decoding="async" src="assets/projetos/samuel-cipriano-studio/site.webp" alt="Notebook mostrando o site do Samuel Cipriano Studio com o logotipo e flores vermelhas"></div>
+      <div class="pj-over">
+        <h3 class="t-display pj-title">Samuel Cipriano Studio</h3>
+        <p class="t-body pj-svc">Estratégia, Identidade verbal e Identidade visual</p>
+        <span class="t-small pj-more">Ver projeto</span>
       </div>
-    </article>
-
-    <article class="proj">
-      <div class="proj-bar t-small"><span>(3) Atelier Pastoral</span><span class="muted">Moda autoral · 2024</span></div>
-      <div class="spread c">
-        <figure class="plate sp-full" data-plate>
-          <div class="frame">
-            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1800&amp;q=80&amp;auto=format&amp;fit=crop" alt="Homem de terno escuro abotoando o paletó">
-            <div class="sp-over">
-              <span class="t-small top">Atelier Pastoral · Moda autoral</span>
-              <div class="center"><p class="t-serif">Naming&nbsp;/ <span class="it">Manifesto</span>&nbsp;/ Logotipo&nbsp;/ <span class="it">Paleta</span>&nbsp;/ Tipografia&nbsp;/ <span class="it">Etiquetas</span>&nbsp;/ Sacolas&nbsp;/ <span class="it">Lookbook</span></p></div>
-              <div class="corners t-small"><span>Alfaiataria sob medida<br>Feita à mão em São Paulo</span><span style="text-align: right;">Identidade completa<br>Samuel Cipriano Studio</span></div>
-            </div>
-          </div>
-          <figcaption class="t-small"><span>(1)</span><span class="muted">Campanha de lançamento</span></figcaption>
-        </figure>
+    </a>
+    <a class="pj" href="projetos/lets-dance/">
+      <div class="pj-media"><img loading="lazy" decoding="async" src="assets/projetos/lets-dance/capa.webp" alt="Logotipo do Espaço Let&#8217;s Dance sobre foto de dançarinos de breakdance"></div>
+      <div class="pj-over">
+        <h3 class="t-display pj-title">Let&#8217;s Dance</h3>
+        <p class="t-body pj-svc">Estratégia e Identidade visual</p>
+        <span class="t-small pj-more">Ver projeto</span>
       </div>
-    </article>
+    </a>
   </section>
 
   <!-- 07 · Manifesto, o texto -->
   <section id="carta" class="sec carta" data-screen-label="07 Manifesto escrito">
     <div class="flora flora-carta-l" data-flora aria-hidden="true" style="--ar: 0.6521;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/merian-01.webp" alt="" loading="lazy" decoding="async"></div></div></div>
     <div class="flora flora-carta-r" data-flora aria-hidden="true" style="--ar: 0.7007;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/merian-03.webp" alt="" loading="lazy" decoding="async"></div></div></div>
-    <div class="folio t-small" style="text-align: left;"><span><b>Manifesto</b> <span class="sep">|</span> O texto</span><span>07</span></div>
     <hr class="rule">
     <h2 style="margin: 0;">
       <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-display" style="display: block;">Um salve aos <span class="it">que amam.</span></span></span>
@@ -495,7 +445,6 @@
   <!-- 08 · Contato -->
   <section id="contato" class="sec" data-screen-label="08 Contato">
     <div class="flora flora-ct" data-flora data-flora-rooted aria-hidden="true" style="--ar: 0.4886;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="assets/flora/vermelha-03.webp" alt="" loading="lazy" decoding="async"></div></div></div>
-    <div class="folio t-small"><span><b>Contato</b> <span class="sep">|</span> Vamos conversar</span><span>08</span></div>
     <div class="ct-text">
       <h2 style="margin: 0;">
         <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Vamos criar</span></span>
@@ -557,16 +506,17 @@ class Component extends DCLogic {
   one(sel) { return document.querySelector(sel); }
 
   componentDidMount() {
+    // arriving from another page with an anchor (e.g. /#projetos): the page is built by script, so the
+    // browser cannot jump there itself; we do it once everything is laid out, and skip the curtain
+    this.initialHash = /^#[\w-]+$/.test(window.location.hash) ? window.location.hash : '';
+    if (this.initialHash && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
     this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.mob = window.innerWidth <= 760;
     this.onViewport = () => { this.mob = window.innerWidth <= 760; };
     window.addEventListener('resize', this.onViewport);
+    this.setupHeaderLogo();
     this.onFloraResize = () => this.layoutCapaFlora();
     window.addEventListener('resize', this.onFloraResize);
-    this.onStairsResize = () => this.drawStairs();
-    window.addEventListener('resize', this.onStairsResize);
-    this.drawStairs();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.drawStairs());
     const capaMark = this.one('.capa-mark');
     if (capaMark) capaMark.addEventListener('load', this.onFloraResize);
     this.layoutCapaFlora();
@@ -574,7 +524,7 @@ class Component extends DCLogic {
     this.bindFilm();
     // gsap and ScrollTrigger arrive as separate scripts; wait for both
     this.waitFor(() => window.gsap && window.ScrollTrigger, 8000).then(() => {
-      if (!window.gsap) { this.revealCurtain(true); this.staticFilm(); return; }
+      if (!window.gsap) { this.revealCurtain(true); this.staticFilm(); this.goToHash(); return; }
       this.setupLenis();
       this.setupMotion();
     });
@@ -584,7 +534,7 @@ class Component extends DCLogic {
     window.removeEventListener('resize', this.onViewport);
     if (this.onFilmResize) window.removeEventListener('resize', this.onFilmResize);
     if (this.onFloraResize) window.removeEventListener('resize', this.onFloraResize);
-    if (this.onStairsResize) window.removeEventListener('resize', this.onStairsResize);
+    if (this.onHlogo) { window.removeEventListener('scroll', this.onHlogo); window.removeEventListener('resize', this.onHlogoResize); }
     if (this.filmIO) this.filmIO.disconnect();
     if (this.filmSound && this.onFilmSound) this.filmSound.removeEventListener('click', this.onFilmSound);
     if (this.ytPlayer && this.ytPlayer.destroy) this.ytPlayer.destroy();
@@ -651,57 +601,49 @@ class Component extends DCLogic {
     const g = window.gsap;
     const emblem = this.one('[data-curtain-emblem]');
     const fill = this.one('[data-curtain-fill]');
-    const navMark = this.one('[data-nav-mark]');
     const load = { v: 0 };
-    // where the curtain lamb must land to sit exactly on the lamb of the nav imagotipo,
-    // which takes the left 155.27 / 348.82 of its width and its full height
-    const flight = () => {
-      if (!emblem || !navMark) return { x: 0, y: 0, s: .3 };
-      const a = emblem.getBoundingClientRect(), b = navMark.getBoundingClientRect();
-      const lw = b.width * (155.27 / 348.82);
-      return { x: (b.left + lw / 2) - (a.left + a.width / 2), y: (b.top + b.height / 2) - (a.top + a.height / 2), s: lw / a.width };
-    };
     g.timeline({ delay: .12 })
       .from(emblem, { scale: .86, opacity: 0, duration: .9, ease: 'expo.out' })
       .to(load, {
         v: 1, duration: 1.4, ease: 'power2.inOut',
         onUpdate: () => { if (fill) fill.style.clipPath = 'inset(' + ((1 - load.v) * 100).toFixed(2) + '% 0 0 0)'; }
       }, .3)
-      .to(emblem, { duration: 1.05, ease: 'power4.inOut', x: () => flight().x, y: () => flight().y, scale: () => flight().s }, 1.9)
-      .to(curtain, { opacity: 0, duration: .6, ease: 'power2.out' }, 2.8)
+      .to(emblem, { scale: .9, opacity: 0, duration: .7, ease: 'power3.in' }, 1.9)
+      .to(curtain, { opacity: 0, duration: .6, ease: 'power2.out' }, 2.4)
       .set(curtain, { display: 'none' });
   }
 
-  // ---- 03 manifesto film: a small 4:3 plate that opens into a large plate on the page
+  // ---- 03 manifesto film: a small 4:3 plate that opens into a large plate on the page.
+  // Nothing plays by itself: the visitor presses play and the film starts with sound.
   bindFilm() {
     const wrap = this.one('[data-film-yt]');
+    const plate = this.one('[data-film-plate]');
+    const play = this.one('[data-film-play]');
     const btn = this.one('[data-film-sound]');
     this.filmWrap = wrap;
+    this.filmPlate = plate;
     this.filmSound = btn;
-    this.filmMuted = true;
     this.filmPlaying = false;
-    if (!wrap) return;
-    // hidden until the player is ready: until then the wool placeholder shows
-    wrap.style.visibility = 'hidden';
-    if (btn) btn.style.visibility = 'hidden';
+    if (!wrap || !plate) return;
     const mount = document.createElement('div');
     wrap.appendChild(mount);
     const create = () => {
       this.ytPlayer = new window.YT.Player(mount, {
         videoId: FILM_ID,
         host: 'https://www.youtube-nocookie.com',
-        playerVars: { autoplay: 0, mute: 1, controls: 0, loop: 1, playlist: FILM_ID, playsinline: 1, rel: 0, modestbranding: 1, iv_load_policy: 3, disablekb: 1, fs: 0, cc_load_policy: 0 },
+        playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: FILM_ID, playsinline: 1, rel: 0, modestbranding: 1, iv_load_policy: 3, disablekb: 1, fs: 0, cc_load_policy: 0 },
         events: {
           onReady: () => {
             this.filmReady = true;
-            this.ytPlayer.mute();
             this.noCaptions();
-            wrap.style.visibility = '';
-            if (btn) btn.style.visibility = '';
-            if (this.filmInView && !this.reduced) this.playFilm();
-            this.paintSound();
+            if (this.filmWanted) this.playFilm();
           },
-          onStateChange: (e) => { this.filmPlaying = e.data === 1; if (this.filmPlaying) this.noCaptions(); this.paintSound(); }
+          onStateChange: (e) => {
+            this.filmPlaying = e.data === 1;
+            if (this.filmPlaying) this.noCaptions();
+            plate.classList.toggle('film-on', this.filmPlaying || (this.filmWanted && e.data === 3));
+            this.paintSound();
+          }
         }
       });
     };
@@ -715,29 +657,14 @@ class Component extends DCLogic {
         document.head.appendChild(sc);
       }
     }
+    this.onFilmSound = () => { if (this.filmPlaying || this.filmWanted) this.pauseFilm(); else this.playFilm(); };
+    if (play) play.addEventListener('click', this.onFilmSound);
+    if (btn) btn.addEventListener('click', this.onFilmSound);
     this.paintSound();
-    if (btn) {
-      this.onFilmSound = () => {
-        if (!this.filmReady) return;
-        this.filmMuted = !this.filmMuted;
-        if (this.filmMuted) this.ytPlayer.mute();
-        else { this.ytPlayer.unMute(); this.playFilm(); }
-        this.paintSound();
-      };
-      btn.addEventListener('click', this.onFilmSound);
-    }
-    // plays only while on screen; leaving also silences it
+    // leaving the section pauses it
     if ('IntersectionObserver' in window) {
       this.filmIO = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          this.filmInView = e.isIntersecting;
-          if (!this.filmReady) return;
-          if (e.isIntersecting) { if (!this.reduced) this.playFilm(); }
-          else {
-            this.ytPlayer.pauseVideo();
-            if (!this.filmMuted) { this.filmMuted = true; this.ytPlayer.mute(); this.paintSound(); }
-          }
-        });
+        entries.forEach((e) => { if (!e.isIntersecting && (this.filmPlaying || this.filmWanted)) this.pauseFilm(); });
       }, { threshold: 0.15 });
       this.filmIO.observe(this.one('[data-film]'));
     }
@@ -750,14 +677,29 @@ class Component extends DCLogic {
     try { p.unloadModule('captions'); p.unloadModule('cc'); } catch (e) {}
   }
 
+  // pressed before the player is ready: it starts as soon as it is
   playFilm() {
-    if (this.filmReady && this.ytPlayer) this.ytPlayer.playVideo();
+    this.filmWanted = true;
+    if (this.filmPlate) this.filmPlate.classList.add('film-on');
+    this.paintSound();
+    if (!this.filmReady || !this.ytPlayer) return;
+    this.ytPlayer.unMute();
+    this.ytPlayer.setVolume(100);
+    this.ytPlayer.playVideo();
+  }
+
+  pauseFilm() {
+    this.filmWanted = false;
+    if (this.filmPlate) this.filmPlate.classList.remove('film-on');
+    if (this.filmReady && this.ytPlayer) this.ytPlayer.pauseVideo();
+    this.paintSound();
   }
 
   paintSound() {
-    const btn = this.filmSound;
-    if (!btn) return;
-    btn.textContent = this.reduced && !this.filmPlaying ? 'Assistir com som' : (this.filmMuted ? 'Ativar som' : 'Silenciar');
+    const label = this.filmWanted ? 'Pausar' : 'Assistir com som';
+    if (this.filmSound) this.filmSound.textContent = label;
+    const play = this.one('[data-film-play]');
+    if (play) play.setAttribute('aria-label', this.filmWanted ? 'Pausar o filme' : 'Assistir ao filme manifesto com som');
   }
 
   filmLayout(p) {
@@ -772,7 +714,7 @@ class Component extends DCLogic {
     const lerp = (a, b, t) => a + (b - a) * t;
     const gut = cl(vw * .03, 16, 46);
     const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav')) || 60;
-    const top = nav + cl(vh * .05, 28, 56) + 32;  // nav + folio
+    const top = nav + cl(vh * .05, 28, 56);
     const bottom = 64;                              // caption
     // the plate at rest: as large as the page allows, always 4:3
     const H1 = Math.max(120, Math.min((vw - gut * 2) * 3 / 4, vh - top - bottom));
@@ -785,6 +727,9 @@ class Component extends DCLogic {
     const s = lerp(s0, 1, E);
     Object.assign(plate.style, { left: x1.toFixed(1) + 'px', top: y1.toFixed(1) + 'px', width: W1.toFixed(1) + 'px', height: H1.toFixed(1) + 'px', margin: '0', transform: 'scale(' + s.toFixed(4) + ')' });
     if (this.filmWrap) this.filmWrap.style.transform = 'scale(' + lerp(1.12, 1, E).toFixed(4) + ')';
+    // the play mark keeps its size on screen while the plate grows around it
+    const playIn = this.one('[data-film-play-in]');
+    if (playIn) playIn.style.transform = 'scale(' + (1 / s).toFixed(4) + ')';
 
     // the two lines sit on the plate's centre line and are pushed out by its edges
     const words = this.one('[data-film-words]');
@@ -831,47 +776,37 @@ class Component extends DCLogic {
     window.addEventListener('resize', this.onFilmResize);
   }
 
-  // ---- 05 serviços: one hairline runs along the top of each stage, rising between them with rounded turns
-  drawStairs() {
-    const box = this.one('[data-stairs]');
-    const path = this.one('[data-stairs-path]');
-    if (!box || !path) return;
-    const steps = this.q('[data-step]');
-    if (!steps.length || getComputedStyle(path.parentNode).display === 'none') return;
-    const W = box.clientWidth;
-    const r = 12;
-    let d = '';
-    steps.forEach((st, i) => {
-      const x = st.offsetLeft, y = st.offsetTop + .5;
-      if (i === 0) { d = 'M' + x + ' ' + y; return; }
-      const prev = steps[i - 1];
-      const py = prev.offsetTop + .5;
-      const rx = (prev.offsetLeft + prev.offsetWidth + x) / 2;
-      d += ' H' + (rx - r) + ' Q' + rx + ' ' + py + ' ' + rx + ' ' + (py - r) + ' V' + (y + r) + ' Q' + rx + ' ' + y + ' ' + (rx + r) + ' ' + y;
-    });
-    d += ' H' + W;
-    path.setAttribute('d', d);
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = len;
-    if (!this.stairsAnimated) path.style.strokeDashoffset = 0;
-    this.stairsLen = len;
-  }
-
-  setupStairs(g, ST) {
-    const box = this.one('[data-stairs]');
-    const path = this.one('[data-stairs-path]');
-    if (!box || !path || !ST) return;
-    const steps = this.q('[data-step]');
-    this.stairsAnimated = true;
-    this.drawStairs();
-    if (getComputedStyle(path.parentNode).display === 'none') {
-      steps.forEach((st) => g.from(st, { opacity: 0, y: 18, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: st, start: 'top 90%', once: true } }));
-      return;
-    }
-    // the line is drawn with the scroll; each stage comes up to full ink as the line reaches it
-    const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 85%', end: 'bottom 92%', scrub: 1.2, invalidateOnRefresh: true, onRefresh: () => this.drawStairs() } });
-    tl.fromTo(path, { strokeDashoffset: () => this.stairsLen }, { strokeDashoffset: 0, ease: 'none', duration: 1 }, 0);
-    steps.forEach((st, i) => tl.fromTo(st, { opacity: .16, y: 14 }, { opacity: 1, y: 0, ease: 'power2.out', duration: .2 }, .04 + i * .24));
+  // ---- header logo: the cover logotipo scrolls up with the page while it shrinks into the header slot.
+  // Its top follows the scroll exactly (linear), only its size eases, so it reads as one object.
+  setupHeaderLogo() {
+    const el = this.one('[data-hlogo]'), slot = this.one('[data-nav-slot]'), mark = this.one('.capa-mark');
+    if (!el || !slot || !mark) return;
+    document.documentElement.classList.add('has-hlogo');
+    const ease = (t) => t * t * (3 - 2 * t);
+    let A = null, B = null;
+    this.onHlogoResize = () => {
+      const a = mark.parentElement.getBoundingClientRect(), b = slot.getBoundingClientRect();
+      A = { x: a.left, y: a.top + window.scrollY, w: a.width };
+      B = { x: b.left, y: b.top, w: b.width };
+      this.onHlogo();
+    };
+    this.onHlogo = () => {
+      if (!A || !A.w) return;
+      const D = Math.max(1, A.y - B.y);
+      const t = Math.min(Math.max(window.scrollY / D, 0), 1);
+      const e = ease(t);
+      const x = A.x + (B.x - A.x) * e;
+      const y = A.y - window.scrollY * (t < 1 ? 1 : 0) - (t < 1 ? 0 : D);
+      const w = A.w + (B.w - A.w) * e;
+      // moving: one size, scaled (cheap); arrived: drawn at its real size, so the small logo stays crisp
+      if (t < 1) { el.style.width = A.w + 'px'; el.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0) scale(' + (w / A.w).toFixed(5) + ')'; }
+      else { el.style.width = B.w + 'px'; el.style.transform = 'translate3d(' + B.x.toFixed(2) + 'px,' + B.y.toFixed(2) + 'px,0)'; }
+    };
+    window.addEventListener('scroll', this.onHlogo, { passive: true });
+    window.addEventListener('resize', this.onHlogoResize);
+    mark.addEventListener('load', this.onHlogoResize);
+    this.onHlogoResize();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(this.onHlogoResize);
   }
 
   // ---- flora
@@ -956,14 +891,34 @@ class Component extends DCLogic {
     });
   }
 
+  // lands on the section named in the address, measured after pins and fonts have settled
+  goToHash() {
+    const id = this.initialHash;
+    if (!id) return;
+    const el = document.querySelector(id);
+    if (!el) return;
+    const go = () => {
+      const y = el.getBoundingClientRect().top + window.scrollY;
+      if (this.lenis) { this.lenis.resize(); this.lenis.scrollTo(y, { immediate: true, force: true }); }
+      else window.scrollTo(0, y);
+    };
+    go();
+    // once more after late layout (images, the film pin) so it does not stop short
+    setTimeout(go, 400);
+    setTimeout(() => { this.initialHash = ''; }, 500);
+  }
+
   setupMotion() {
     const g = window.gsap;
     const ST = window.ScrollTrigger;
     if (ST) g.registerPlugin(ST);
     const soft = this.props.motion === 'contido';
 
-    if (this.reduced) { this.revealCurtain(true); this.staticFilm(); this.layoutCapaFlora(); return; }
-    this.revealCurtain(false);
+    if (this.reduced) { this.revealCurtain(true); this.staticFilm(); this.layoutCapaFlora(); this.goToHash(); return; }
+    this.revealCurtain(!!this.initialHash);
+
+    const hIn = this.one('[data-hlogo-in]');
+    if (hIn) g.from(hIn, { yPercent: 108, duration: soft ? .9 : 1.25, ease: 'expo.out', delay: 2.7 });
 
     // type rises out of its line; on the cover it waits for the curtain to clear
     this.q('[data-mask]').forEach((wrap) => {
@@ -984,7 +939,7 @@ class Component extends DCLogic {
       });
     });
 
-    if (!ST) { this.staticFilm(); return; }
+    if (!ST) { this.staticFilm(); this.goToHash(); return; }
 
     // plates are uncovered like a print laid on the page
     this.q('[data-plate]').forEach((fig) => {
@@ -998,8 +953,8 @@ class Component extends DCLogic {
 
     this.setupFilm(g, ST);
     this.setupFlora(g, ST);
-    this.setupStairs(g, ST);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
+    const settle = () => { ST.refresh(); this.goToHash(); };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle); else settle();
   }
 }
 

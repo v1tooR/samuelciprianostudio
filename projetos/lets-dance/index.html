@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Espaço Let’s Dance · Samuel Cipriano Studio</title>
+<meta name="description" content="Espaço Let’s Dance: estratégia de marca e identidade visual para tornar a dança acessível a todos. Samuel Cipriano Studio.">
+<link rel="stylesheet" href="https://use.typekit.net/elq3gla.css">
+<style>
+  /* Project page. Same sheet, type and colour as the home page (brandbook 1.0):
+     IvyPresto Display Thin for titles, Neue Haas Grotesk Display for text, one green,
+     paper #F2EBE7, and the footer as the one full green page. */
+  :root {
+    --paper: #F2EBE7;
+    --ink: #034638;
+    --wool: #E5D0B1;
+    --red: #D22630;
+    --rule: rgba(3,70,56,.2);
+    --g: clamp(16px, 3vw, 46px);
+    --nav: 60px;
+    /* paper grain: a faint printed texture on the sheet itself, never on the logo */
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .012 0 0 0 0 .275 0 0 0 0 .22 .9 0 0 0 -.56'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  html { overflow-x: clip; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-kerning: normal; }
+  body { margin: 0; background: var(--paper) var(--grain); color: var(--ink); overflow-x: clip; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--red); }
+  ::selection { background: var(--red); color: var(--paper); }
+  img { display: block; }
+  button { font: inherit; color: inherit; }
+  section, footer { scroll-margin-top: var(--nav); }
+
+  /* ---- type */
+  .t-display, .t-title, .t-serif { font-family: 'ivypresto-display', serif; font-weight: 100; letter-spacing: 0; margin: 0; }
+  .t-display { font-size: clamp(3.1rem, 9.2vw, 8.3rem); line-height: 1.02; }
+  .t-title { font-size: clamp(2.4rem, 5.6vw, 5.1rem); line-height: 1.04; }
+  .t-sub { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.96rem); line-height: calc(1em + 5px); margin: 0; }
+  .t-body { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.3; margin: 0; }
+  .t-small { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.35; }
+  .it { font-style: italic; }
+  .t-body + .t-body { margin-top: 1em; }
+
+  /* ---- folio, sections */
+  .folio { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+  .folio b { font-weight: 600; }
+  .sec { position: relative; padding: calc(var(--nav) + clamp(64px, 12vh, 140px)) var(--g) clamp(88px, 13vh, 170px); }
+  .sec > .folio { margin-bottom: clamp(48px, 9vh, 110px); }
+
+  /* ---- nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 120; height: var(--nav); display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 var(--g); background: var(--paper) var(--grain); border-bottom: 1px solid var(--rule); }
+  /* logotipo in the centre of the bar, a link on each side */
+  .nav-home { position: absolute; left: 50%; top: 50%; translate: -50% -50%; }
+  .nav-home img { height: 30px; width: auto; }
+  .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
+
+  /* ---- plates: every image is a piece placed on the page, with a numbered caption */
+  .plate { position: relative; margin: 0; }
+  .plate .frame { position: relative; overflow: hidden; background: var(--wool); }
+  .plate img { width: 100%; height: 100%; object-fit: cover; }
+  .plate figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; }
+
+  /* ---- grid */
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: clamp(40px, 7vh, 72px); }
+
+  /* ---- 01 abertura */
+  .hero-title { margin: 0; }
+  .meta { margin-top: clamp(48px, 8vh, 96px); row-gap: 24px; }
+  .meta > div { grid-column: span 3; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .meta dt { margin-bottom: 8px; }
+  .meta dd { margin: 0; }
+  .hero-plate { margin-top: clamp(40px, 7vh, 80px); }
+  .hero-plate .frame { aspect-ratio: 2000 / 1008; }
+
+  /* ---- 02 o projeto: editorial and quiet */
+  .ed-side { grid-column: 1 / span 4; }
+  .ed-main { grid-column: 6 / span 5; }
+  .ed-title { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed-lead { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed + .ed { margin-top: clamp(96px, 16vh, 190px); }
+  .ds { margin: 0; }
+  .ds > div { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(16px, 3vw, 48px); padding: clamp(18px, 3vh, 28px) 0; border-top: 1px solid var(--rule); }
+  .ds > div:last-child { border-bottom: 1px solid var(--rule); }
+  .ds dt { font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: calc(1em + 4px); }
+  .ds dd { margin: 0; }
+  .ds ul { list-style: none; margin: 14px 0 0; padding: 0; }
+  .ds li { padding: .15em 0; }
+  .nc { display: inline-grid; place-items: center; width: 1.75em; height: 1.75em; margin-left: .3em; border: 1px solid currentColor; border-radius: 50%; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-style: normal; font-weight: 400; font-size: max(12px, .42em); line-height: 1; vertical-align: .95em; }
+
+  /* ---- 03 imagens: a catalogue spread, pieces of different sizes */
+  .g-full { grid-column: 1 / -1; }
+  .g-full .frame { aspect-ratio: 2000 / 1008; }
+  .g-poster { grid-column: 1 / span 5; align-self: end; }
+  .g-poster .frame { aspect-ratio: 1280 / 1440; }
+  .g-card { grid-column: 7 / -1; align-self: end; }
+  .g-card .frame { aspect-ratio: 1280 / 1290; }
+  .g-wide { grid-column: 4 / -1; }
+  .g-wide .frame { aspect-ratio: 2000 / 1008; }
+
+  .hero-note { margin-top: clamp(16px, 3vh, 28px); }
+  /* a project still without photographs: the green page with the isotipo */
+  .frame.ph { display: grid; place-items: center; align-content: center; gap: 14px; background: var(--ink); color: var(--wool); }
+  .frame.ph img { width: clamp(56px, 6vw, 88px); height: auto; object-fit: contain; }
+
+  /* ---- next project */
+  .next { display: block; border-top: 1px solid var(--ink); padding-top: 16px; }
+  .next .t-title { display: block; margin-top: 10px; }
+  .next:hover { color: var(--red); }
+
+  /* ---- 04 cta */
+  .cta { position: relative; text-align: center; padding-bottom: clamp(200px, 30vh, 320px); }
+  .cta > :not(.flora) { position: relative; z-index: 1; }
+  .cta .t-body { max-width: 40ch; margin: clamp(22px, 4vh, 36px) auto 0; }
+  .cta .btn { margin-top: clamp(32px, 5vh, 48px); }
+
+  /* ---- flora: public-domain botanical plates (brandbook p. 44) that grow in from the page edges */
+  .flora { position: absolute; z-index: 0; pointer-events: none; aspect-ratio: var(--ar); transform-origin: 50% 100%; }
+  .flora-turn, .flora-clip { width: 100%; height: 100%; transform-origin: 50% 100%; }
+  .flora-turn { translate: var(--tx, 0) var(--ty, 0); }
+  .flora img { display: block; width: 100%; height: 100%; transform-origin: 50% 100%; }
+  .flora-cta-l { left: 0; bottom: 0; height: clamp(260px, 30vw, 460px); --tx: -18%; --ty: 8%; }
+  .flora-cta-r { right: 0; bottom: 0; height: clamp(220px, 24vw, 380px); --tx: 20%; --ty: 8%; }
+
+  /* ---- buttons: pill, as on the brandbook's download buttons */
+  .btn { appearance: none; border: 0; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: min(100%, 220px); padding: 14px 28px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 600; font-size: 1rem; line-height: 1; transition: background-color .3s, color .3s; }
+  .btn-wool { background: var(--wool); color: var(--ink); }
+  .btn-wool:hover { background: var(--paper); color: var(--ink); }
+  .btn-ink { background: var(--ink); color: var(--paper); }
+  .btn-ink:hover { background: var(--red); color: var(--paper); }
+
+  /* ---- rodapé: the one full green page */
+  .foot { position: relative; z-index: 2; background: var(--ink); color: var(--wool); padding: clamp(56px, 10vh, 110px) var(--g) clamp(20px, 3vh, 32px); }
+  .foot a:hover { color: var(--paper); }
+  .foot ::selection { background: var(--wool); color: var(--ink); }
+  .foot-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 28px); row-gap: 48px; }
+  .foot-col { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin: 0; }
+  .foot-col.t-body + .foot-col.t-body { margin-top: 0; }
+  .foot-col:nth-child(1) { grid-column: 1 / span 3; }
+  .foot-col:nth-child(2) { grid-column: 4 / span 3; }
+  .foot-label { display: block; margin-bottom: 14px; }
+  .foot-form { grid-column: 8 / span 5; }
+  .field { display: block; border-bottom: 1px solid rgba(229,208,177,.35); }
+  .field:focus-within { border-bottom-color: var(--wool); }
+  .field input, .field textarea { display: block; width: 100%; border: 0; background: none; color: var(--wool); padding: 14px 0 10px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.3; resize: none; outline: none; border-radius: 0; }
+  .field ::placeholder { color: var(--wool); opacity: 1; }
+  .field textarea { min-height: 5.2em; }
+  .form-end { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 28px; }
+  .form-status { margin: 0; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .foot-logo { --logo-w: min(100vw - 2 * var(--g), 640px); width: var(--logo-w); height: auto; margin: max(72px, var(--logo-w) * .101 + 32px) 0 calc(var(--logo-w) * .101); }
+  .foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid rgba(229,208,177,.35); }
+
+  @media (max-width: 900px) {
+    .meta > div { grid-column: span 6; }
+    .ed-side, .ed-main { grid-column: 1 / -1; }
+    .ds > div { grid-template-columns: 1fr; gap: 8px; }
+    .g-poster { grid-column: 1 / -1; }
+    .g-card, .g-wide { grid-column: 1 / -1; }
+    .foot-col:nth-child(1), .foot-col:nth-child(2) { grid-column: span 6; }
+    .foot-form { grid-column: 1 / -1; }
+  }
+  @media (max-width: 600px) {
+    .meta > div { grid-column: 1 / -1; }
+    .foot-col:nth-child(1), .foot-col:nth-child(2) { grid-column: 1 / -1; }
+    .form-end { flex-direction: column-reverse; align-items: stretch; }
+    .flora-cta-l { height: 220px; }
+    .flora-cta-r { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<script src="../../assets/contato.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav t-small">
+    <a class="nav-home" href="../../" aria-label="Samuel Cipriano Studio, início">
+      <img src="../../assets/logotipo-verde.svg" alt="Samuel Cipriano Studio">
+    </a>
+    <a href="../../#projetos">Projetos</a>
+    <a href="#rodape">Contato</a>
+  </nav>
+
+  <main>
+    <!-- 01 · Abertura -->
+    <section class="sec" id="abertura">
+      <h1 class="hero-title">
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-display" style="display: block;">Espaço</span></span>
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-display it" style="display: block;">Let&#8217;s Dance</span></span>
+      </h1>
+      <dl class="grid meta">
+        <div data-fade><dt class="t-small">Cliente</dt><dd class="t-body">Espaço Let&#8217;s Dance</dd></div>
+        <div data-fade><dt class="t-small">Serviços</dt><dd class="t-body">Estratégia de marca e Identidade visual</dd></div>
+      </dl>
+      <figure class="plate hero-plate" data-plate>
+        <div class="frame" style="aspect-ratio: 16 / 9;"><img src="../../assets/projetos/lets-dance/capa.webp" alt="Logotipo do Espaço Let&#8217;s Dance sobre foto de dançarinos de breakdance" decoding="async"></div>
+        <figcaption class="t-small"><span>(1)</span><span>Espaço Let&#8217;s Dance</span></figcaption>
+      </figure>
+    </section>
+
+    <!-- 02 · O projeto -->
+    <section class="sec" id="projeto">
+      <div class="grid ed">
+        <div class="ed-side"><h2 data-fade class="t-serif ed-title">Contexto</h2></div>
+        <div class="ed-main">
+          <p data-fade class="t-serif ed-lead">Segundo dados do Brain Inteligência Estratégica, mais de 50% dos brasileiros praticam atividades físicas hoje, e o setor de dança pode ser um grande aliado nesse contexto.</p>
+        </div>
+      </div>
+      <div class="grid ed">
+        <div class="ed-side"><h2 data-fade class="t-serif ed-title">Desafio e estratégia</h2></div>
+        <dl class="ed-main ds">
+          <div data-fade>
+            <dt class="t-serif">Desafio<span class="nc">1</span></dt>
+            <dd class="t-body">Muitas marcas tradicionais do segmento adotam uma postura pouco acessível, causando dúvidas e insegurança a quem pretende adotar essa prática artística como hobby ou profissão no Brasil.</dd>
+          </div>
+          <div data-fade>
+            <dt class="t-serif">Estratégia<span class="nc">2</span></dt>
+            <dd class="t-body">O Espaço Let&#8217;s Dance nasceu com o propósito de romper com essa barreira e tornar a dança acessível a todos. Por isso, focamos em um posicionamento contemporâneo e convidativo, com a mensagem de que pessoas de todos os níveis podem encontrar liberdade e satisfação nessa arte, seja por hobby ou profissão.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 03 · Imagens -->
+    <section class="sec" id="imagens" style="padding-top: 0;">
+      <div class="grid">
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/lets-dance/logotipo.webp" alt="Logotipo do Espaço Let&#8217;s Dance sobre foto de dançarina em movimento"></div>
+          <figcaption class="t-small"><span>(2)</span><span>Logotipo</span></figcaption>
+        </figure>
+        <figure class="plate g-wide" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/lets-dance/outdoor.webp" alt="Painéis da marca numa estação, com pessoas passando"></div>
+          <figcaption class="t-small"><span>(3)</span><span>Painéis</span></figcaption>
+        </figure>
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/lets-dance/redes-sociais.webp" alt="Celular com o perfil e posts da marca no Instagram"></div>
+          <figcaption class="t-small"><span>(4)</span><span>Redes sociais</span></figcaption>
+        </figure>
+        <figure class="plate g-full" data-plate>
+          <div class="frame" style="aspect-ratio: 16 / 9;"><img loading="lazy" decoding="async" src="../../assets/projetos/lets-dance/camiseta-garrafa.webp" alt="Camiseta preta com o símbolo lilás e garrafa com o logotipo"></div>
+          <figcaption class="t-small"><span>(5)</span><span>Camiseta e garrafa</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Próximo projeto -->
+    <section class="sec" style="padding-top: 0; padding-bottom: clamp(56px, 9vh, 110px);">
+      <a class="next" href="../entremeio/"><span class="t-small">Próximo projeto</span><span class="t-title">Entremeio</span></a>
+    </section>
+
+    <!-- 04 · CTA -->
+    <section class="sec cta" id="conversar">
+      <div class="flora flora-cta-l" data-flora aria-hidden="true" style="--ar: 0.5493;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="../../assets/flora/vermelha-04.webp" alt="" loading="lazy" decoding="async"></div></div></div>
+      <div class="flora flora-cta-r" data-flora aria-hidden="true" style="--ar: 0.6150;"><div class="flora-turn"><div class="flora-clip" data-flora-clip><img data-flora-img src="../../assets/flora/vermelha-01.webp" alt="" loading="lazy" decoding="async"></div></div></div>
+      <h2>
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Vamos dar nome, cor e forma</span></span>
+        <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">ao seu sonho?</span></span>
+      </h2>
+      <p data-fade class="t-body">Atendemos poucos clientes por vez. Conte sobre a sua marca e o que ela sonha ser.</p>
+      <a data-fade class="btn btn-ink" href="#rodape">↗ Falar sobre um projeto</a>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer id="rodape" class="foot" data-screen-label="09 Rodapé">
+    <div class="foot-grid">
+      <div class="foot-col t-body">
+        <span class="foot-label t-small">Contato</span>
+        <a href="mailto:contatosamuelcipriano@gmail.com">contatosamuelcipriano@gmail.com</a>
+        <a href="tel:+5512991550799">(12) 9 9155-0799</a>
+        <span>Vale do Paraíba, SP</span>
+      </div>
+      <div class="foot-col t-body">
+        <span class="foot-label t-small">Redes</span>
+        <a href="https://instagram.com/samuelciprianostudio" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://wa.me/5512991550799" target="_blank" rel="noopener">WhatsApp ↗</a>
+      </div>
+      <form class="foot-form" data-contact-form novalidate>
+        <span class="foot-label t-small">Fale sobre o seu projeto</span>
+        <label class="field"><span class="sr">Nome</span><input name="nome" type="text" placeholder="Nome" autocomplete="name" required></label>
+        <label class="field"><span class="sr">E-mail</span><input name="email" type="email" placeholder="E-mail" autocomplete="email" required></label>
+        <label class="field"><span class="sr">Telefone</span><input name="telefone" type="tel" placeholder="Telefone" autocomplete="tel"></label>
+        <label class="field"><span class="sr">Mensagem</span><textarea name="mensagem" rows="3" placeholder="Mensagem" required></textarea></label>
+        <div class="form-end">
+          <p class="form-status t-small" data-form-status aria-live="polite"></p>
+          <button class="btn btn-wool" type="submit">↗ Enviar</button>
+        </div>
+      </form>
+    </div>
+    <img class="foot-logo" src="../../assets/imagotipo-wool.svg" alt="Samuel Cipriano Studio">
+    <div class="foot-base t-small">
+      <span>© 2026 Samuel Cipriano Studio</span>
+      <span>Ame o que faz. Faça por amor.</span>
+    </div>
+  </footer>
+<script>
+  // Motion: the same vocabulary as the home page — type rising out of its line, plates laid on the
+  // page, botanical plates unfurling from their stems. Nothing moves with reduced motion.
+  window.addEventListener('DOMContentLoaded', () => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || reduced) return;
+    if (ST) g.registerPlugin(ST);
+    const q = (s) => Array.from(document.querySelectorAll(s));
+
+    if (window.Lenis) {
+      const lenis = window.__lenis = new window.Lenis({ lerp: 0.09, autoRaf: false });
+      g.ticker.add((t) => lenis.raf(t * 1000));
+      g.ticker.lagSmoothing(0);
+      if (ST) lenis.on('scroll', ST.update);
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const el = document.querySelector(a.getAttribute('href'));
+        if (!el) return;
+        e.preventDefault();
+        lenis.scrollTo(el, { duration: 1.4 });
+      });
+    }
+
+    q('[data-mask]').forEach((wrap) => {
+      const inner = wrap.querySelectorAll('[data-mask-in]');
+      const top = !!wrap.closest('#abertura');
+      g.from(inner, { yPercent: 108, duration: 1.25, ease: 'expo.out', delay: top ? .2 : 0, scrollTrigger: ST && !top ? { trigger: wrap, start: 'top 90%', once: true } : undefined });
+    });
+    q('[data-fade]').forEach((el) => g.from(el, { y: 18, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: ST ? { trigger: el, start: 'top 92%', once: true } : undefined }));
+    if (!ST) return;
+
+    q('[data-plate]').forEach((fig) => {
+      const frame = fig.querySelector('.frame'), img = fig.querySelector('img');
+      g.timeline({ scrollTrigger: { trigger: fig, start: 'top 88%', once: true } })
+        .fromTo(frame, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'expo.out' })
+        .fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.8, ease: 'expo.out' }, 0);
+    });
+
+    // a torn-paper edge that rises from the stem: p = 0 hidden, p = 1 whole plate
+    const ragged = (p, seed) => {
+      const pts = [];
+      for (let i = 0; i <= 22; i++) {
+        const r = Math.abs(Math.sin((i + 1) * 12.9898 + seed * 78.233) * 43758.5453) % 1;
+        const wob = .5 + .5 * Math.sin(p * 7 + i * 1.7 + seed);
+        pts.push((i / 22 * 100).toFixed(2) + '% ' + ((1 - p) * 116 - 16 * (.65 * r + .35 * wob)).toFixed(2) + '%');
+      }
+      return 'polygon(' + pts.join(',') + ',100% 100%,0% 100%)';
+    };
+    q('[data-flora]').forEach((el, i) => {
+      const clip = el.querySelector('[data-flora-clip]'), img = el.querySelector('[data-flora-img]');
+      const seed = i * 3.1 + 1;
+      const side = el.getBoundingClientRect().left + el.offsetWidth / 2 < window.innerWidth / 2 ? -1 : 1;
+      const st = { p: 0 };
+      const paint = () => { clip.style.clipPath = st.p >= .999 ? 'none' : ragged(st.p, seed); };
+      paint();
+      const dur = 3.6 + (i % 3) * .9;
+      const sway = () => g.fromTo(clip, { rotation: 0 }, { rotation: 1.3 * side, duration: dur / 2, ease: 'sine.out', onComplete: () => {
+        g.fromTo(clip, { rotation: 1.3 * side }, { rotation: -1.3 * side, duration: dur, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+      } });
+      g.timeline({ scrollTrigger: { trigger: el, start: 'top 96%', end: 'top 45%', scrub: 1.4, onLeave: () => { if (!el.dataset.swaying) { el.dataset.swaying = '1'; sway(); } } } })
+        .to(st, { p: 1, ease: 'none', onUpdate: paint }, 0)
+        .fromTo(img, { rotation: -12 * side, scale: .84 }, { rotation: 0, scale: 1, ease: 'power1.out' }, 0);
+    });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
+  });
+</script>
+</body>
+</html>
