@@ -36,9 +36,9 @@
   .t-display, .t-title, .t-serif { font-family: 'ivypresto-display', serif; font-weight: 100; letter-spacing: 0; margin: 0; }
   .t-display { font-size: clamp(3.1rem, 9.2vw, 8.3rem); line-height: 1.02; }
   .t-title { font-size: clamp(2.4rem, 5.6vw, 5.1rem); line-height: 1.04; }
-  .t-sub { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.96rem); line-height: calc(1em + 5px); margin: 0; }
-  .t-body { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.3; margin: 0; }
-  .t-small { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.35; }
+  .t-sub { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 2.4rem); line-height: calc(1em + 5px); margin: 0; }
+  .t-body { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1.05rem, 1.15vw, 1.45rem); line-height: 1.3; margin: 0; }
+  .t-small { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(12px, .85vw, 15px); line-height: 1.35; }
   .it { font-style: italic; }
   .t-body + .t-body { margin-top: 1em; }
 
@@ -76,8 +76,8 @@
   /* ---- 02 o projeto: editorial and quiet */
   .ed-side { grid-column: 1 / span 4; }
   .ed-main { grid-column: 6 / span 5; }
-  .ed-title { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
-  .ed-lead { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed-title { font-weight: 300; font-size: clamp(1.6rem, 2.7vw, 2.9rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed-lead { font-size: clamp(1.35rem, 2.3vw, 2.6rem); line-height: calc(1em + 4px); margin: 0; }
   .ed + .ed { margin-top: clamp(96px, 16vh, 190px); }
   .ds { margin: 0; }
   .ds > div { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(16px, 3vw, 48px); padding: clamp(18px, 3vh, 28px) 0; border-top: 1px solid var(--rule); }
@@ -86,6 +86,8 @@
   .ds dd { margin: 0; }
   .ds ul { list-style: none; margin: 14px 0 0; padding: 0; }
   .ds li { padding: .15em 0; }
+  /* a footnote number never drops to a line of its own */
+  .nw { white-space: nowrap; }
   .nc { display: inline-grid; place-items: center; width: 1.75em; height: 1.75em; margin-left: .3em; border: 1px solid currentColor; border-radius: 50%; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-style: normal; font-weight: 400; font-size: max(12px, .42em); line-height: 1; vertical-align: .95em; }
 
   /* ---- 03 imagens: a catalogue spread, pieces of different sizes */
@@ -109,7 +111,7 @@
   .next:hover { color: var(--blue); }
 
   /* ---- 04 cta */
-  .cta { position: relative; text-align: center; padding-bottom: clamp(200px, 30vh, 320px); }
+  .cta { position: relative; text-align: center; padding-bottom: clamp(300px, 44vh, 500px); }
   .cta > :not(.flora) { position: relative; z-index: 1; }
   .cta .t-body { max-width: 40ch; margin: clamp(22px, 4vh, 36px) auto 0; }
   .cta .btn { margin-top: clamp(32px, 5vh, 48px); }
@@ -119,8 +121,8 @@
   .flora-turn, .flora-clip { width: 100%; height: 100%; transform-origin: 50% 100%; }
   .flora-turn { translate: var(--tx, 0) var(--ty, 0); }
   .flora img { display: block; width: 100%; height: 100%; transform-origin: 50% 100%; }
-  .flora-cta-l { left: 0; bottom: 0; height: clamp(260px, 30vw, 460px); --tx: -18%; --ty: 8%; }
-  .flora-cta-r { right: 0; bottom: 0; height: clamp(220px, 24vw, 380px); --tx: 20%; --ty: 8%; }
+  .flora-cta-l { left: 0; bottom: 0; height: clamp(360px, 40vw, 700px); --tx: -18%; --ty: 8%; }
+  .flora-cta-r { right: 0; bottom: 0; height: clamp(320px, 34vw, 600px); --tx: 20%; --ty: 8%; }
 
   /* ---- buttons: pill, as on the brandbook's download buttons */
   .btn { appearance: none; border: 0; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: min(100%, 220px); padding: 14px 28px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 600; font-size: 1rem; line-height: 1; transition: background-color .3s, color .3s; }
@@ -142,7 +144,7 @@
   .foot-form { grid-column: 8 / span 5; }
   .field { display: block; border-bottom: 1px solid rgba(229,208,177,.35); }
   .field:focus-within { border-bottom-color: var(--wool); }
-  .field input, .field textarea { display: block; width: 100%; border: 0; background: none; color: var(--wool); padding: 14px 0 10px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.3; resize: none; outline: none; border-radius: 0; }
+  .field input, .field textarea { display: block; width: 100%; border: 0; background: none; color: var(--wool); padding: 14px 0 10px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: clamp(1.05rem, 1.15vw, 1.45rem); line-height: 1.3; resize: none; outline: none; border-radius: 0; }
   .field ::placeholder { color: var(--wool); opacity: 1; }
   .field textarea { min-height: 5.2em; }
   .form-end { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 28px; }
@@ -164,7 +166,7 @@
     .meta > div { grid-column: 1 / -1; }
     .foot-col:nth-child(1), .foot-col:nth-child(2) { grid-column: 1 / -1; }
     .form-end { flex-direction: column-reverse; align-items: stretch; }
-    .flora-cta-l { height: 220px; }
+    .flora-cta-l { height: 320px; }
     .flora-cta-r { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
@@ -216,11 +218,11 @@
         <div class="ed-side"><h2 data-fade class="t-serif ed-title">Desafio e solução</h2></div>
         <dl class="ed-main ds">
           <div data-fade>
-            <dt class="t-serif">Desafio<span class="nc">1</span></dt>
+            <dt class="t-serif"><span class="nw">Desafio<span class="nc">1</span></span></dt>
             <dd class="t-body">Se diferenciar num mercado em que muitas marcas fazem as mesmas coisas e usam as mesmas palavras, sem seguir tendências passageiras. A marca precisava soar tradicional e responsável, sem perder a sensibilidade.</dd>
           </div>
           <div data-fade>
-            <dt class="t-serif">Solução<span class="nc">2</span></dt>
+            <dt class="t-serif"><span class="nw">Solução<span class="nc">2</span></span></dt>
             <dd class="t-body">Um nome patronímico, que transmite tradição e responsabilidade. Um cordeiro desenhado à mão, que representa o lado orgânico e artesanal, com uma tipografia serifada de toque clássico. Uma voz competente, gentil e poética, e ilustrações botânicas de domínio público.
               <ul>
                 <li>Missão, visão, valores e posicionamento</li>

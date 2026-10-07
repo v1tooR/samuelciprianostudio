@@ -47,9 +47,9 @@
   .t-display, .t-title, .t-serif { font-family: 'ivypresto-display', serif; font-weight: 100; letter-spacing: 0; margin: 0; }
   .t-display { font-size: clamp(3.1rem, 9.2vw, 8.3rem); line-height: 1.02; }
   .t-title { font-size: clamp(2.4rem, 5.6vw, 5.1rem); line-height: 1.04; }
-  .t-sub { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 1.96rem); line-height: calc(1em + 5px); letter-spacing: 0; margin: 0; }
-  .t-body { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.3; margin: 0; }
-  .t-small { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.35; letter-spacing: 0; }
+  .t-sub { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 2.4rem); line-height: calc(1em + 5px); letter-spacing: 0; margin: 0; }
+  .t-body { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(1.05rem, 1.15vw, 1.45rem); line-height: 1.3; margin: 0; }
+  .t-small { font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 400; font-size: clamp(12px, .85vw, 15px); line-height: 1.35; letter-spacing: 0; }
   .it { font-style: italic; }
   .muted { color: var(--muted); }
   .t-body + .t-body { margin-top: 1em; }
@@ -145,16 +145,18 @@
   .ed + .ed { margin-top: clamp(110px, 18vh, 220px); }
   .ed-side { grid-column: 1 / span 4; }
   .ed-main { grid-column: 6 / span 5; }
-  .ed-title { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
-  .ed-big { font-size: clamp(1.9rem, 3.4vw, 3.17rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed-title { font-weight: 300; font-size: clamp(1.6rem, 2.7vw, 2.9rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed-big { font-size: clamp(1.9rem, 3.4vw, 4rem); line-height: calc(1em + 4px); margin: 0; }
   #estudio .ed-main { grid-column: 6 / span 6; }
-  .ed-lead { font-size: clamp(1.35rem, 2.2vw, 1.96rem); line-height: calc(1em + 4px); margin: 0; }
+  .ed-lead { font-size: clamp(1.35rem, 2.3vw, 2.6rem); line-height: calc(1em + 4px); margin: 0; }
   .ed-note { max-width: 44ch; margin-top: clamp(28px, 5vh, 48px); }
   /* a number in a hairline circle, as a footnote mark */
+  /* a footnote number never drops to a line of its own */
+  .nw { white-space: nowrap; }
   .nc { display: inline-grid; place-items: center; width: 1.75em; height: 1.75em; margin-left: .3em; border: 1px solid currentColor; border-radius: 50%; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-style: normal; font-weight: 400; font-size: max(12px, .42em); line-height: 1; letter-spacing: 0; vertical-align: .95em; }
   #estudio > :not(.flora) { position: relative; z-index: 1; }
   /* hangs from the right edge beside the text, like the trumpet vine on brandbook p. 44 */
-  .flora-est { right: 0; top: calc(var(--nav) + clamp(64px, 9vh, 96px)); height: clamp(320px, 30vw, 460px); --tx: 30%; }
+  .flora-est { right: 0; top: calc(var(--nav) + clamp(64px, 9vh, 96px)); height: clamp(420px, 40vw, 720px); --tx: 42%; }
   .flora-est .flora-turn { transform-origin: 50% 50%; rotate: 196deg; }
 
   /* the three services: the service large on the left, its scope smaller on the right */
@@ -180,11 +182,11 @@
   .pj-more { display: inline-block; margin-top: clamp(20px, 3vh, 32px); padding-bottom: 3px; border-bottom: 1px solid currentColor; align-self: flex-start; }
 
   /* ---- 08 contato: the closing page, plates growing out of the green footer */
-  .cta { position: relative; text-align: center; padding-bottom: clamp(200px, 30vh, 320px); }
+  .cta { position: relative; text-align: center; padding-bottom: clamp(300px, 44vh, 500px); }
   .cta > :not(.flora) { position: relative; z-index: 1; }
   .cta .btn { margin-top: clamp(32px, 5vh, 48px); }
-  .flora-cta-l { left: 0; bottom: 0; height: clamp(260px, 30vw, 460px); --tx: -18%; --ty: 8%; }
-  .flora-cta-r { right: 0; bottom: 0; height: clamp(220px, 24vw, 380px); --tx: 20%; --ty: 8%; }
+  .flora-cta-l { left: 0; bottom: 0; height: clamp(360px, 40vw, 700px); --tx: -18%; --ty: 8%; }
+  .flora-cta-r { right: 0; bottom: 0; height: clamp(320px, 34vw, 600px); --tx: 20%; --ty: 8%; }
 
   /* ---- rodapé: the one full green page, brandbook secondary colour with wool type */
   .foot { position: relative; z-index: 2; background: var(--ink); color: var(--wool); padding: clamp(56px, 10vh, 110px) var(--g) clamp(20px, 3vh, 32px); }
@@ -199,7 +201,7 @@
   .foot-form { grid-column: 8 / span 5; }
   .field { display: block; border-bottom: 1px solid rgba(229,208,177,.35); }
   .field:focus-within { border-bottom-color: var(--wool); }
-  .field input, .field textarea { display: block; width: 100%; border: 0; background: none; color: var(--wool); padding: 14px 0 10px; font: inherit; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: clamp(1rem, 1.05vw, 1.2rem); line-height: 1.3; resize: none; outline: none; border-radius: 0; }
+  .field input, .field textarea { display: block; width: 100%; border: 0; background: none; color: var(--wool); padding: 14px 0 10px; font: inherit; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-size: clamp(1.05rem, 1.15vw, 1.45rem); line-height: 1.3; resize: none; outline: none; border-radius: 0; }
   .field ::placeholder { color: var(--wool); opacity: 1; }
   .field textarea { min-height: 5.2em; }
   .form-end { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 28px; }
@@ -230,7 +232,7 @@
     .ed-main { grid-column: 6 / -1; }
   }
   @media (max-width: 600px) {
-    .flora-cta-l { height: 220px; }
+    .flora-cta-l { height: 320px; }
     .flora-cta-r { display: none; }
     .foot-col:nth-child(1), .foot-col:nth-child(2) { grid-column: 1 / -1; }
     .form-end { flex-direction: column-reverse; align-items: stretch; }
@@ -337,20 +339,20 @@
         <h2 data-fade class="t-serif ed-title">Serviços</h2>
       </div>
       <div class="ed-main">
-        <p data-fade class="t-serif ed-lead">Construímos marcas em três frentes: Estratégia<span class="nc">1</span>, Identidade verbal<span class="nc">2</span> e Identidade visual<span class="nc">3</span>. Elas não são separadas, mas sucessivas: a estratégia, baseada em dados, estudos e pesquisas, dá origem a uma identidade verbal e visual que a traduz para o consumidor final.</p>
+        <p data-fade class="t-serif ed-lead">Construímos marcas em três frentes: <span class="nw">Estratégia<span class="nc">1</span></span>, Identidade <span class="nw">verbal<span class="nc">2</span></span> e Identidade <span class="nw">visual<span class="nc">3</span></span>. Elas não são separadas, mas sucessivas: a estratégia, baseada em dados, estudos e pesquisas, dá origem a uma identidade verbal e visual que a traduz para o consumidor final.</p>
       </div>
     </div>
     <div class="svc">
       <div class="svc-row" data-fade>
-        <h3 class="t-serif svc-name">Estratégia de marca<span class="nc">1</span></h3>
+        <h3 class="t-serif svc-name">Estratégia de <span class="nw">marca<span class="nc">1</span></span></h3>
         <ul class="t-body svc-scope"><li>Pesquisa e diagnóstico</li><li>Posicionamento e proposta de valor</li><li>Missão, visão e valores</li><li>Personalidade e arquétipos</li></ul>
       </div>
       <div class="svc-row" data-fade>
-        <h3 class="t-serif svc-name">Identidade verbal<span class="nc">2</span></h3>
+        <h3 class="t-serif svc-name">Identidade <span class="nw">verbal<span class="nc">2</span></span></h3>
         <ul class="t-body svc-scope"><li>Naming</li><li>Manifesto</li><li>Voz e tom de voz</li><li>Slogan e frases</li></ul>
       </div>
       <div class="svc-row" data-fade>
-        <h3 class="t-serif svc-name">Identidade visual<span class="nc">3</span></h3>
+        <h3 class="t-serif svc-name">Identidade <span class="nw">visual<span class="nc">3</span></span></h3>
         <ul class="t-body svc-scope"><li>Logotipo e variações</li><li>Paleta de cores e tipografia</li><li>Ilustrações e patterns</li><li>Fotografia</li><li>Brandbook e aplicações</li></ul>
       </div>
     </div>
@@ -819,7 +821,7 @@ class Component extends DCLogic {
         g.timeline({ delay: 2.55 + (side > 0 ? .3 : 0), onComplete: sway })
           .to(st, { p: 1, duration: soft ? 1.6 : 2.4, ease: 'power2.out', onUpdate: paint }, 0)
           .from(img, { rotation: -9 * side, scale: .86, duration: soft ? 1.8 : 2.8, ease: 'expo.out' }, 0);
-        if (ST) g.to(el, { y: () => window.innerHeight * .12, rotation: 3.5 * side, ease: 'none', scrollTrigger: { trigger: '#capa', start: 'top top', end: 'bottom top', scrub: 1.2 } });
+        if (ST) g.to(el, { scale: this.mob ? 1.12 : 1.5, rotation: 3.5 * side, transformOrigin: side < 0 ? '0% 100%' : '100% 100%', ease: 'none', scrollTrigger: { trigger: '#capa', start: 'top top', end: 'bottom top', scrub: 1.2 } });
         return;
       }
       if (!ST) { st.p = 1; paint(); return; }
