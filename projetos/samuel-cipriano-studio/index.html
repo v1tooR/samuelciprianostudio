@@ -124,6 +124,8 @@
   .flora-cta-l { left: 0; bottom: 0; height: clamp(360px, 40vw, 700px); --tx: -18%; --ty: 8%; }
   .flora-cta-r { right: 0; bottom: 0; height: clamp(320px, 34vw, 600px); --tx: 20%; --ty: 8%; }
 
+  /* arrow drawn as a line, the same on every device (the ↗ character turns into an emoji on iOS) */
+  .arw { display: inline-block; width: .72em; height: .72em; vertical-align: -.02em; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
   /* ---- buttons: pill, as on the brandbook's download buttons */
   .btn { appearance: none; border: 0; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: min(100%, 220px); padding: 14px 28px; font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif; font-weight: 600; font-size: 1rem; line-height: 1; transition: background-color .3s, color .3s; }
   .btn-wool { background: var(--wool); color: var(--ink); }
@@ -274,7 +276,7 @@
         <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title" style="display: block;">Gostaria de falar sobre um projeto?</span></span>
         <span data-mask style="display: block; overflow: hidden;"><span data-mask-in class="t-title it" style="display: block;">Vamos conversar.</span></span>
       </h2>
-      <a data-fade class="btn btn-ink" href="#rodape">↗ Entrar em contato</a>
+      <a data-fade class="btn btn-ink" href="#rodape"><svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg> Entrar em contato</a>
     </section>
   </main>
 
@@ -289,8 +291,10 @@
       </div>
       <div class="foot-col t-body">
         <span class="foot-label t-small">Redes</span>
-        <a href="https://instagram.com/samuelciprianostudio" target="_blank" rel="noopener">Instagram ↗</a>
-        <a href="https://wa.me/5512991550799" target="_blank" rel="noopener">WhatsApp ↗</a>
+        <a href="https://instagram.com/samuelciprianostudio" target="_blank" rel="noopener">Instagram <svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></a>
+        <a href="https://wa.me/5512991550799" target="_blank" rel="noopener">WhatsApp <svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></a>
+        <a href="https://www.behance.net/samuelciprianostudio" target="_blank" rel="noopener">Behance <svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></a>
+        <a href="https://www.linkedin.com/in/samuel-cipriano-a166a5240" target="_blank" rel="noopener">LinkedIn <svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></a>
       </div>
       <form class="foot-form" data-contact-form novalidate>
         <span class="foot-label t-small">Fale sobre o seu projeto</span>
@@ -300,7 +304,7 @@
         <label class="field"><span class="sr">Mensagem</span><textarea name="mensagem" rows="3" placeholder="Mensagem" required></textarea></label>
         <div class="form-end">
           <p class="form-status t-small" data-form-status aria-live="polite"></p>
-          <button class="btn btn-wool" type="submit">↗ Enviar</button>
+          <button class="btn btn-wool" type="submit"><svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg> Enviar</button>
         </div>
       </form>
     </div>
