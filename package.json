@@ -1,0 +1,16 @@
+{
+  "name": "samuel-cipriano-studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seo:configure": "node scripts/configure-seo.mjs",
+    "social:build": "node scripts/build-social-images.mjs",
+    "preview": "node scripts/preview.mjs",
+    "test": "node --test tests/seo.test.mjs",
+    "test:browser": "node --test tests/browser.test.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.64.0",
+    "sharp": "0.35.5"
+  }
+}

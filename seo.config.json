@@ -1,0 +1,45 @@
+{
+  "siteUrl": null,
+  "name": "Samuel Cipriano Studio",
+  "description": "Estúdio de branding no Vale do Paraíba, SP. Estratégia de marca, naming, identidade verbal e visual para construir marcas diferentes, relevantes e desejadas.",
+  "pages": [
+    {
+      "file": "index.html",
+      "path": "/",
+      "title": "Samuel Cipriano Studio | Branding e identidade visual",
+      "description": "Estúdio de branding no Vale do Paraíba, SP. Estratégia de marca, naming, identidade verbal e visual para construir marcas diferentes, relevantes e desejadas.",
+      "image": "/assets/social/samuel-cipriano-studio.jpg",
+      "imageAlt": "Samuel Cipriano Studio com ilustrações botânicas vermelhas. Estratégia de marca, identidade verbal e identidade visual."
+    },
+    {
+      "file": "projetos/entremeio/index.html",
+      "path": "/projetos/entremeio/",
+      "name": "Entremeio: identidade visual para pousada",
+      "title": "Entremeio: identidade visual para pousada | Samuel Cipriano",
+      "description": "Conheça o projeto conceitual de identidade visual da Pousada Entremeio, em Santo Antônio do Pinhal, na Serra da Mantiqueira, por Samuel Cipriano Studio.",
+      "image": "/assets/social/entremeio.jpg",
+      "imageAlt": "Projeto conceitual Entremeio: identidade visual para pousada na Serra da Mantiqueira, por Samuel Cipriano Studio.",
+      "service": "Identidade visual"
+    },
+    {
+      "file": "projetos/lets-dance/index.html",
+      "path": "/projetos/lets-dance/",
+      "name": "Espaço Let’s Dance: branding e identidade visual",
+      "title": "Let’s Dance: branding e identidade visual | Samuel Cipriano",
+      "description": "Estratégia de marca e identidade visual para o Espaço Let’s Dance. Conheça o posicionamento, o logotipo e as aplicações criados por Samuel Cipriano Studio.",
+      "image": "/assets/social/lets-dance.jpg",
+      "imageAlt": "Espaço Let’s Dance: estratégia de marca e identidade visual, com dançarinos de breakdance e o logotipo do espaço.",
+      "service": "Estratégia de marca e identidade visual"
+    },
+    {
+      "file": "projetos/samuel-cipriano-studio/index.html",
+      "path": "/projetos/samuel-cipriano-studio/",
+      "name": "A identidade do Samuel Cipriano Studio",
+      "title": "Nossa identidade de marca | Samuel Cipriano Studio",
+      "description": "Conheça a construção da marca Samuel Cipriano Studio: estratégia, identidade verbal e visual, ilustrações botânicas, papelaria e brandbook.",
+      "image": "/assets/social/identidade-samuel-cipriano.jpg",
+      "imageAlt": "A identidade do Samuel Cipriano Studio: papelaria com lacres de cera e ilustrações botânicas vermelhas.",
+      "service": "Estratégia de marca, identidade verbal e identidade visual"
+    }
+  ]
+}
