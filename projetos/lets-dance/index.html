@@ -158,7 +158,10 @@
   .form-status { margin: 0; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .foot-logo { --logo-w: min(100vw - 2 * var(--g), 640px); width: var(--logo-w); height: auto; margin: max(72px, var(--logo-w) * .101 + 32px) 0 calc(var(--logo-w) * .101); }
-  .foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid rgba(229,208,177,.35); }
+  /* credit line: the site author signature, in the footer wool */
+  .sig { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
+  .sig img { height: 13px; width: auto; }
+  .foot-base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid rgba(229,208,177,.35); }
 
   @media (max-width: 900px) {
     .meta > div { grid-column: span 6; }
@@ -305,6 +308,7 @@
     <div class="foot-base t-small">
       <span>© 2026 Samuel Cipriano Studio</span>
       <span>Ame o que faz. Faça por amor.</span>
+      <span class="sig">Uma nova experiência criada por <img src="../../assets/victor-santos.svg" alt="Victor Santos" width="631" height="77"></span>
     </div>
   </footer>
 <script>
