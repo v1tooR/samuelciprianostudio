@@ -9,7 +9,7 @@ import { configureSEO } from '../scripts/configure-seo.mjs';
 
 const config = JSON.parse(await readFile(resolve(root, 'seo.config.json'), 'utf8'));
 
-test('As quatro páginas têm conteúdo estático, metadados únicos e imagens acessíveis', async () => {
+test('Todas as páginas têm conteúdo estático, metadados únicos e imagens acessíveis', async () => {
   const titles = new Set();
   const descriptions = new Set();
   for (const page of config.pages) {
@@ -46,8 +46,8 @@ test('As quatro páginas têm conteúdo estático, metadados únicos e imagens a
     assert.equal(metadata.format, 'jpeg');
     assert.ok((await readFile(image)).byteLength < 350000, `${page.image}: manter capa leve`);
   }
-  assert.equal(titles.size, 4);
-  assert.equal(descriptions.size, 4);
+  assert.equal(titles.size, config.pages.length);
+  assert.equal(descriptions.size, config.pages.length);
 });
 
 test('O domínio gera canônicos, capas absolutas, dados estruturados e sitemap coerentes', async () => {
@@ -81,7 +81,7 @@ test('O domínio gera canônicos, capas absolutas, dados estruturados e sitemap 
       else assert.equal(data['@graph'].filter(node => node['@type'] === 'Service').length, 3);
     }
     const sitemap = await readFile(resolve(fixture, 'sitemap.xml'), 'utf8');
-    assert.equal((sitemap.match(/<loc>/g) || []).length, 4);
+    assert.equal((sitemap.match(/<loc>/g) || []).length, config.pages.length);
     for (const page of config.pages) assert.ok(sitemap.includes(`<loc>https://example.com${page.path}</loc>`));
     assert.match(await readFile(resolve(fixture, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/example.com\/sitemap.xml/);
   } finally { await rm(fixture, { recursive: true, force: true }); }

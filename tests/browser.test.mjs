@@ -13,7 +13,7 @@ test('HTML sem JavaScript, layout móvel, menu e fallback sem bibliotecas de ani
     const base = `http://127.0.0.1:${server.address().port}`;
     await mkdir(resolve(root, '.seo-preview'), { recursive: true });
     const noJS = await browser.newContext({ javaScriptEnabled: false });
-    for (const path of ['/', '/projetos/entremeio/', '/projetos/lets-dance/', '/projetos/samuel-cipriano-studio/']) {
+    for (const path of ['/', '/projetos/entremeio/', '/projetos/lets-dance/', '/projetos/samuel-cipriano-studio/', '/projetos/victor-santos/']) {
       const page = await noJS.newPage();
       await page.goto(base + path);
       assert.equal(await page.locator('head title').count(), 1);

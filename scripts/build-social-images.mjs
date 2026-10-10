@@ -15,6 +15,7 @@ try {
     { file: 'samuel-cipriano-studio' },
     { file: 'entremeio', name: 'Entremeio', scope: 'Identidade visual para pousada · Projeto conceitual', photo: '/assets/projetos/entremeio/capa.webp' },
     { file: 'lets-dance', name: 'Espaço Let’s Dance', scope: 'Estratégia de marca e identidade visual', photo: '/assets/projetos/lets-dance/capa.webp' },
+    { file: 'victor-santos', name: 'Victor Santos', scope: 'Rebranding · Estratégia · Identidade verbal e visual', photo: '/assets/projetos/victor-santos/papelaria.webp' },
     { file: 'identidade-samuel-cipriano', name: 'A identidade do nosso estúdio', scope: 'Estratégia de marca · Identidade verbal · Identidade visual', photo: '/assets/projetos/samuel-cipriano-studio/lacres.webp' }
   ];
   for (const card of cards) {
