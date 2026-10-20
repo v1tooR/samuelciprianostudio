@@ -87,7 +87,7 @@ for (const page of config.pages) {
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
   config.pages.map(page => `  <url><loc>${escape(absolute(page.path))}</loc></url>`).join('\n') + '\n</urlset>\n';
 await writeFile(resolve(root, 'sitemap.xml'), sitemap);
-await writeFile(resolve(root, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /scripts/\nDisallow: /tests/\nDisallow: /node_modules/\nDisallow: /uploads/\n\nSitemap: ${absolute('/sitemap.xml')}\n`);
+await writeFile(resolve(root, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /scripts/\nDisallow: /tests/\nDisallow: /node_modules/\nDisallow: /uploads/\nDisallow: /api/\n\nSitemap: ${absolute('/sitemap.xml')}\n`);
 await writeFile(configFile, JSON.stringify(config, null, 2) + '\n');
 console.log(`SEO configurado para ${site.origin}: ${config.pages.length} páginas, sitemap e robots.txt.`);
 }

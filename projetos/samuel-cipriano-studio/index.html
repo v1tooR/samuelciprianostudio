@@ -304,15 +304,16 @@
         <a href="https://www.behance.net/samuelciprianostudio" target="_blank" rel="noopener">Behance <svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></a>
         <a href="https://www.linkedin.com/in/samuel-cipriano-a166a5240" target="_blank" rel="noopener">LinkedIn <svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></a>
       </div>
-      <form class="foot-form" data-contact-form novalidate>
+      <form class="foot-form" data-contact-form method="post" action="/api/contato.php" novalidate>
         <span class="foot-label t-small">Fale sobre o seu projeto</span>
         <label class="field"><span class="sr">Nome</span><input name="nome" type="text" placeholder="Nome" autocomplete="name" required></label>
         <label class="field"><span class="sr">E-mail</span><input name="email" type="email" placeholder="E-mail" autocomplete="email" required></label>
         <label class="field"><span class="sr">Telefone</span><input name="telefone" type="tel" placeholder="Telefone" autocomplete="tel"></label>
+        <label class="sr" aria-hidden="true">Site <input name="site" type="text" tabindex="-1" autocomplete="off"></label>
         <label class="field"><span class="sr">Mensagem</span><textarea name="mensagem" rows="3" placeholder="Mensagem" required></textarea></label>
         <div class="form-end">
           <p class="form-status t-small" data-form-status aria-live="polite"></p>
-          <button class="btn btn-wool" type="submit"><svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg> Enviar</button>
+          <button class="btn btn-wool" type="submit"><svg class="arw" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg> Enviar pelo WhatsApp</button>
         </div>
       </form>
     </div>

@@ -1,2 +1,6 @@
 node_modules/
 .seo-preview/
+
+# contact form: server-only secrets and any local test data
+api/config.php
+api/dados/

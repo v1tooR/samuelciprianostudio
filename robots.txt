@@ -4,5 +4,6 @@ Disallow: /scripts/
 Disallow: /tests/
 Disallow: /node_modules/
 Disallow: /uploads/
+Disallow: /api/
 
 # A linha Sitemap será gerada quando o domínio oficial for configurado.
