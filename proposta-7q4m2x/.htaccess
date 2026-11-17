@@ -1,0 +1,7 @@
+# Página interna de proposta: fora dos buscadores e sem cache público.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+  Header set Cache-Control "no-store"
+  Header set Referrer-Policy "no-referrer"
+</IfModule>
+Options -Indexes

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proposta do novo site</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#034638">
+<link rel="icon" href="../assets/favicon.png" type="image/png" sizes="512x512">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/elq3gla.css">
+<style>
+  :root {
+    --paper: #F2EBE7;
+    --ink: #034638;
+    --wool: #E5D0B1;
+    --red: #D22630;
+    --blue: #0047BB;
+    --rule: rgba(3,70,56,.2);
+    --soft: rgba(3,70,56,.06);
+    --g: clamp(16px, 4vw, 48px);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'neue-haas-grotesk-display', 'Helvetica Neue', Arial, sans-serif; font-size: 17px; line-height: 1.5; overflow-x: clip; }
+  a { color: var(--blue); }
+  ::selection { background: var(--red); color: var(--paper); }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 var(--g); }
+
+  header.top { padding: clamp(40px, 8vw, 96px) 0 clamp(32px, 5vw, 56px); border-bottom: 1px solid var(--rule); }
+  .top img { width: 56px; height: auto; display: block; margin-bottom: 28px; }
+  .kicker { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; }
+  h1, h2 { font-family: 'ivypresto-display', Georgia, serif; font-weight: 100; letter-spacing: 0; margin: 0; }
+  h1 { font-size: clamp(2.6rem, 8vw, 5.4rem); line-height: 1.02; }
+  h1 em, h2 em { font-style: italic; }
+  .lead { font-size: clamp(1.1rem, 2.2vw, 1.4rem); font-weight: 300; max-width: 40em; margin: 24px 0 0; }
+  .meta { font-size: 14px; margin-top: 20px; opacity: .8; }
+
+  nav.toc { padding: 20px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--blue); }
+  nav.toc span { opacity: .5; margin-right: 4px; }
+
+  section { padding: clamp(40px, 7vw, 80px) 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  .num { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; color: var(--red); }
+  h2 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.06; margin-bottom: 20px; }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 32px 0 10px; }
+  p { margin: 0 0 14px; max-width: 42em; }
+  .note { font-size: 15px; opacity: .85; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--paper); background: var(--red); border-radius: 3px; padding: 1px 6px; vertical-align: 2px; }
+
+  .table { width: 100%; overflow-x: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.4; }
+  th, td { text-align: left; vertical-align: top; padding: 12px 14px 12px 0; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; font-size: 13px; border-bottom: 1px solid var(--ink); white-space: nowrap; }
+  td:first-child { font-weight: 500; }
+  tr.me td { background: var(--soft); }
+  tr.me td:first-child { padding-left: 10px; }
+  .wide table { min-width: 760px; }
+
+  ol.steps, ul.plain { padding-left: 1.3em; margin: 12px 0 16px; }
+  ol.steps li, ul.plain li { margin: 6px 0; }
+
+  /* site map */
+  .map { margin: 28px 0 8px; }
+  .map .node { border: 1px solid var(--ink); border-radius: 8px; padding: 14px 16px; background: var(--paper); }
+  .map .node b { display: block; font-weight: 600; }
+  .map .node small { display: block; font-size: 14px; opacity: .8; }
+  .map .home { max-width: 320px; margin: 0 auto; text-align: center; }
+  .map .stem { width: 1px; height: 24px; background: var(--ink); margin: 0 auto; }
+  .map .row { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; border-top: 1px solid var(--ink); padding-top: 24px; position: relative; }
+  .map .new { border: 2px solid var(--red); background: rgba(210,38,48,.06); }
+  .map .group { border: 1px solid var(--rule); border-radius: 8px; padding: 14px; }
+  .map .group > b { display: block; font-weight: 600; margin-bottom: 10px; }
+  .map .kids { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .map .kids div { border: 1px solid var(--ink); border-radius: 8px; padding: 10px; text-align: center; font-size: 15px; }
+  @media (max-width: 620px) {
+    .map .row { grid-template-columns: 1fr; }
+    .map .kids { grid-template-columns: 1fr; }
+  }
+
+  /* checklist */
+  ol.decisions { counter-reset: d; list-style: none; padding: 0; margin: 16px 0; }
+  ol.decisions li { counter-increment: d; position: relative; padding: 14px 0 14px 44px; border-bottom: 1px solid var(--rule); }
+  ol.decisions li::before { content: counter(d); position: absolute; left: 0; top: 12px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--ink); font-size: 14px; display: grid; place-items: center; }
+  ul.check { list-style: none; padding: 0; margin: 12px 0; }
+  ul.check li { padding: 8px 0 8px 30px; position: relative; }
+  ul.check li::before { content: ''; position: absolute; left: 0; top: 12px; width: 16px; height: 16px; border: 1px solid var(--ink); border-radius: 3px; }
+
+  footer { background: var(--ink); color: var(--wool); padding: 40px 0; font-size: 14px; }
+  footer p { margin: 0; max-width: none; }
+
+  @media print {
+    nav.toc { display: none; }
+    section { break-inside: avoid-page; }
+    .wide table { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <img src="../assets/isotipo-verde.svg" alt="" width="155" height="153">
+    <p class="kicker">Documento interno · não publicado</p>
+    <h1>Proposta para o <em>novo site</em></h1>
+    <p class="lead">O site deixa de apresentar um estúdio e passa a apresentar o Samuel como consultor de marca. Os três serviços, os quatro projetos e o manifesto continuam; o que muda é quem fala e o que se vê.</p>
+    <p class="meta">Para validação do Samuel Cipriano · 16 de novembro de 2026</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Seções">
+  <div class="wrap">
+    <ol>
+      <li><a href="#objetivo"><span>01</span>Objetivo</a></li>
+      <li><a href="#mapa"><span>02</span>Mapa do site</a></li>
+      <li><a href="#home"><span>03</span>Home</a></li>
+      <li><a href="#servicos"><span>04</span>Serviços</a></li>
+      <li><a href="#fotos"><span>05</span>Fotos</a></li>
+      <li><a href="#benchmarking"><span>06</span>Benchmarking</a></li>
+      <li><a href="#validar"><span>07</span>Para validar</a></li>
+      <li><a href="#proximos"><span>08</span>Próximos passos</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main>
+
+<section id="objetivo">
+  <div class="wrap">
+    <p class="num">01</p>
+    <h2>Objetivo</h2>
+    <p>A mudança é de voz e de imagem, não de oferta.</p>
+    <div class="table">
+      <table>
+        <thead><tr><th></th><th>Hoje</th><th>Proposta</th></tr></thead>
+        <tbody>
+          <tr><td>Quem fala</td><td>“Somos um estúdio de branding” (nós)</td><td>“Eu ajudo negócios a…” (eu, Samuel)</td></tr>
+          <tr><td>Imagem principal</td><td>Logotipo e ilustrações botânicas</td><td>Fotos do Samuel, com as ilustrações como apoio</td></tr>
+          <tr><td>Sobre</td><td>Um parágrafo sobre o estúdio</td><td>Seção na home + página própria com a história dele</td></tr>
+          <tr><td>Serviços</td><td>Três frentes listadas</td><td>As mesmas três, apresentadas como etapas de uma consultoria</td></tr>
+          <tr><td>Chamada principal</td><td>“Entrar em contato”</td><td>“Agendar uma conversa” com o Samuel</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">A identidade visual atual (verde, flores vermelhas, tipografia serifada) é mantida, para não perder o trabalho de marca já feito.</p>
+  </div>
+</section>
+
+<section id="mapa">
+  <div class="wrap">
+    <p class="num">02</p>
+    <h2>Mapa do site</h2>
+    <p>O site passa a ter 6 páginas: a home, uma página nova sobre o Samuel e os 4 estudos de projeto que já existem.</p>
+    <div class="map" role="img" aria-label="A home leva à nova página Sobre o Samuel e aos 4 projetos mantidos">
+      <div class="node home"><b>Home</b><small>10 seções, 6 com fotos do Samuel</small></div>
+      <div class="stem"></div>
+      <div class="row">
+        <div class="node new"><b>Sobre o Samuel</b><small>Página nova · história, valores e fotos</small></div>
+        <div class="group">
+          <b>Projetos selecionados · mantidos</b>
+          <div class="kids">
+            <div>Entremeio</div>
+            <div>Samuel Cipriano Studio</div>
+            <div>Let’s Dance</div>
+            <div>Victor Santos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Contato, WhatsApp e redes sociais continuam na home e no rodapé de todas as páginas.</p>
+  </div>
+</section>
+
+<section id="home">
+  <div class="wrap">
+    <p class="num">03</p>
+    <h2>Home, <em>seção por seção</em></h2>
+    <p>A home ganha 10 seções; 6 mostram o Samuel em foto ou vídeo. As marcadas como <span class="tag">nova</span> não existem no site atual.</p>
+    <div class="table wide">
+      <table>
+        <thead><tr><th>#</th><th>Seção</th><th>O que mostra</th><th>Foto do Samuel</th><th>Chamada</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Capa</td><td>Nome “Samuel Cipriano”, título “Consultor de marca” e a frase “Branding para marcas diferentes, relevantes e desejadas.”</td><td>Retrato grande, rosto visível</td><td>Agendar uma conversa</td></tr>
+          <tr><td>2</td><td>Quem sou <span class="tag">nova</span></td><td>História curta em primeira pessoa: de onde vem, por que faz branding, Vale do Paraíba</td><td>Retrato de meio corpo, mais próximo</td><td>Conhecer minha história</td></tr>
+          <tr><td>3</td><td>Manifesto em filme</td><td>“Ame o que faz. Faça por amor.”, mantido</td><td>O filme, idealmente com o Samuel falando</td><td>Assistir com som</td></tr>
+          <tr><td>4</td><td>Como funciona a consultoria <span class="tag">nova</span></td><td>As etapas do trabalho, do primeiro contato à entrega</td><td>Foto em reunião com cliente</td><td>—</td></tr>
+          <tr><td>5</td><td>Serviços</td><td>Estratégia, Identidade verbal e Identidade visual, com os mesmos itens</td><td>—</td><td>Quero esse serviço</td></tr>
+          <tr><td>6</td><td>Projetos selecionados</td><td>Entremeio, Samuel Cipriano Studio, Let’s Dance e Victor Santos, mantidos</td><td>—</td><td>Ver projeto</td></tr>
+          <tr><td>7</td><td>Bastidores <span class="tag">nova</span></td><td>Galeria de 4 a 6 fotos do Samuel trabalhando</td><td>Só fotos dele</td><td>—</td></tr>
+          <tr><td>8</td><td>Depoimentos <span class="tag">nova</span></td><td>Frases de clientes, com nome e marca</td><td>Opcional: Samuel com o cliente</td><td>—</td></tr>
+          <tr><td>9</td><td>Para quem é <span class="tag">nova</span></td><td>Perfil de negócio que ele atende melhor</td><td>—</td><td>—</td></tr>
+          <tr><td>10</td><td>Contato</td><td>“Vamos conversar.” + formulário que envia pelo WhatsApp, mantido</td><td>Retrato sorrindo, olhando para a câmera</td><td>Agendar uma conversa</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">A seção 8 só entra se houver depoimentos reais autorizados. A 9 depende da resposta do Samuel sobre o cliente ideal.</p>
+  </div>
+</section>
+
+<section id="servicos">
+  <div class="wrap">
+    <p class="num">04</p>
+    <h2>Serviços como <em>consultoria</em></h2>
+    <p>Os três serviços e seus itens ficam iguais. Eles passam a ser apresentados como etapas que o Samuel conduz pessoalmente com o cliente.</p>
+    <div class="table wide">
+      <table>
+        <thead><tr><th>Serviço (mantido)</th><th>Entregas (mantidas)</th><th>Como é apresentado</th></tr></thead>
+        <tbody>
+          <tr><td>1. Estratégia de marca</td><td>Pesquisa e diagnóstico; posicionamento e proposta de valor; missão, visão e valores; personalidade e arquétipos</td><td>“Entendo seu negócio e defino junto com você onde a marca quer chegar.”</td></tr>
+          <tr><td>2. Identidade verbal</td><td>Naming; manifesto; voz e tom de voz; slogan e frases</td><td>“Damos palavras à estratégia: como a marca se chama e como ela fala.”</td></tr>
+          <tr><td>3. Identidade visual</td><td>Logotipo e variações; paleta de cores e tipografia; ilustrações e patterns; fotografia; brandbook e aplicações</td><td>“Damos forma à estratégia: como a marca é vista.”</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Os textos da última coluna são rascunhos para o Samuel ajustar à forma como ele fala.</p>
+    <h3>O caminho do cliente, na seção “Como funciona a consultoria”</h3>
+    <ol class="steps">
+      <li>Conversa inicial com o Samuel</li>
+      <li>Estratégia de marca</li>
+      <li>Identidade verbal</li>
+      <li>Identidade visual</li>
+      <li>Entrega do brandbook e aplicações</li>
+    </ol>
+    <p class="note">Falta confirmar com ele se existe acompanhamento depois da entrega e se o cliente pode contratar só uma etapa.</p>
+  </div>
+</section>
+
+<section id="fotos">
+  <div class="wrap">
+    <p class="num">05</p>
+    <h2>Fotos necessárias</h2>
+    <p>O site precisa de no mínimo 10 fotos do Samuel, todas da mesma sessão para manter luz e cor coerentes. Hoje o site não tem nenhuma.</p>
+    <div class="table wide">
+      <table>
+        <thead><tr><th>Foto</th><th>Onde entra</th><th>Orientação</th><th>Formato</th></tr></thead>
+        <tbody>
+          <tr><td>Retrato principal</td><td>Capa</td><td>Rosto visível, olhar para a câmera, fundo limpo ou verde</td><td>Horizontal e vertical (celular)</td></tr>
+          <tr><td>Retrato meio corpo</td><td>Quem sou + página Sobre</td><td>Mais próximo e descontraído</td><td>Vertical</td></tr>
+          <tr><td>Reunião com cliente</td><td>Como funciona</td><td>Conversando, apontando para materiais</td><td>Horizontal</td></tr>
+          <tr><td>Bastidores 1 a 4</td><td>Bastidores</td><td>Mãos em rascunhos, quadro de referências, tela do computador, materiais impressos</td><td>Misto</td></tr>
+          <tr><td>Retrato sorrindo</td><td>Contato</td><td>Sorriso, olhar para a câmera</td><td>Vertical</td></tr>
+          <tr><td>Detalhe pessoal 1 e 2</td><td>Página Sobre</td><td>Objetos, lugares ou hobbies que contam quem ele é</td><td>Misto</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">O filme manifesto atual pode ser mantido; se houver um novo, o ideal é o Samuel aparecer falando.</p>
+  </div>
+</section>
+
+<section id="benchmarking">
+  <div class="wrap">
+    <p class="num">06</p>
+    <h2>Benchmarking</h2>
+    <p>Analisamos 9 consultores e estúdios de branding, 5 no Brasil e 4 fora. Todos têm serviços parecidos com os do Samuel; o que diferencia os melhores é mostrar a pessoa e prometer contato direto com ela.</p>
+    <p>No Brasil, a maioria se apresenta em primeira pessoa (“Olá, eu sou…”), mas usa pouca foto e quase nenhum depoimento. Esse é o espaço que o Samuel pode ocupar.</p>
+
+    <h3>Referências no Brasil</h3>
+    <div class="table wide">
+      <table>
+        <thead><tr><th>Referência</th><th>Quem é</th><th>O que vale observar</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://renanscomparim.com.br/" target="_blank" rel="noopener noreferrer">Renan Scomparim</a></td><td>Designer de marcas; diz ter 13 anos no mercado criativo</td><td>Abre com “Olá, eu sou o Renan”; método em 4 etapas; cases com página própria; chamada “Solicite uma proposta”</td></tr>
+          <tr><td><a href="https://alinegaspardesign.com.br/" target="_blank" rel="noopener noreferrer">Aline Gaspar</a></td><td>Designer de marcas, formada em Publicidade</td><td>Foto dela só na seção Sobre; método em 4 etapas; WhatsApp com mensagem pronta; sem depoimentos</td></tr>
+          <tr><td><a href="https://clarafagundes.com/consultoria-de-branding/" target="_blank" rel="noopener noreferrer">Clara Fagundes</a></td><td>Estrategista de marca e conteúdo</td><td>Página “Sobre” separada e página “Clara na mídia”; logos de clientes como prova; consultoria vendida em 3 planos</td></tr>
+          <tr><td><a href="https://anayadesign.com.br/" target="_blank" rel="noopener noreferrer">Anaya</a></td><td>Escritório de design e estratégia, desde 1999</td><td>Sem fotos de pessoas; “Como funciona” com valores e prazos de referência; diz ter criado mais de 650 nomes</td></tr>
+          <tr><td><a href="https://www.anacouto.com.br/" target="_blank" rel="noopener noreferrer">Ana Couto</a></td><td>Consultoria de branding com o nome da fundadora, há mais de 30 anos</td><td>Contraexemplo: usa o nome dela, mas a home não mostra nenhuma pessoa; só cases e logos</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Referências internacionais</h3>
+    <p>Os melhores exemplos lá fora colocam o fundador no centro e prometem contato direto com ele. É o modelo mais próximo do que o Samuel quer.</p>
+    <div class="table wide">
+      <table>
+        <thead><tr><th>Referência</th><th>Quem é</th><th>O que vale observar</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://www.justcreative.com/" target="_blank" rel="noopener noreferrer">JUST Creative — Jacob Cass</a></td><td>Designer de marca e estrategista, fundador do estúdio</td><td>Foto dele no topo da home; vídeo “nossa história”; promessa “trabalhe direto com o Jacob, sem intermediários”; processo em 3 passos; chamada “Agende uma conversa grátis” repetida na página</td></tr>
+          <tr><td><a href="https://logogeek.uk/" target="_blank" rel="noopener noreferrer">Logo Geek — Ian Paget</a></td><td>Designer de logos e identidade em Birmingham, Reino Unido</td><td>Fotos dele nos bastidores: rascunhando, pesquisando referências, no Illustrator, com seus livros; história de como começou; processo em 5 passos</td></tr>
+          <tr><td><a href="https://www.thebrand-stylist.com/" target="_blank" rel="noopener noreferrer">The Brand Stylist — Fiona Humberstone</a></td><td>Consultora de marca e autora, Londres</td><td>Retrato sorrindo na capa ao lado de um depoimento; fotos dela trabalhando; método em 8 etapas oferecido como guia gratuito</td></tr>
+          <tr><td><a href="https://urbrandstudio.com/" target="_blank" rel="noopener noreferrer">UrBrand Studio — Diana Rain</a></td><td>Consultoria de estratégia de marca em Los Angeles</td><td>Sem foto da fundadora na home; método em 4 fases com 90 dias de acompanhamento após a entrega; conversa inicial de 20 a 30 minutos</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Comparativo</h3>
+    <p>Só 4 das 9 referências mostram a pessoa em foto na home; no Brasil, só a Aline Gaspar, e apenas no Sobre. Com a proposta, o Samuel entra no grupo que usa a própria imagem do começo ao fim.</p>
+    <div class="table wide">
+      <table>
+        <thead><tr><th>Referência</th><th>Foto da pessoa</th><th>Sobre</th><th>Método</th><th>Depoimentos</th><th>Cases</th><th>Chamada principal</th></tr></thead>
+        <tbody>
+          <tr class="me"><td>Samuel hoje</td><td>Não</td><td>1 parágrafo sobre o estúdio</td><td>Não (3 serviços em sequência)</td><td>Não</td><td>4</td><td>Entrar em contato</td></tr>
+          <tr class="me"><td>Samuel proposta</td><td>Capa, Quem sou, bastidores e contato</td><td>Seção + página própria</td><td>5 etapas</td><td>A coletar</td><td>4</td><td>Agendar uma conversa</td></tr>
+          <tr><td>JUST Creative</td><td>Capa</td><td>Vídeo + página</td><td>3 passos</td><td>Sim</td><td>Sim</td><td>Agendar conversa grátis</td></tr>
+          <tr><td>The Brand Stylist</td><td>Capa e bastidores</td><td>Página própria</td><td>8 etapas</td><td>Sim</td><td>Sim</td><td>Curso gratuito</td></tr>
+          <tr><td>Logo Geek</td><td>Bastidores</td><td>História na home</td><td>5 passos</td><td>Página própria</td><td>Sim</td><td>Pedir orçamento</td></tr>
+          <tr><td>UrBrand Studio</td><td>Não</td><td>Bloco curto</td><td>4 fases</td><td>Sim</td><td>3</td><td>Agendar conversa</td></tr>
+          <tr><td>Aline Gaspar</td><td>Só no Sobre</td><td>Bloco na home</td><td>4 etapas</td><td>Não</td><td>Link externo</td><td>Orçamento no WhatsApp</td></tr>
+          <tr><td>Renan Scomparim</td><td>Não confirmado</td><td>Bloco na home</td><td>4 etapas</td><td>Não</td><td>Sim</td><td>Solicitar proposta</td></tr>
+          <tr><td>Clara Fagundes</td><td>Não confirmado</td><td>Página própria</td><td>Em etapas</td><td>Não</td><td>Logos de clientes</td><td>Quero saber mais</td></tr>
+          <tr><td>Anaya</td><td>Não</td><td>Quem somos</td><td>Com valores e prazos</td><td>Não</td><td>Cerca de 17</td><td>Orçamento no WhatsApp</td></tr>
+          <tr><td>Ana Couto</td><td>Não</td><td>Quem somos</td><td>Não</td><td>Não</td><td>5</td><td>Solicitar proposta</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">“Não confirmado”: a leitura da página não permitiu saber se as imagens são da pessoa. As informações vêm dos próprios sites, consultados em 16/11/2026.</p>
+
+    <h3>O que levar para o site do Samuel</h3>
+    <div class="table wide">
+      <table>
+        <thead><tr><th>Ideia</th><th>De onde vem</th><th>Onde entra na estrutura</th></tr></thead>
+        <tbody>
+          <tr><td>Promessa de contato direto: “você fala comigo do começo ao fim”</td><td>JUST Creative</td><td>Capa e Como funciona</td></tr>
+          <tr><td>Retrato na capa, não só o logotipo</td><td>JUST Creative, The Brand Stylist</td><td>Capa</td></tr>
+          <tr><td>Fotos de bastidores mostrando o trabalho à mão (rascunhos, referências, materiais)</td><td>Logo Geek, The Brand Stylist</td><td>Bastidores</td></tr>
+          <tr><td>Depoimento ao lado da foto, para a prova aparecer junto da pessoa</td><td>The Brand Stylist</td><td>Capa ou Depoimentos</td></tr>
+          <tr><td>Primeiro passo pequeno e claro: conversa inicial com duração definida</td><td>UrBrand Studio, JUST Creative</td><td>Chamada “Agendar uma conversa”</td></tr>
+          <tr><td>Mesma chamada repetida ao longo da página</td><td>JUST Creative</td><td>Capa, Serviços e Contato</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Duas ideias dependem do Samuel e estão nas decisões abaixo: mostrar faixa de preço e prazo, como a Anaya, e oferecer acompanhamento depois da entrega, como a UrBrand (90 dias).</p>
+  </div>
+</section>
+
+<section id="validar">
+  <div class="wrap">
+    <p class="num">07</p>
+    <h2>Para o Samuel <em>validar</em></h2>
+    <p>São 8 decisões e 4 materiais que precisamos dele antes de começar o site.</p>
+    <h3>Decisões</h3>
+    <ol class="decisions">
+      <li>Nome no site: “Samuel Cipriano” ou continua “Samuel Cipriano Studio”?</li>
+      <li>Título: “Consultor de marca”, “Estrategista de marca” ou outro?</li>
+      <li>A ordem das 10 seções da home está boa? Alguma sai ou entra?</li>
+      <li>Quer uma página “Sobre” separada ou só a seção na home?</li>
+      <li>O cliente pode contratar só uma etapa (ex.: só Identidade visual)? O site deve mostrar faixa de preço e prazo?</li>
+      <li>Existe acompanhamento depois da entrega?</li>
+      <li>Quem é o cliente ideal (tipo de negócio, porte, região)?</li>
+      <li>O logotipo atual continua, ou a marca passa a ser uma assinatura com o nome dele?</li>
+    </ol>
+    <h3>Materiais</h3>
+    <ul class="check">
+      <li>Texto ou áudio contando a história dele (formação, como começou, por que branding)</li>
+      <li>As 10 fotos da lista acima, ou data para a sessão</li>
+      <li>Depoimentos de clientes, com autorização para publicar</li>
+      <li>Números que ele quer mostrar, se houver (anos de experiência, marcas criadas)</li>
+    </ul>
+  </div>
+</section>
+
+<section id="proximos">
+  <div class="wrap">
+    <p class="num">08</p>
+    <h2>Próximos passos</h2>
+    <ol class="steps">
+      <li>Samuel revisa esta estrutura e responde as 8 decisões</li>
+      <li>Sessão de fotos e envio da história e dos depoimentos</li>
+      <li>Textos finais escritos e aprovados por ele</li>
+      <li>Desenvolvimento do site, reaproveitando serviços, projetos, formulário e SEO atuais</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Documento de trabalho, não indexado. Ame o que faz. Faça por amor.</p>
+  </div>
+</footer>
+
+</body>
+</html>
