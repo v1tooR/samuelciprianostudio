@@ -1,0 +1,5 @@
+# Prévia do novo site: fora dos buscadores até substituir o site atual.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>
+Options -Indexes
