@@ -64,7 +64,6 @@
 
   <!-- 01 · Capa -->
   <section class="hero" id="inicio" aria-labelledby="titulo">
-    <h1 id="titulo" class="sr-only">Samuel Cipriano, designer e estrategista de marca</h1>
     <div class="hero-top">
       <p class="label" data-hero-fade>Branding para negócios autorais</p>
       <p class="label" data-hero-fade>Vale do Paraíba · Brasil</p>
@@ -76,12 +75,13 @@
              sizes="(min-width: 641px) 45svh, 92vw" width="1600" height="2134" fetchpriority="high" decoding="async"
              alt="Samuel Cipriano sorrindo, de camisa branca de gola marrom, diante de uma parede clara">
       </figure>
-      <span class="sign hero-sign" data-sign aria-hidden="true">
-        <img src="../assets/marca/assinatura-vermelho.svg" alt="" width="1165" height="438">
-      </span>
+      <h1 id="titulo" class="hero-name" data-hero-name>
+        <span class="hn hn-1"><span>Samuel</span></span>
+        <span class="hn hn-2"><span>Cipriano</span></span>
+      </h1>
     </div>
     <div class="hero-foot">
-      <p class="hero-role" aria-hidden="true" data-hero-split>Designer <em>&amp;</em> Estrategista de marca</p>
+      <p class="hero-role" data-hero-split>Designer <em>&amp;</em> Estrategista de marca</p>
       <div class="hero-side">
         <p class="lede" data-hero-fade>Marcas para negócios autorais, em que o produto já vale mais do que a marca mostra.</p>
         <div class="hero-ctas" data-hero-fade>
@@ -92,26 +92,26 @@
     </div>
   </section>
 
-  <!-- 02 · Sobre -->
-  <section class="section wrap" id="sobre" aria-labelledby="sobre-t">
-    <div class="sec-head"><span class="label">01</span><h2 class="label" id="sobre-t">Sobre</h2></div>
-    <div class="grid about-grid">
-      <p class="statement about-text" data-lit>Sou Samuel Cipriano, designer e estrategista de marca no Vale do Paraíba. Trabalho com negócios autorais, de gente que trata o produto como ofício, para que a marca mostre o valor que o negócio já entrega.</p>
-      <div class="about-media">
-        <figure class="ph ph-4x5 ph-a"><div class="ph-inner" data-speed="8">
-          <img loading="lazy" decoding="async" src="../assets/samuel/banco-meio-corpo.webp"
-               srcset="../assets/samuel/banco-meio-corpo-800.webp 800w, ../assets/samuel/banco-meio-corpo.webp 1600w" sizes="(min-width: 1024px) 38vw, 70vw"
-               width="1600" height="2133" alt="Samuel sentado num banco de madeira, de jaqueta marrom, olhando para o lado">
-        </div></figure>
-        <figure class="ph ph-3x4 ph-b"><div class="ph-inner" data-speed="-6">
-          <img loading="lazy" decoding="async" src="../assets/samuel/jaqueta-bracos-cruzados-3-800.webp"
-               width="800" height="1067" alt="Samuel de braços cruzados, de jaqueta marrom, contra uma parede branca">
-        </div></figure>
+  <!-- 02 · Sobre: a assinatura se escreve com a rolagem enquanto a apresentação avança.
+       Sem JS ou com movimento reduzido: assinatura completa e os quatro parágrafos em sequência. -->
+  <section class="about on-red" id="sobre" aria-labelledby="sobre-t" data-ink-section>
+    <div class="about-stage wrap">
+      <div class="sec-head">
+        <span class="label">01</span><h2 class="label" id="sobre-t">Sobre</h2>
+        <span class="label about-count" aria-hidden="true" data-ink-count></span>
       </div>
-      <div class="about-aside">
-        <p class="manifesto" data-reveal>Ame o que faz.<br><em>Faça por amor.</em></p>
-        <p class="muted" data-reveal style="--i:1">O manifesto do estúdio, desde o primeiro projeto.</p>
-        <a class="link" href="sobre/" data-reveal style="--i:2">Conhecer minha história <span aria-hidden="true">→</span></a>
+      <div class="about-sign" data-ink="../assets/marca/assinatura-tinta.webp" aria-hidden="true">
+        <img src="../assets/marca/assinatura-offwhite.svg" alt="" width="1165" height="438" loading="lazy">
+      </div>
+      <ol class="about-beats" data-ink-beats>
+        <li>Prazer, eu sou o <em>Samuel.</em></li>
+        <li>Designer e estrategista de marca no Vale do Paraíba, com clientes em todo o Brasil.</li>
+        <li>Trabalho com negócios autorais, de gente que trata o produto como ofício.</li>
+        <li>Meu trabalho é fazer a marca mostrar o valor que o negócio <em>já entrega.</em></li>
+      </ol>
+      <div class="about-foot">
+        <p class="manifesto">Ame o que faz. <em>Faça por amor.</em></p>
+        <a class="link" href="sobre/">Conhecer minha história <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -124,11 +124,6 @@
         <div class="svc-sticky">
           <p class="h2" data-split>Estratégia primeiro. Depois, <em>palavra</em> e forma.</p>
           <p class="muted" data-reveal>As três frentes são sucessivas: a estratégia orienta a identidade verbal, e as duas orientam a identidade visual.</p>
-          <figure class="ph ph-4x5" data-reveal><div class="ph-inner" data-speed="6">
-            <img loading="lazy" decoding="async" src="../assets/samuel/camisa-mesa-notebook.webp"
-                 srcset="../assets/samuel/camisa-mesa-notebook-800.webp 800w, ../assets/samuel/camisa-mesa-notebook.webp 1600w" sizes="(min-width: 1024px) 26rem, 92vw"
-                 width="1600" height="2133" alt="Samuel encostado numa mesa de madeira com o notebook aberto">
-          </div></figure>
         </div>
       </div>
       <ol class="svc-list">
@@ -236,11 +231,6 @@
       <div class="grid fit-grid">
         <blockquote class="pain"><p data-split>“O que eu entrego vale mais do que a minha marca mostra.”</p></blockquote>
         <p class="lede fit-lede" data-reveal>Se você já pensou isso sobre o seu negócio, é com você que eu trabalho: donos de negócios autorais, que tratam o produto como ofício.</p>
-        <figure class="ph ph-3x4 fit-photo" data-reveal><div class="ph-inner" data-speed="7">
-          <img loading="lazy" decoding="async" src="../assets/samuel/banco-corpo-inteiro-olhar-camera.webp"
-               srcset="../assets/samuel/banco-corpo-inteiro-olhar-camera-800.webp 800w, ../assets/samuel/banco-corpo-inteiro-olhar-camera.webp 1360w" sizes="(min-width: 1024px) 30vw, 92vw"
-               width="1360" height="1813" alt="Samuel sentado num banco de madeira, olhando para a câmera">
-        </div></figure>
         <div class="fit-cols">
           <div data-reveal>
             <h3>Onde mais atuo</h3>
